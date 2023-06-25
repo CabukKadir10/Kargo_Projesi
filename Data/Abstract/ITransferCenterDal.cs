@@ -1,0 +1,14 @@
+﻿using Core.Data.Abstract;
+using Entity.Concrete;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Data.Abstract
+{
+    public interface ITransferCenterDal : IRepository<TransferCenter>
+    {
+    }
+}
