@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Entity.Concrete;
+using Entity.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abstract;
@@ -20,15 +21,95 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("CreateCenter")]
-        public IActionResult CreateCenter(TransferCenter transferCenter)
+        public IActionResult CreateCenter(CreateCenterDto createCenterDto)
         {
-            var result = _services.TransferCenterService.Add(transferCenter);
+            var center = _mapper.Map<TransferCenter>(createCenterDto);
+            var result = _services.TransferCenterService.Add(center);
+
             if (result.Success)
             {
                 return Ok(result);
             }
 
             return BadRequest();
+        }
+
+        [HttpGet("GetListCenter")]
+        public IActionResult GetCenterList()
+        {
+            var result = _services.TransferCenterService.GetListCenter();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpGet("GetByIdCenter")]
+        public IActionResult GetByIdCenter(int id)
+        {
+            var result = _services.TransferCenterService.GetByIdCenter(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpPut("UpdateCenter")]
+        public IActionResult UpdateCenter(int id)
+        {
+            var center = _services.TransferCenterService.GetByIdCenter(id);
+            var result = _services.TransferCenterService.Update(center.Data);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpDelete("HardDeleteCenter")]
+        public IActionResult HardDeleteCenter(int id)
+        {
+            var center = _services.TransferCenterService.GetByIdCenter(id);
+            var result = _services.TransferCenterService.Delete(center.Data);
+
+            if (result.Success)
+            {
+                return Ok("Başarıyla Silindi");
+            }
+
+            return BadRequest();
+        }
+
+        [HttpPost("UndBannedCenter")]
+        public IActionResult UndoBannedCenter(int id)
+        {
+            var center = _services.TransferCenterService.GetByIdCenter(id);
+            if(center.Data.IsBanned == true)
+            {
+                center.Data.IsBanned = false;
+                return Ok("Ban Kaldırıldı");
+            }
+
+            return BadRequest("Banlı Değil");
+        }
+
+        [HttpPost("BannedCenter")]
+        public IActionResult BannedCenter(int id)
+        {
+            var center = _services.TransferCenterService.GetByIdCenter(id);
+            if(center.Data.IsBanned == false)
+            {
+                center.Data.IsBanned = true;
+                return Ok("Banlandı");
+            }
+
+            return BadRequest("Zaten Banlı");
         }
     }
 }

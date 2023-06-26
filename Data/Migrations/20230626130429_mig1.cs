@@ -8,7 +8,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Data.Migrations
 {
     /// <inheritdoc />
-    public partial class mig11 : Migration
+    public partial class mig1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -45,7 +45,8 @@ namespace Data.Migrations
                     District = table.Column<string>(type: "text", nullable: false),
                     NeighBourHood = table.Column<string>(type: "text", nullable: false),
                     Street = table.Column<string>(type: "text", nullable: false),
-                    AddressDetail = table.Column<string>(type: "text", nullable: false)
+                    AddressDetail = table.Column<string>(type: "text", nullable: false),
+                    IsBanned = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -92,7 +93,8 @@ namespace Data.Migrations
                     District = table.Column<string>(type: "text", nullable: false),
                     NeighBourHood = table.Column<string>(type: "text", nullable: false),
                     Street = table.Column<string>(type: "text", nullable: false),
-                    AddressDetail = table.Column<string>(type: "text", nullable: false)
+                    AddressDetail = table.Column<string>(type: "text", nullable: false),
+                    IsBanned = table.Column<bool>(type: "boolean", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -119,26 +121,26 @@ namespace Data.Migrations
 
             migrationBuilder.InsertData(
                 table: "TransferCenters",
-                columns: new[] { "UnitId", "AddressDetail", "City", "Description", "District", "Email", "Gsm", "NeighBourHood", "PhoneNumber", "ResponsibleName", "ResponsibleSurname", "Street", "UnitName" },
+                columns: new[] { "UnitId", "AddressDetail", "City", "Description", "District", "Email", "Gsm", "IsBanned", "NeighBourHood", "PhoneNumber", "ResponsibleName", "ResponsibleSurname", "Street", "UnitName" },
                 values: new object[,]
                 {
-                    { 1, "Amed merkez", "Diyarbakır", "Description", "Bağlar", "kadir@gmail.com", "085012356", "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "Name1" },
-                    { 2, "Mardin merkez", "Mardin", "Description", "Bağlar", "muaz@gmail.com", "085012356", "mahalle1", "05123456789", "muaz", "Çabuk", "sokak1", "Name2" },
-                    { 3, "Konya merkez", "Konya", "Description", "Bağlar", "yusuf@gmail.com", "085012356", "mahalle1", "05123456789", "yusuf", "Çabuk", "sokak1", "Name3" },
-                    { 4, "Ankara merkez", "Ankara", "Description", "Bağlar", "ahmet@gmail.com", "085012356", "mahalle1", "05123456789", "ahmet", "Çabuk", "sokak1", "Name4" },
-                    { 5, "İstanbul merkez", "İstanbul", "Description", "Bağlar", "mehmet@gmail.com", "085012356", "mahalle1", "05123456789", "mehmet", "Çabuk", "sokak1", "Name5" }
+                    { 1, "Amed merkez", "Diyarbakır", "Description", "Bağlar", "kadir@gmail.com", "085012356", false, "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "Name1" },
+                    { 2, "Mardin merkez", "Mardin", "Description", "Bağlar", "muaz@gmail.com", "085012356", false, "mahalle1", "05123456789", "muaz", "Çabuk", "sokak1", "Name2" },
+                    { 3, "Konya merkez", "Konya", "Description", "Bağlar", "yusuf@gmail.com", "085012356", false, "mahalle1", "05123456789", "yusuf", "Çabuk", "sokak1", "Name3" },
+                    { 4, "Ankara merkez", "Ankara", "Description", "Bağlar", "ahmet@gmail.com", "085012356", false, "mahalle1", "05123456789", "ahmet", "Çabuk", "sokak1", "Name4" },
+                    { 5, "İstanbul merkez", "İstanbul", "Description", "Bağlar", "mehmet@gmail.com", "085012356", false, "mahalle1", "05123456789", "mehmet", "Çabuk", "sokak1", "Name5" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Agentas",
-                columns: new[] { "UnitId", "AddressDetail", "CenterId", "City", "Description", "District", "Email", "Gsm", "NeighBourHood", "PhoneNumber", "ResponsibleName", "ResponsibleSurname", "Street", "UnitName" },
+                columns: new[] { "UnitId", "AddressDetail", "CenterId", "City", "Description", "District", "Email", "Gsm", "IsBanned", "NeighBourHood", "PhoneNumber", "ResponsibleName", "ResponsibleSurname", "Street", "UnitName" },
                 values: new object[,]
                 {
-                    { 6, "Amed merkez", 1, "Diyarbakır", "Description", "Bağlar", "kadir@gmail.com", "085012356", "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "agenta1" },
-                    { 7, "Amed merkez", 2, "Diyarbakır", "Description", "Bağlar", "kadir@gmail.com", "085012356", "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "agenta2" },
-                    { 8, "Amed merkez", 2, "Diyarbakır", "Description", "Bağlar", "kadir@gmail.com", "085012356", "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "agenta3" },
-                    { 9, "Amed merkez", 1, "Diyarbakır", "Description", "Bağlar", "kadir@gmail.com", "085012356", "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "agenta4" },
-                    { 10, "Amed merkez", 1, "Diyarbakır", "Description", "Bağlar", "kadir@gmail.com", "085012356", "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "agenta5" }
+                    { 6, "Amed merkez", 1, "Diyarbakır", "Description", "Bağlar", "kadir@gmail.com", "085012356", false, "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "agenta1" },
+                    { 7, "Amed merkez", 2, "Diyarbakır", "Description", "Bağlar", "kadir@gmail.com", "085012356", false, "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "agenta2" },
+                    { 8, "Amed merkez", 2, "Diyarbakır", "Description", "Bağlar", "kadir@gmail.com", "085012356", false, "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "agenta3" },
+                    { 9, "Amed merkez", 1, "Diyarbakır", "Description", "Bağlar", "kadir@gmail.com", "085012356", false, "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "agenta4" },
+                    { 10, "Amed merkez", 1, "Diyarbakır", "Description", "Bağlar", "kadir@gmail.com", "085012356", false, "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "agenta5" }
                 });
 
             migrationBuilder.InsertData(

@@ -28,6 +28,7 @@ namespace Data.Concrete.EfCore.Config
                         District = "Bağlar",
                         NeighBourHood = "mahalle1",
                         Street = "sokak1",
+                        IsBanned = false,
                         AddressDetail = "Amed merkez"
                     },
                     new TransferCenter
@@ -44,6 +45,7 @@ namespace Data.Concrete.EfCore.Config
                         District = "Bağlar",
                         NeighBourHood = "mahalle1",
                         Street = "sokak1",
+                        IsBanned = false,
                         AddressDetail = "Mardin merkez"
                     },
                     new TransferCenter
@@ -60,6 +62,7 @@ namespace Data.Concrete.EfCore.Config
                         District = "Bağlar",
                         NeighBourHood = "mahalle1",
                         Street = "sokak1",
+                        IsBanned = false,
                         AddressDetail = "Konya merkez"
                     },
                     new TransferCenter
@@ -76,6 +79,7 @@ namespace Data.Concrete.EfCore.Config
                         District = "Bağlar",
                         NeighBourHood = "mahalle1",
                         Street = "sokak1",
+                        IsBanned = false,
                         AddressDetail = "Ankara merkez"
                     },
                     new TransferCenter
@@ -92,6 +96,7 @@ namespace Data.Concrete.EfCore.Config
                         District = "Bağlar",
                         NeighBourHood = "mahalle1",
                         Street = "sokak1",
+                        IsBanned = false,
                         AddressDetail = "İstanbul merkez"
                     }
                 );

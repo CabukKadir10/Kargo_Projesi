@@ -29,6 +29,7 @@ namespace Data.Concrete.EfCore.Config
                     NeighBourHood = "mahalle1",
                     Street = "sokak1",
                     AddressDetail = "Amed merkez",
+                    IsBanned = false,
                     CenterId = 1
                 },
                 new Agenta
@@ -46,6 +47,7 @@ namespace Data.Concrete.EfCore.Config
                     NeighBourHood = "mahalle1",
                     Street = "sokak1",
                     AddressDetail = "Amed merkez",
+                    IsBanned = false,
                     CenterId = 2
                 },
                 new Agenta
@@ -63,6 +65,7 @@ namespace Data.Concrete.EfCore.Config
                     NeighBourHood = "mahalle1",
                     Street = "sokak1",
                     AddressDetail = "Amed merkez",
+                    IsBanned = false,
                     CenterId = 2
                 },
                 new Agenta
@@ -80,6 +83,7 @@ namespace Data.Concrete.EfCore.Config
                     NeighBourHood = "mahalle1",
                     Street = "sokak1",
                     AddressDetail = "Amed merkez",
+                    IsBanned = false,
                     CenterId = 1
                 },
                 new Agenta
@@ -97,6 +101,7 @@ namespace Data.Concrete.EfCore.Config
                     NeighBourHood = "mahalle1",
                     Street = "sokak1",
                     AddressDetail = "Amed merkez",
+                    IsBanned = false,
                     CenterId = 1
                 }
             );

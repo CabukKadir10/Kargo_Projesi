@@ -1,13 +1,12 @@
-﻿using Entity.Abstract;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entity.Concrete
+namespace Entity.Dto
 {
-    public class Unit : IEntity
+    public class CreateCenterDto
     {
         public int UnitId { get; set; }
         public string UnitName { get; set; }
@@ -23,7 +22,5 @@ namespace Entity.Concrete
         public string Street { get; set; }
         public string AddressDetail { get; set; }
         public bool IsBanned { get; set; }
-        //public int StationsId { get; set; }
-        //public IList<Station> Stations { get; set; }
     }
 }

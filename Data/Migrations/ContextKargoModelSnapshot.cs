@@ -56,6 +56,9 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsBanned")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("NeighBourHood")
                         .IsRequired()
                         .HasColumnType("text");
@@ -97,6 +100,7 @@ namespace Data.Migrations
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
                             Gsm = "085012356",
+                            IsBanned = false,
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
                             ResponsibleName = "kadir",
@@ -114,6 +118,7 @@ namespace Data.Migrations
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
                             Gsm = "085012356",
+                            IsBanned = false,
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
                             ResponsibleName = "kadir",
@@ -131,6 +136,7 @@ namespace Data.Migrations
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
                             Gsm = "085012356",
+                            IsBanned = false,
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
                             ResponsibleName = "kadir",
@@ -148,6 +154,7 @@ namespace Data.Migrations
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
                             Gsm = "085012356",
+                            IsBanned = false,
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
                             ResponsibleName = "kadir",
@@ -165,6 +172,7 @@ namespace Data.Migrations
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
                             Gsm = "085012356",
+                            IsBanned = false,
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
                             ResponsibleName = "kadir",
@@ -336,6 +344,9 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsBanned")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("NeighBourHood")
                         .IsRequired()
                         .HasColumnType("text");
@@ -374,6 +385,7 @@ namespace Data.Migrations
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
                             Gsm = "085012356",
+                            IsBanned = false,
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
                             ResponsibleName = "kadir",
@@ -390,6 +402,7 @@ namespace Data.Migrations
                             District = "Bağlar",
                             Email = "muaz@gmail.com",
                             Gsm = "085012356",
+                            IsBanned = false,
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
                             ResponsibleName = "muaz",
@@ -406,6 +419,7 @@ namespace Data.Migrations
                             District = "Bağlar",
                             Email = "yusuf@gmail.com",
                             Gsm = "085012356",
+                            IsBanned = false,
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
                             ResponsibleName = "yusuf",
@@ -422,6 +436,7 @@ namespace Data.Migrations
                             District = "Bağlar",
                             Email = "ahmet@gmail.com",
                             Gsm = "085012356",
+                            IsBanned = false,
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
                             ResponsibleName = "ahmet",
@@ -438,6 +453,7 @@ namespace Data.Migrations
                             District = "Bağlar",
                             Email = "mehmet@gmail.com",
                             Gsm = "085012356",
+                            IsBanned = false,
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
                             ResponsibleName = "mehmet",

@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Data.Migrations
 {
     [DbContext(typeof(ContextKargo))]
-    [Migration("20230626121256_mig11")]
-    partial class mig11
+    [Migration("20230626130429_mig1")]
+    partial class mig1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -59,6 +59,9 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsBanned")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("NeighBourHood")
                         .IsRequired()
                         .HasColumnType("text");
@@ -100,6 +103,7 @@ namespace Data.Migrations
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
                             Gsm = "085012356",
+                            IsBanned = false,
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
                             ResponsibleName = "kadir",
@@ -117,6 +121,7 @@ namespace Data.Migrations
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
                             Gsm = "085012356",
+                            IsBanned = false,
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
                             ResponsibleName = "kadir",
@@ -134,6 +139,7 @@ namespace Data.Migrations
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
                             Gsm = "085012356",
+                            IsBanned = false,
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
                             ResponsibleName = "kadir",
@@ -151,6 +157,7 @@ namespace Data.Migrations
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
                             Gsm = "085012356",
+                            IsBanned = false,
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
                             ResponsibleName = "kadir",
@@ -168,6 +175,7 @@ namespace Data.Migrations
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
                             Gsm = "085012356",
+                            IsBanned = false,
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
                             ResponsibleName = "kadir",
@@ -339,6 +347,9 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<bool>("IsBanned")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("NeighBourHood")
                         .IsRequired()
                         .HasColumnType("text");
@@ -377,6 +388,7 @@ namespace Data.Migrations
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
                             Gsm = "085012356",
+                            IsBanned = false,
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
                             ResponsibleName = "kadir",
@@ -393,6 +405,7 @@ namespace Data.Migrations
                             District = "Bağlar",
                             Email = "muaz@gmail.com",
                             Gsm = "085012356",
+                            IsBanned = false,
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
                             ResponsibleName = "muaz",
@@ -409,6 +422,7 @@ namespace Data.Migrations
                             District = "Bağlar",
                             Email = "yusuf@gmail.com",
                             Gsm = "085012356",
+                            IsBanned = false,
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
                             ResponsibleName = "yusuf",
@@ -425,6 +439,7 @@ namespace Data.Migrations
                             District = "Bağlar",
                             Email = "ahmet@gmail.com",
                             Gsm = "085012356",
+                            IsBanned = false,
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
                             ResponsibleName = "ahmet",
@@ -441,6 +456,7 @@ namespace Data.Migrations
                             District = "Bağlar",
                             Email = "mehmet@gmail.com",
                             Gsm = "085012356",
+                            IsBanned = false,
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
                             ResponsibleName = "mehmet",
