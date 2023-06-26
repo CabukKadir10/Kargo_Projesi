@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entity.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Entity.Dto
 {
-    public class CreateAgentaDto
+    public class CreateAgentaDto : IDto
     {
         public int UnitId { get; set; }
         public string UnitName { get; set; }

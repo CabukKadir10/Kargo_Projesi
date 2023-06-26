@@ -69,5 +69,21 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
+
+        [HttpPut("UpdateStation")]
+        public IActionResult UpdateStation(UpdateStationDto updateStationDto, int id)
+        {
+            var getStation = _services.StationService.GetByIdStation(id);
+            var station = getStation.Data;
+            station = _mapper.Map<Station>(updateStationDto);
+            var result = _services.StationService.Update(station);
+
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest();
+        }
     }
 }

@@ -59,10 +59,12 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("UpdateLine")]
-        public IActionResult UpdateLine(int id)
+        public IActionResult UpdateLine(UpdateLineDto updateLineDto, int id)
         {
-            var line = _services.LineService.GetByIdLine(id);
-            var result = _services.LineService.Update(line.Data);
+            var getLine = _services.LineService.GetByIdLine(id);
+            var line = getLine.Data;
+            line = _mapper.Map<Line>(updateLineDto);
+            var result = _services.LineService.Update(line);
             if(result.Success)
             {
                 return Ok(result);

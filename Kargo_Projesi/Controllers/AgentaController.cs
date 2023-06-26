@@ -58,10 +58,12 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("UpdateAgenta")]
-        public IActionResult UpdateAgenta(int id)
+        public IActionResult UpdateAgenta(UpdateAgentaDto updateAgentaDto, int id)
         {
-            var agenta = _services.AgentaService.GetByIdAgenta(id);
-            var result = _services.AgentaService.Update(agenta.Data);
+            var getAgenta = _services.AgentaService.GetByIdAgenta(id);
+            var agenta = getAgenta.Data;
+             agenta = _mapper.Map<Agenta>(updateAgentaDto);
+            var result = _services.AgentaService.Update(agenta);
             if (result.Success)
             {
                 return Ok(result);

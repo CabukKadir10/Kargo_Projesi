@@ -12,6 +12,10 @@ namespace WebApi.AutoMapper
             CreateMap<CreateCenterDto, TransferCenter>().ReverseMap();
             CreateMap<CreateAgentaDto, Agenta>().ReverseMap();
             CreateMap<CreateStationDto, Station>().ReverseMap();
+            CreateMap<UpdateAgentaDto, Agenta>().ReverseMap();
+            CreateMap<UpdateLineDto, Line>().ReverseMap();
+            CreateMap<UpdateStationDto, Station>().ReverseMap();
+            CreateMap<UpdateCenterDto, TransferCenter>().ReverseMap();
         }
     }
 }

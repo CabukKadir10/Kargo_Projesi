@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 
 namespace Entity.Dto
 {
-    public class CreateCenterDto : IDto
+    public class UpdateCenterDto : IDto
     {
-        public int UnitId { get; set; }
         public string UnitName { get; set; }
         public string ResponsibleName { get; set; }
         public string ResponsibleSurname { get; set; }
