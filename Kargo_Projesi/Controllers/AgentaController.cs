@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Entity.Concrete;
+using Entity.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abstract;
@@ -20,10 +21,61 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("CreateAgenta")]
-        public IActionResult CreateAgenta(Agenta agenta)
+        public IActionResult CreateAgenta(CreateAgentaDto createAgentaDto)
         {
+            var agenta = _mapper.Map<Agenta>(createAgentaDto);
             var result = _services.AgentaService.Add(agenta);
             if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpGet("GetListAgenta")]
+        public IActionResult GetListAgenta()
+        {
+            var result = _services.AgentaService.GetListAgenta();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpGet("GetByIdAgenta")]
+        public IActionResult GetByIdAgenta(int id)
+        {
+            var result = _services.AgentaService.GetByIdAgenta(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpPut("UpdateAgenta")]
+        public IActionResult UpdateAgenta(int id)
+        {
+            var agenta = _services.AgentaService.GetByIdAgenta(id);
+            var result = _services.AgentaService.Update(agenta.Data);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpDelete("DeleteAgenta")]
+        public IActionResult DeleteAgenta(int id)
+        {
+            var agenta = _services.AgentaService.GetByIdAgenta(id);
+            var result = _services.AgentaService.Delete(agenta.Data);
+            if(result.Success)
             {
                 return Ok(result);
             }

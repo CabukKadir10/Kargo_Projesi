@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Entity.Concrete;
+using Entity.Dto;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abstract;
@@ -20,10 +21,48 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("CreateStation")]
-        public IActionResult CreateStation(Station station)
+        public IActionResult CreateStation(CreateStationDto createStationDto)
         {
+            var station = _mapper.Map<Station>(createStationDto);
             var result = _services.StationService.Add(station);
             if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpGet("GetByIdStation")]
+        public IActionResult GetByIdStation(int id)
+        {
+            var result = _services.StationService.GetByIdStation(id);
+            if(result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpGet("GetListStation")]
+        public IActionResult GetListStation()
+        {
+            var result = _services.StationService.GetListStation();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpDelete("DeleteStation")]
+        public IActionResult DeleteStation(int id)
+        {
+            var station = _services.StationService.GetByIdStation(id);
+            var result = _services.StationService.Delete(station.Data);
+            if( result.Success )
             {
                 return Ok(result);
             }

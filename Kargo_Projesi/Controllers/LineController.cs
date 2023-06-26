@@ -33,5 +33,55 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
+
+        [HttpGet("GetListLine")]
+        public IActionResult GetListLine()
+        {
+            var result = _services.LineService.GetListLine();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpGet("GetByIdLine")]
+        public IActionResult GetByIdLine(int id)
+        {
+            var result = _services.LineService.GetByIdLine(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpPut("UpdateLine")]
+        public IActionResult UpdateLine(int id)
+        {
+            var line = _services.LineService.GetByIdLine(id);
+            var result = _services.LineService.Update(line.Data);
+            if(result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpDelete("DeleteLine")]
+        public IActionResult DeleteLine(int id)
+        {
+            var line = _services.LineService.GetByIdLine(id);
+            var result = _services.LineService.Delete(line.Data);
+            if( result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest();
+        }
     }
 }

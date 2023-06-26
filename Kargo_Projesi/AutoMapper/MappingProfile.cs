@@ -9,6 +9,9 @@ namespace WebApi.AutoMapper
         public MappingProfile()
         {
             CreateMap<CreateLineDto, Line>().ReverseMap();
+            CreateMap<CreateCenterDto, TransferCenter>().ReverseMap();
+            CreateMap<CreateAgentaDto, Agenta>().ReverseMap();
+            CreateMap<CreateStationDto, Station>().ReverseMap();
         }
     }
 }
