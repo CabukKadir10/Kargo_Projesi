@@ -12,8 +12,9 @@ namespace Entity.Concrete
         public int Id { get; set; }
         public string StationName { get; set; }
         public int OrderNumber { get; set; }
-        public bool IsActive { get; set; }
         public int LineId { get; set; }
         public int UnitId { get; set; }
+        public Line Line { get; set; }
+        //public IList<Unit> Units { get; set; }
     }
 }

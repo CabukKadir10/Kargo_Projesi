@@ -17,6 +17,12 @@ namespace Entity.Concrete
         public string Gsm { get; set; }
         public string Email { get; set; }
         public string Description { get; set; }
-        public Address Address { get; set; }
+        public string City { get; set; }
+        public string District { get; set; }
+        public string NeighBourHood { get; set; }
+        public string Street { get; set; }
+        public string AddressDetail { get; set; }
+        //public int StationsId { get; set; }
+        //public IList<Station> Stations { get; set; }
     }
 }

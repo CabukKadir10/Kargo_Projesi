@@ -9,6 +9,8 @@ namespace Entity.Concrete
 {
     public class Agenta : Unit, IEntity
     {
-        public int TransferCenterId { get; set; }
+        
+        public int CenterId { get; set; }
+        public TransferCenter TransferCenter { get; set; }
     }
 }

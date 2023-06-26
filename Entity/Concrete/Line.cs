@@ -14,6 +14,6 @@ namespace Entity.Concrete
         public string LineName { get; set; }
         public LineType LineType { get; set; }
         public bool IsActive { get; set; }
-        public ICollection<Station> Stations { get; set; }
+        public IList<Station> Stations { get; set; }
     }
 }

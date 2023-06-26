@@ -9,6 +9,6 @@ namespace Entity.Concrete
 {
     public class TransferCenter : Unit, IEntity
     {
-        public ICollection<Agenta> Agentas { get; set; }
+        public IList<Agenta> Agentas { get; set; }
     }
 }
