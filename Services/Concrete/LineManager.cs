@@ -14,10 +14,12 @@ namespace Services.Concrete
     public class LineManager : ILineService
     {
         private readonly IDalManager _dalManager;
+        private readonly ILoggerService _logger;
 
-        public LineManager(IDalManager dalManager)
+        public LineManager(IDalManager dalManager, ILoggerService logger)
         {
             _dalManager = dalManager;
+            _logger = logger;
         }
 
         public IResult Add(Line line)

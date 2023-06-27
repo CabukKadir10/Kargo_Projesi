@@ -23,5 +23,8 @@ namespace WebApi.Extensions
             services.AddScoped<IStationService, StationManager>();
             services.AddScoped<ITransferCenterService, TransferCenterManager>();
         }
+
+        public static void ConfigureLoggerService(this IServiceCollection services) =>
+            services.AddSingleton<ILoggerService, LoggerManager>();
     }
 }

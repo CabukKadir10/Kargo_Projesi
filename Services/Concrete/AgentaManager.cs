@@ -20,16 +20,14 @@ namespace Services.Concrete
             _dalManager = dalManager;
         }
 
-        public IResult Add(Agenta agenta)
+        public void Add(Agenta agenta)
         {
             _dalManager.AgentaDal.Create(agenta);
-            return new SuccessResult();
         }
 
-        public IResult Delete(Agenta agenta)
+        public void Delete(Agenta agenta)
         {
             _dalManager.AgentaDal.Delete(agenta);
-            return new SuccessResult();
         }
 
         public Agenta Get(int id)
@@ -37,20 +35,51 @@ namespace Services.Concrete
             return _dalManager.AgentaDal.Get(u => u.Id == id);
         }
 
-        public IDataResult<Agenta> GetByIdAgenta(int id)
+        public Agenta GetByIdAgenta(int id)
         {
-            return new SuccessDataResult<Agenta>(_dalManager.AgentaDal.Get(u => u.Id == id));
+            return _dalManager.AgentaDal.Get(u => u.Id == id);
         }
 
-        public IDataResult<List<Agenta>> GetListAgenta()
+        public List<Agenta> GetListAgenta()
         {
-            return new SuccessDataResult<List<Agenta>>(_dalManager.AgentaDal.GetList());
+            return _dalManager.AgentaDal.GetList();
         }
 
-        public IResult Update(Agenta agenta)
+        public void Update(Agenta agenta)
         {
             _dalManager.AgentaDal.Update(agenta);
-            return new SuccessResult();
         }
+        //public IResult Add(Agenta agenta)
+        //{
+        //    _dalManager.AgentaDal.Create(agenta);
+        //    return new SuccessResult();
+        //}
+
+        //public IResult Delete(Agenta agenta)
+        //{
+        //    _dalManager.AgentaDal.Delete(agenta);
+        //    return new SuccessResult();
+        //}
+
+        //public Agenta Get(int id)
+        //{
+        //    return _dalManager.AgentaDal.Get(u => u.Id == id);
+        //}
+
+        //public IDataResult<Agenta> GetByIdAgenta(int id)
+        //{
+        //    return new SuccessDataResult<Agenta>(_dalManager.AgentaDal.Get(u => u.Id == id));
+        //}
+
+        //public IDataResult<List<Agenta>> GetListAgenta()
+        //{
+        //    return new SuccessDataResult<List<Agenta>>(_dalManager.AgentaDal.GetList());
+        //}
+
+        //public IResult Update(Agenta agenta)
+        //{
+        //    _dalManager.AgentaDal.Update(agenta);
+        //    return new SuccessResult();
+        //}
     }
 }

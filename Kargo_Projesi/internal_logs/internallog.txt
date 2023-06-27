@@ -1,0 +1,18 @@
+2023-06-27 19:30:22.8038 Info Message Template Auto Format enabled
+2023-06-27 19:30:23.0448 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-06-27 19:30:23.5968 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\cabuk\Desktop\NetCore\Kargo_Projesi\Kargo_Projesi\NLog.config
+2023-06-27 19:33:43.2857 Info Message Template Auto Format enabled
+2023-06-27 19:33:43.5989 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-06-27 19:33:43.6635 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\cabuk\Desktop\NetCore\Kargo_Projesi\Kargo_Projesi\NLog.config
+2023-06-27 19:39:11.9063 Info Message Template Auto Format enabled
+2023-06-27 19:39:12.0824 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-06-27 19:39:12.1243 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\cabuk\Desktop\NetCore\Kargo_Projesi\Kargo_Projesi\NLog.config
+2023-06-27 20:04:13.0696 Info Message Template Auto Format enabled
+2023-06-27 20:04:13.3241 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-06-27 20:04:13.3894 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\cabuk\Desktop\NetCore\Kargo_Projesi\Kargo_Projesi\NLog.config
+2023-06-27 21:48:20.6273 Info Message Template Auto Format enabled
+2023-06-27 21:48:21.0926 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-06-27 21:48:21.1280 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\cabuk\Desktop\NetCore\Kargo_Projesi\Kargo_Projesi\NLog.config
+2023-06-27 22:03:55.9760 Info Message Template Auto Format enabled
+2023-06-27 22:03:56.1255 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-06-27 22:03:56.1628 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\cabuk\Desktop\NetCore\Kargo_Projesi\Kargo_Projesi\NLog.config

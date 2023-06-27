@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Entity.Concrete;
 using Entity.Dto;
+using Entity.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abstract;
@@ -23,38 +24,34 @@ namespace WebApi.Controllers
         [HttpPost("CreateAgenta")]
         public IActionResult CreateAgenta(CreateAgentaDto createAgentaDto)
         {
-            var agenta = _mapper.Map<Agenta>(createAgentaDto);
-            var result = _services.AgentaService.Add(agenta);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
+            if (createAgentaDto == null)
+                return BadRequest();
 
-            return BadRequest();
+            var agenta = _mapper.Map<Agenta>(createAgentaDto);
+            _services.AgentaService.Add(agenta);
+
+            return Ok(agenta);
         }
 
         [HttpGet("GetListAgenta")]
         public IActionResult GetListAgenta()
         {
             var result = _services.AgentaService.GetListAgenta();
-            if (result.Success)
-            {
-                return Ok(result);
-            }
+            if (result is null)
+                return NotFound();
 
-            return BadRequest();
+            return Ok(result);
         }
 
         [HttpGet("GetByIdAgenta")]
         public IActionResult GetByIdAgenta(int id)
         {
             var result = _services.AgentaService.GetByIdAgenta(id);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
 
-            return BadRequest();
+            if (result is null)
+                throw new AgentaNotFound(id);
+
+            return Ok(result);
         }
 
         [HttpPut("UpdateAgenta")]
@@ -63,28 +60,25 @@ namespace WebApi.Controllers
             //var getAgenta = _services.AgentaService.GetByIdAgenta(id);
             //var agenta = getAgenta.Data;
             var getAgenta = _services.AgentaService.Get(id);
+            if(getAgenta is null)
+                throw new AgentaNotFound(id);
+
             var agenta = getAgenta;
             agenta = _mapper.Map<Agenta>(updateAgentaDto);
-            var result = _services.AgentaService.Update(agenta);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
+            _services.AgentaService.Update(agenta);
 
-            return BadRequest();
+            return Ok(agenta);
         }
 
         [HttpDelete("DeleteAgenta")]
         public IActionResult DeleteAgenta(int id)
         {
             var agenta = _services.AgentaService.GetByIdAgenta(id);
-            var result = _services.AgentaService.Delete(agenta.Data);
-            if(result.Success)
-            {
-                return Ok(result);
-            }
+            if (agenta is null)
+                throw new AgentaNotFound(id);
 
-            return BadRequest();
+            _services.AgentaService.Delete(agenta);
+            return Ok();
         }
     }
 }
