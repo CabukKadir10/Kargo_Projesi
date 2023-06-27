@@ -32,9 +32,14 @@ namespace Services.Concrete
             return new SuccessResult();
         }
 
+        public Agenta Get(int id)
+        {
+            return _dalManager.AgentaDal.Get(u => u.Id == id);
+        }
+
         public IDataResult<Agenta> GetByIdAgenta(int id)
         {
-            return new SuccessDataResult<Agenta>(_dalManager.AgentaDal.Get(u => u.UnitId == id));
+            return new SuccessDataResult<Agenta>(_dalManager.AgentaDal.Get(u => u.Id == id));
         }
 
         public IDataResult<List<Agenta>> GetListAgenta()

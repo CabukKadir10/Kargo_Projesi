@@ -34,7 +34,7 @@ namespace Services.Concrete
 
         public IDataResult<TransferCenter> GetByIdCenter(int id)
         {
-            return new SuccessDataResult<TransferCenter>(_dalManager.TransferCenterDal.Get(u => u.UnitId == id));
+            return new SuccessDataResult<TransferCenter>(_dalManager.TransferCenterDal.Get(u => u.Id == id));
         }
 
         public IDataResult<List<TransferCenter>> GetListCenter()

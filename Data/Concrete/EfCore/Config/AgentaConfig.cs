@@ -16,7 +16,7 @@ namespace Data.Concrete.EfCore.Config
             builder.HasData(
                 new Agenta
                 {
-                    UnitId = 6,
+                    Id = 6,
                     UnitName = "agenta1",
                     ResponsibleName = "kadir",
                     ResponsibleSurname = "Çabuk",
@@ -34,7 +34,7 @@ namespace Data.Concrete.EfCore.Config
                 },
                 new Agenta
                 {
-                    UnitId = 7,
+                    Id = 7,
                     UnitName = "agenta2",
                     ResponsibleName = "kadir",
                     ResponsibleSurname = "Çabuk",
@@ -48,11 +48,11 @@ namespace Data.Concrete.EfCore.Config
                     Street = "sokak1",
                     AddressDetail = "Amed merkez",
                     IsBanned = false,
-                    CenterId = 2
+                    CenterId = 1
                 },
                 new Agenta
                 {
-                    UnitId = 8,
+                    Id = 8,
                     UnitName = "agenta3",
                     ResponsibleName = "kadir",
                     ResponsibleSurname = "Çabuk",
@@ -66,11 +66,11 @@ namespace Data.Concrete.EfCore.Config
                     Street = "sokak1",
                     AddressDetail = "Amed merkez",
                     IsBanned = false,
-                    CenterId = 2
+                    CenterId = 1
                 },
                 new Agenta
                 {
-                    UnitId = 9,
+                    Id = 9,
                     UnitName = "agenta4",
                     ResponsibleName = "kadir",
                     ResponsibleSurname = "Çabuk",
@@ -88,7 +88,7 @@ namespace Data.Concrete.EfCore.Config
                 },
                 new Agenta
                 {
-                    UnitId = 10,
+                    Id = 10,
                     UnitName = "agenta5",
                     ResponsibleName = "kadir",
                     ResponsibleSurname = "Çabuk",

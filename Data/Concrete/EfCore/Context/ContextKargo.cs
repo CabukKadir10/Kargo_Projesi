@@ -27,17 +27,21 @@ namespace Data.Concrete.EfCore.Context
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfiguration(new StationConfig());
-            modelBuilder.ApplyConfiguration(new AgentaConfig());
             modelBuilder.ApplyConfiguration(new LineConfig());
             modelBuilder.ApplyConfiguration(new TransferCenterConfig());
+            modelBuilder.ApplyConfiguration(new AgentaConfig());
 
-            modelBuilder.Entity<Agenta>().HasKey(d => d.UnitId);
-            modelBuilder.Entity<TransferCenter>().HasKey(d => d.UnitId);
+            //modelBuilder.Entity<Agenta>().HasKey(d => d.UnitId);
+            //modelBuilder.Entity<TransferCenter>().HasKey(d => d.UnitId);
 
             modelBuilder.Entity<Agenta>()
                 .HasOne(d => d.TransferCenter)
                 .WithMany(d => d.Agentas)
                 .HasForeignKey(d => d.CenterId);
+            //modelBuilder.Entity<Agenta>()
+            //    .HasDiscriminator<string>("EntityType")
+            //    .HasValue<Agenta>("Agenta")
+            //    .HasValue<TransferCenter>("TransferCenter");
 
             modelBuilder.Entity<Station>()
                 .HasOne(d => d.Line)
@@ -60,10 +64,9 @@ namespace Data.Concrete.EfCore.Context
             //    .HasForeignKey<Address>(c => c.ForId);
                 
         }
-
-        public DbSet<Agenta> Agentas { get; set; }
+        public DbSet<Unit> Units { get; set; }
         public DbSet<Line> Lines { get; set; }
+        public DbSet<Agenta> Agentas { get; set; }
         public DbSet<TransferCenter> TransferCenters { get; set; }
-       // public DbSet<Unit> Units { get; set; }
     }
 }

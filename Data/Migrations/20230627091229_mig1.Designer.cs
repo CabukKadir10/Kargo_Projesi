@@ -11,7 +11,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Data.Migrations
 {
     [DbContext(typeof(ContextKargo))]
-    [Migration("20230626130429_mig1")]
+    [Migration("20230627091229_mig1")]
     partial class mig1
     {
         /// <inheritdoc />
@@ -23,167 +23,6 @@ namespace Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("Entity.Concrete.Agenta", b =>
-                {
-                    b.Property<int>("UnitId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UnitId"));
-
-                    b.Property<string>("AddressDetail")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("CenterId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("District")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Gsm")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<bool>("IsBanned")
-                        .HasColumnType("boolean");
-
-                    b.Property<string>("NeighBourHood")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("ResponsibleName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("ResponsibleSurname")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Street")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("UnitName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("UnitId");
-
-                    b.HasIndex("CenterId");
-
-                    b.ToTable("Agentas");
-
-                    b.HasData(
-                        new
-                        {
-                            UnitId = 6,
-                            AddressDetail = "Amed merkez",
-                            CenterId = 1,
-                            City = "Diyarbakır",
-                            Description = "Description",
-                            District = "Bağlar",
-                            Email = "kadir@gmail.com",
-                            Gsm = "085012356",
-                            IsBanned = false,
-                            NeighBourHood = "mahalle1",
-                            PhoneNumber = "05123456789",
-                            ResponsibleName = "kadir",
-                            ResponsibleSurname = "Çabuk",
-                            Street = "sokak1",
-                            UnitName = "agenta1"
-                        },
-                        new
-                        {
-                            UnitId = 7,
-                            AddressDetail = "Amed merkez",
-                            CenterId = 2,
-                            City = "Diyarbakır",
-                            Description = "Description",
-                            District = "Bağlar",
-                            Email = "kadir@gmail.com",
-                            Gsm = "085012356",
-                            IsBanned = false,
-                            NeighBourHood = "mahalle1",
-                            PhoneNumber = "05123456789",
-                            ResponsibleName = "kadir",
-                            ResponsibleSurname = "Çabuk",
-                            Street = "sokak1",
-                            UnitName = "agenta2"
-                        },
-                        new
-                        {
-                            UnitId = 8,
-                            AddressDetail = "Amed merkez",
-                            CenterId = 2,
-                            City = "Diyarbakır",
-                            Description = "Description",
-                            District = "Bağlar",
-                            Email = "kadir@gmail.com",
-                            Gsm = "085012356",
-                            IsBanned = false,
-                            NeighBourHood = "mahalle1",
-                            PhoneNumber = "05123456789",
-                            ResponsibleName = "kadir",
-                            ResponsibleSurname = "Çabuk",
-                            Street = "sokak1",
-                            UnitName = "agenta3"
-                        },
-                        new
-                        {
-                            UnitId = 9,
-                            AddressDetail = "Amed merkez",
-                            CenterId = 1,
-                            City = "Diyarbakır",
-                            Description = "Description",
-                            District = "Bağlar",
-                            Email = "kadir@gmail.com",
-                            Gsm = "085012356",
-                            IsBanned = false,
-                            NeighBourHood = "mahalle1",
-                            PhoneNumber = "05123456789",
-                            ResponsibleName = "kadir",
-                            ResponsibleSurname = "Çabuk",
-                            Street = "sokak1",
-                            UnitName = "agenta4"
-                        },
-                        new
-                        {
-                            UnitId = 10,
-                            AddressDetail = "Amed merkez",
-                            CenterId = 1,
-                            City = "Diyarbakır",
-                            Description = "Description",
-                            District = "Bağlar",
-                            Email = "kadir@gmail.com",
-                            Gsm = "085012356",
-                            IsBanned = false,
-                            NeighBourHood = "mahalle1",
-                            PhoneNumber = "05123456789",
-                            ResponsibleName = "kadir",
-                            ResponsibleSurname = "Çabuk",
-                            Street = "sokak1",
-                            UnitName = "agenta5"
-                        });
-                });
 
             modelBuilder.Entity("Entity.Concrete.Line", b =>
                 {
@@ -315,13 +154,13 @@ namespace Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Entity.Concrete.TransferCenter", b =>
+            modelBuilder.Entity("Entity.Concrete.Unit", b =>
                 {
-                    b.Property<int>("UnitId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UnitId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("AddressDetail")
                         .IsRequired()
@@ -332,6 +171,10 @@ namespace Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Discriminator")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -374,14 +217,129 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("UnitId");
+                    b.HasKey("Id");
 
-                    b.ToTable("TransferCenters");
+                    b.ToTable("Units");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Unit");
+
+                    b.UseTphMappingStrategy();
+                });
+
+            modelBuilder.Entity("Entity.Concrete.Agenta", b =>
+                {
+                    b.HasBaseType("Entity.Concrete.Unit");
+
+                    b.Property<int>("CenterId")
+                        .HasColumnType("integer");
+
+                    b.HasIndex("CenterId");
+
+                    b.HasDiscriminator().HasValue("Agenta");
 
                     b.HasData(
                         new
                         {
-                            UnitId = 1,
+                            Id = 6,
+                            AddressDetail = "Amed merkez",
+                            City = "Diyarbakır",
+                            Description = "Description",
+                            District = "Bağlar",
+                            Email = "kadir@gmail.com",
+                            Gsm = "085012356",
+                            IsBanned = false,
+                            NeighBourHood = "mahalle1",
+                            PhoneNumber = "05123456789",
+                            ResponsibleName = "kadir",
+                            ResponsibleSurname = "Çabuk",
+                            Street = "sokak1",
+                            UnitName = "agenta1",
+                            CenterId = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            AddressDetail = "Amed merkez",
+                            City = "Diyarbakır",
+                            Description = "Description",
+                            District = "Bağlar",
+                            Email = "kadir@gmail.com",
+                            Gsm = "085012356",
+                            IsBanned = false,
+                            NeighBourHood = "mahalle1",
+                            PhoneNumber = "05123456789",
+                            ResponsibleName = "kadir",
+                            ResponsibleSurname = "Çabuk",
+                            Street = "sokak1",
+                            UnitName = "agenta2",
+                            CenterId = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            AddressDetail = "Amed merkez",
+                            City = "Diyarbakır",
+                            Description = "Description",
+                            District = "Bağlar",
+                            Email = "kadir@gmail.com",
+                            Gsm = "085012356",
+                            IsBanned = false,
+                            NeighBourHood = "mahalle1",
+                            PhoneNumber = "05123456789",
+                            ResponsibleName = "kadir",
+                            ResponsibleSurname = "Çabuk",
+                            Street = "sokak1",
+                            UnitName = "agenta3",
+                            CenterId = 1
+                        },
+                        new
+                        {
+                            Id = 9,
+                            AddressDetail = "Amed merkez",
+                            City = "Diyarbakır",
+                            Description = "Description",
+                            District = "Bağlar",
+                            Email = "kadir@gmail.com",
+                            Gsm = "085012356",
+                            IsBanned = false,
+                            NeighBourHood = "mahalle1",
+                            PhoneNumber = "05123456789",
+                            ResponsibleName = "kadir",
+                            ResponsibleSurname = "Çabuk",
+                            Street = "sokak1",
+                            UnitName = "agenta4",
+                            CenterId = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            AddressDetail = "Amed merkez",
+                            City = "Diyarbakır",
+                            Description = "Description",
+                            District = "Bağlar",
+                            Email = "kadir@gmail.com",
+                            Gsm = "085012356",
+                            IsBanned = false,
+                            NeighBourHood = "mahalle1",
+                            PhoneNumber = "05123456789",
+                            ResponsibleName = "kadir",
+                            ResponsibleSurname = "Çabuk",
+                            Street = "sokak1",
+                            UnitName = "agenta5",
+                            CenterId = 1
+                        });
+                });
+
+            modelBuilder.Entity("Entity.Concrete.TransferCenter", b =>
+                {
+                    b.HasBaseType("Entity.Concrete.Unit");
+
+                    b.HasDiscriminator().HasValue("TransferCenter");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
                             AddressDetail = "Amed merkez",
                             City = "Diyarbakır",
                             Description = "Description",
@@ -398,7 +356,7 @@ namespace Data.Migrations
                         },
                         new
                         {
-                            UnitId = 2,
+                            Id = 2,
                             AddressDetail = "Mardin merkez",
                             City = "Mardin",
                             Description = "Description",
@@ -415,7 +373,7 @@ namespace Data.Migrations
                         },
                         new
                         {
-                            UnitId = 3,
+                            Id = 3,
                             AddressDetail = "Konya merkez",
                             City = "Konya",
                             Description = "Description",
@@ -432,7 +390,7 @@ namespace Data.Migrations
                         },
                         new
                         {
-                            UnitId = 4,
+                            Id = 4,
                             AddressDetail = "Ankara merkez",
                             City = "Ankara",
                             Description = "Description",
@@ -449,7 +407,7 @@ namespace Data.Migrations
                         },
                         new
                         {
-                            UnitId = 5,
+                            Id = 5,
                             AddressDetail = "İstanbul merkez",
                             City = "İstanbul",
                             Description = "Description",
@@ -466,17 +424,6 @@ namespace Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Entity.Concrete.Agenta", b =>
-                {
-                    b.HasOne("Entity.Concrete.TransferCenter", "TransferCenter")
-                        .WithMany("Agentas")
-                        .HasForeignKey("CenterId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("TransferCenter");
-                });
-
             modelBuilder.Entity("Entity.Concrete.Station", b =>
                 {
                     b.HasOne("Entity.Concrete.Line", "Line")
@@ -486,6 +433,17 @@ namespace Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Line");
+                });
+
+            modelBuilder.Entity("Entity.Concrete.Agenta", b =>
+                {
+                    b.HasOne("Entity.Concrete.TransferCenter", "TransferCenter")
+                        .WithMany("Agentas")
+                        .HasForeignKey("CenterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TransferCenter");
                 });
 
             modelBuilder.Entity("Entity.Concrete.Line", b =>

@@ -71,11 +71,11 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("UpdateStation")]
-        public IActionResult UpdateStation(UpdateStationDto updateStationDto, int id)
+        public IActionResult UpdateStation(UpdateStationDto updateStationDto)
         {
-            var getStation = _services.StationService.GetByIdStation(id);
-            var station = getStation.Data;
-            station = _mapper.Map<Station>(updateStationDto);
+            //var getStation = _services.StationService.GetByIdStation(id);
+            //var station = getStation.Data;
+            var station = _mapper.Map<Station>(updateStationDto);
             var result = _services.StationService.Update(station);
 
             if (result.Success)

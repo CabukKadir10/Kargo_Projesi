@@ -15,5 +15,6 @@ namespace Services.Abstract
         IResult Delete(Agenta agenta);
         IDataResult<Agenta> GetByIdAgenta(int id);
         IDataResult<List<Agenta>> GetListAgenta();
+        Agenta Get(int id);
     }
 }

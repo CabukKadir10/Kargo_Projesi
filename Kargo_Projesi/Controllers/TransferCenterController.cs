@@ -59,11 +59,11 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("UpdateCenter")]
-        public IActionResult UpdateCenter(UpdateCenterDto updateCenterDto, int id)
+        public IActionResult UpdateCenter(UpdateCenterDto updateCenterDto)
         {
-            var getCenter = _services.TransferCenterService.GetByIdCenter(id);
-            var center = getCenter.Data;
-            center = _mapper.Map<TransferCenter>(updateCenterDto);
+            //var getCenter = _services.TransferCenterService.GetByIdCenter(id);
+            //var center = getCenter.Data;
+            var center = _mapper.Map<TransferCenter>(updateCenterDto);
             var result = _services.TransferCenterService.Update(center);
 
             if (result.Success)

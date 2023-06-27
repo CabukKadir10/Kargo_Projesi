@@ -3,6 +3,7 @@ using Entity.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,5 +16,6 @@ namespace Services.Abstract
         IResult Delete(Station station);
         IDataResult<Station> GetByIdStation(int id);
         IDataResult<List<Station>> GetListStation();
+        IDataResult<List<Station>> GetListStation2(Expression<Func<Station, bool>> filter = null);
     }
 }

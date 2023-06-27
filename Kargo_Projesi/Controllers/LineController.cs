@@ -59,11 +59,11 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("UpdateLine")]
-        public IActionResult UpdateLine(UpdateLineDto updateLineDto, int id)
+        public IActionResult UpdateLine(UpdateLineDto updateLineDto)
         {
-            var getLine = _services.LineService.GetByIdLine(id);
-            var line = getLine.Data;
-            line = _mapper.Map<Line>(updateLineDto);
+            //var getLine = _services.LineService.GetByIdLine(id);
+            //var line = getLine.Data;
+            var line = _mapper.Map<Line>(updateLineDto);
             var result = _services.LineService.Update(line);
             if(result.Success)
             {
@@ -79,6 +79,18 @@ namespace WebApi.Controllers
             var line = _services.LineService.GetByIdLine(id);
             var result = _services.LineService.Delete(line.Data);
             if( result.Success)
+            {
+                return Ok(result);
+            }
+
+            return BadRequest();
+        }
+
+        [HttpGet("LineIdToStation")]
+        public IActionResult GetStationList(int lineId)
+        {
+            var result = _services.StationService.GetListStation2(d => d.LineId == lineId);
+            if (result.Success)
             {
                 return Ok(result);
             }

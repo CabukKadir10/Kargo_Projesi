@@ -16,7 +16,7 @@ namespace Data.Concrete.EfCore.Config
             builder.HasData(
                     new TransferCenter
                     {
-                        UnitId = 1,
+                        Id = 1,
                         UnitName = "Name1",
                         ResponsibleName = "kadir",
                         ResponsibleSurname = "Çabuk",
@@ -33,7 +33,7 @@ namespace Data.Concrete.EfCore.Config
                     },
                     new TransferCenter
                     {
-                        UnitId = 2,
+                        Id = 2,
                         UnitName = "Name2",
                         ResponsibleName = "muaz",
                         ResponsibleSurname = "Çabuk",
@@ -50,7 +50,7 @@ namespace Data.Concrete.EfCore.Config
                     },
                     new TransferCenter
                     {
-                        UnitId = 3,
+                        Id = 3,
                         UnitName = "Name3",
                         ResponsibleName = "yusuf",
                         ResponsibleSurname = "Çabuk",
@@ -67,7 +67,7 @@ namespace Data.Concrete.EfCore.Config
                     },
                     new TransferCenter
                     {
-                        UnitId = 4,
+                        Id = 4,
                         UnitName = "Name4",
                         ResponsibleName = "ahmet",
                         ResponsibleSurname = "Çabuk",
@@ -84,7 +84,7 @@ namespace Data.Concrete.EfCore.Config
                     },
                     new TransferCenter
                     {
-                        UnitId = 5,
+                        Id = 5,
                         UnitName = "Name5",
                         ResponsibleName = "mehmet",
                         ResponsibleSurname = "Çabuk",

@@ -6,6 +6,7 @@ using Services.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,6 +41,11 @@ namespace Services.Concrete
         public IDataResult<List<Station>> GetListStation()
         {
             return new SuccessDataResult<List<Station>>(_dalManager.StationDal.GetList());
+        }
+
+         public IDataResult<List<Station>> GetListStation2(Expression<Func<Station, bool>> filter = null)
+        {
+            return new SuccessDataResult<List<Station>>(_dalManager.StationDal.GetList(filter));
         }
 
         public IResult Update(Station station)

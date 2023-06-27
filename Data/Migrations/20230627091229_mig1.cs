@@ -29,10 +29,10 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TransferCenters",
+                name: "Units",
                 columns: table => new
                 {
-                    UnitId = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UnitName = table.Column<string>(type: "text", nullable: false),
                     ResponsibleName = table.Column<string>(type: "text", nullable: false),
@@ -46,11 +46,19 @@ namespace Data.Migrations
                     NeighBourHood = table.Column<string>(type: "text", nullable: false),
                     Street = table.Column<string>(type: "text", nullable: false),
                     AddressDetail = table.Column<string>(type: "text", nullable: false),
-                    IsBanned = table.Column<bool>(type: "boolean", nullable: false)
+                    IsBanned = table.Column<bool>(type: "boolean", nullable: false),
+                    Discriminator = table.Column<string>(type: "text", nullable: false),
+                    CenterId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TransferCenters", x => x.UnitId);
+                    table.PrimaryKey("PK_Units", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Units_Units_CenterId",
+                        column: x => x.CenterId,
+                        principalTable: "Units",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -75,38 +83,6 @@ namespace Data.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Agentas",
-                columns: table => new
-                {
-                    UnitId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    CenterId = table.Column<int>(type: "integer", nullable: false),
-                    UnitName = table.Column<string>(type: "text", nullable: false),
-                    ResponsibleName = table.Column<string>(type: "text", nullable: false),
-                    ResponsibleSurname = table.Column<string>(type: "text", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "text", nullable: false),
-                    Gsm = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
-                    City = table.Column<string>(type: "text", nullable: false),
-                    District = table.Column<string>(type: "text", nullable: false),
-                    NeighBourHood = table.Column<string>(type: "text", nullable: false),
-                    Street = table.Column<string>(type: "text", nullable: false),
-                    AddressDetail = table.Column<string>(type: "text", nullable: false),
-                    IsBanned = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Agentas", x => x.UnitId);
-                    table.ForeignKey(
-                        name: "FK_Agentas_TransferCenters_CenterId",
-                        column: x => x.CenterId,
-                        principalTable: "TransferCenters",
-                        principalColumn: "UnitId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.InsertData(
                 table: "Lines",
                 columns: new[] { "LineId", "IsActive", "LineName", "LineType" },
@@ -120,27 +96,15 @@ namespace Data.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "TransferCenters",
-                columns: new[] { "UnitId", "AddressDetail", "City", "Description", "District", "Email", "Gsm", "IsBanned", "NeighBourHood", "PhoneNumber", "ResponsibleName", "ResponsibleSurname", "Street", "UnitName" },
+                table: "Units",
+                columns: new[] { "Id", "AddressDetail", "City", "Description", "Discriminator", "District", "Email", "Gsm", "IsBanned", "NeighBourHood", "PhoneNumber", "ResponsibleName", "ResponsibleSurname", "Street", "UnitName" },
                 values: new object[,]
                 {
-                    { 1, "Amed merkez", "Diyarbakır", "Description", "Bağlar", "kadir@gmail.com", "085012356", false, "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "Name1" },
-                    { 2, "Mardin merkez", "Mardin", "Description", "Bağlar", "muaz@gmail.com", "085012356", false, "mahalle1", "05123456789", "muaz", "Çabuk", "sokak1", "Name2" },
-                    { 3, "Konya merkez", "Konya", "Description", "Bağlar", "yusuf@gmail.com", "085012356", false, "mahalle1", "05123456789", "yusuf", "Çabuk", "sokak1", "Name3" },
-                    { 4, "Ankara merkez", "Ankara", "Description", "Bağlar", "ahmet@gmail.com", "085012356", false, "mahalle1", "05123456789", "ahmet", "Çabuk", "sokak1", "Name4" },
-                    { 5, "İstanbul merkez", "İstanbul", "Description", "Bağlar", "mehmet@gmail.com", "085012356", false, "mahalle1", "05123456789", "mehmet", "Çabuk", "sokak1", "Name5" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Agentas",
-                columns: new[] { "UnitId", "AddressDetail", "CenterId", "City", "Description", "District", "Email", "Gsm", "IsBanned", "NeighBourHood", "PhoneNumber", "ResponsibleName", "ResponsibleSurname", "Street", "UnitName" },
-                values: new object[,]
-                {
-                    { 6, "Amed merkez", 1, "Diyarbakır", "Description", "Bağlar", "kadir@gmail.com", "085012356", false, "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "agenta1" },
-                    { 7, "Amed merkez", 2, "Diyarbakır", "Description", "Bağlar", "kadir@gmail.com", "085012356", false, "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "agenta2" },
-                    { 8, "Amed merkez", 2, "Diyarbakır", "Description", "Bağlar", "kadir@gmail.com", "085012356", false, "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "agenta3" },
-                    { 9, "Amed merkez", 1, "Diyarbakır", "Description", "Bağlar", "kadir@gmail.com", "085012356", false, "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "agenta4" },
-                    { 10, "Amed merkez", 1, "Diyarbakır", "Description", "Bağlar", "kadir@gmail.com", "085012356", false, "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "agenta5" }
+                    { 1, "Amed merkez", "Diyarbakır", "Description", "TransferCenter", "Bağlar", "kadir@gmail.com", "085012356", false, "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "Name1" },
+                    { 2, "Mardin merkez", "Mardin", "Description", "TransferCenter", "Bağlar", "muaz@gmail.com", "085012356", false, "mahalle1", "05123456789", "muaz", "Çabuk", "sokak1", "Name2" },
+                    { 3, "Konya merkez", "Konya", "Description", "TransferCenter", "Bağlar", "yusuf@gmail.com", "085012356", false, "mahalle1", "05123456789", "yusuf", "Çabuk", "sokak1", "Name3" },
+                    { 4, "Ankara merkez", "Ankara", "Description", "TransferCenter", "Bağlar", "ahmet@gmail.com", "085012356", false, "mahalle1", "05123456789", "ahmet", "Çabuk", "sokak1", "Name4" },
+                    { 5, "İstanbul merkez", "İstanbul", "Description", "TransferCenter", "Bağlar", "mehmet@gmail.com", "085012356", false, "mahalle1", "05123456789", "mehmet", "Çabuk", "sokak1", "Name5" }
                 });
 
             migrationBuilder.InsertData(
@@ -155,28 +119,37 @@ namespace Data.Migrations
                     { 5, 2, 2, "durak5", 5 }
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Agentas_CenterId",
-                table: "Agentas",
-                column: "CenterId");
+            migrationBuilder.InsertData(
+                table: "Units",
+                columns: new[] { "Id", "AddressDetail", "CenterId", "City", "Description", "Discriminator", "District", "Email", "Gsm", "IsBanned", "NeighBourHood", "PhoneNumber", "ResponsibleName", "ResponsibleSurname", "Street", "UnitName" },
+                values: new object[,]
+                {
+                    { 6, "Amed merkez", 1, "Diyarbakır", "Description", "Agenta", "Bağlar", "kadir@gmail.com", "085012356", false, "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "agenta1" },
+                    { 7, "Amed merkez", 1, "Diyarbakır", "Description", "Agenta", "Bağlar", "kadir@gmail.com", "085012356", false, "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "agenta2" },
+                    { 8, "Amed merkez", 1, "Diyarbakır", "Description", "Agenta", "Bağlar", "kadir@gmail.com", "085012356", false, "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "agenta3" },
+                    { 9, "Amed merkez", 1, "Diyarbakır", "Description", "Agenta", "Bağlar", "kadir@gmail.com", "085012356", false, "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "agenta4" },
+                    { 10, "Amed merkez", 1, "Diyarbakır", "Description", "Agenta", "Bağlar", "kadir@gmail.com", "085012356", false, "mahalle1", "05123456789", "kadir", "Çabuk", "sokak1", "agenta5" }
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Station_LineId",
                 table: "Station",
                 column: "LineId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Units_CenterId",
+                table: "Units",
+                column: "CenterId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Agentas");
-
-            migrationBuilder.DropTable(
                 name: "Station");
 
             migrationBuilder.DropTable(
-                name: "TransferCenters");
+                name: "Units");
 
             migrationBuilder.DropTable(
                 name: "Lines");
