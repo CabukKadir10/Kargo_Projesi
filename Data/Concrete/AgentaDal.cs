@@ -13,5 +13,6 @@ namespace Data.Concrete
 {
     public class AgentaDal : RepositoryBase<Agenta, ContextKargo>, IAgentaDal
     {
+        
     }
 }

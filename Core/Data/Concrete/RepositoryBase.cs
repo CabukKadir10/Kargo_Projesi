@@ -1,5 +1,6 @@
 ﻿using Core.Data.Abstract;
 using Entity.Abstract;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

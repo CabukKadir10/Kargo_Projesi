@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Entity.Concrete;
 using Entity.Dto;
+using Entity.Exceptions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abstract;

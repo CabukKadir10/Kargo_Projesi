@@ -1,6 +1,8 @@
 ﻿using Data.Abstract;
 using Data.Concrete;
 using Data.Concrete.EfCore.Context;
+using Entity.Concrete;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using NLog;
 using Services.Abstract;
@@ -19,6 +21,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContext<ContextKargo>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 //builder.Services.AddDbContext<ContextKargo>(options =>
 //{
 //    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
@@ -28,6 +35,16 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); //auto mapper configurasyonu
 
+//builder.Services.AddIdentity<User, Role>(opt =>//Identity Ayarlaması
+//{
+//    //opt.Password.RequireDigit = true;
+//    //opt.Password.RequireLowercase = false;
+//    //opt.Password.RequireUppercase = false;
+//    //opt.Password.RequireNonAlphanumeric = false;
+//    opt.Password.RequiredLength = 6;
+//}).AddEntityFrameworkStores<ContextKargo>().AddDefaultTokenProviders().AddDefaultTokenProviders();
+builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<ContextKargo>();
+builder.Services.AddAuthentication();
 //IOC
 builder.Services.ConfigureServiceRegister();
 builder.Services.ConfigureLoggerService();
@@ -50,6 +67,8 @@ if (app.Environment.IsProduction())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.UseAuthorization();
 

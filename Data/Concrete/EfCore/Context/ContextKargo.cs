@@ -1,5 +1,6 @@
 ﻿using Data.Concrete.EfCore.Config;
 using Entity.Concrete;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -9,17 +10,23 @@ using System.Threading.Tasks;
 
 namespace Data.Concrete.EfCore.Context
 {
-    public class ContextKargo : DbContext
+    public class ContextKargo : IdentityDbContext<User, Role, int>
     {
-        //public ContextKargo(DbContextOptions<ContextKargo> options)
-        //: base(options)
-        //{
-        //    // Yapıcı metot içeriği
-        //}
+        public ContextKargo(/*DbContextOptions<ContextKargo> options*/)
+        : base(/*options*/)
+        {
+            // Yapıcı metot içeriği
+        }
+
+        public ContextKargo(DbContextOptions<ContextKargo> options)
+            : base(options)
+        {
+            // Yapıcı metot içeriği
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5432; Database=DbKargo; UserName=postgres ; Password=1234");
-            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+            //optionsBuilder.UseNpgsql("Host=localhost;Port=5432; Database=DbKargo; UserName=postgres ; Password=1234");
+            //AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             base.OnConfiguring(optionsBuilder);
         }
 
