@@ -220,3 +220,20 @@
 2023-07-02 20:09:43.1597 Info Message Template Auto Format enabled
 2023-07-02 20:09:43.3391 Info Registered target NLog.Targets.FileTarget(Name=logfile)
 2023-07-02 20:09:43.3756 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\cabuk\Desktop\NetCore\Kargo_Projesi\Kargo_Projesi\NLog.config
+2023-07-03 11:22:26.9982 Info Message Template Auto Format enabled
+2023-07-03 11:22:27.1767 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-03 11:22:27.2157 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\cabuk\Desktop\NetCore\Kargo_Projesi\Kargo_Projesi\NLog.config
+2023-07-03 11:23:42.7967 Info Message Template Auto Format enabled
+2023-07-03 11:23:43.0777 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-03 11:23:43.1166 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\cabuk\Desktop\NetCore\Kargo_Projesi\Kargo_Projesi\NLog.config
+2023-07-03 11:30:22.3261 Info Message Template Auto Format enabled
+2023-07-03 11:30:22.5877 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-03 11:30:22.6377 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\cabuk\Desktop\NetCore\Kargo_Projesi\Kargo_Projesi\NLog.config
+2023-07-03 11:33:13.6854 Info AppDomain Shutting down. LogFactory closing...
+2023-07-03 11:33:13.7797 Info LogFactory has been closed.
+2023-07-03 11:35:15.3972 Info Message Template Auto Format enabled
+2023-07-03 11:35:15.6411 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-03 11:35:15.6835 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\cabuk\Desktop\NetCore\Kargo_Projesi\Kargo_Projesi\NLog.config
+2023-07-03 11:53:18.8085 Info Message Template Auto Format enabled
+2023-07-03 11:53:19.0855 Info Registered target NLog.Targets.FileTarget(Name=logfile)
+2023-07-03 11:53:19.1295 Info Validating config: TargetNames=logfile, ConfigItems=12, FilePath=C:\Users\cabuk\Desktop\NetCore\Kargo_Projesi\Kargo_Projesi\NLog.config

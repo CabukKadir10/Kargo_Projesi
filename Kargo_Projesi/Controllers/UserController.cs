@@ -48,14 +48,15 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("UserLogin")]
-        public async Task<IActionResult> UserLogin(string email, string password)
+        public async Task<IActionResult> UserLogin(UserLoginDto userLoginDto)
         {
-            var user = await _userManager.FindByEmailAsync(email);
-            var role = await _roleManager.FindByNameAsync(user.Roles);
+            var role = _mapper.Map<Role>(userLoginDto);
+
+            var user = await _userManager.FindByEmailAsync(userLoginDto.Email);
             if(user != null)
             {
-                var result = await _signInManager.PasswordSignInAsync(user, password, false, false);
-                if (result.Succeeded)
+                var result = await _signInManager.PasswordSignInAsync(user, userLoginDto.Password, false, false);
+                if (result.Succeeded && user.Roles.Equals(role.Name))
                 {
                     var token = _serviceManager.AuthService.CreateAccessToken(user, role);
                     return Ok(token);

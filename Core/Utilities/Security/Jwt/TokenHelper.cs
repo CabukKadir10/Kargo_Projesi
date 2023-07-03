@@ -20,7 +20,7 @@ namespace Core.Utilities.Security.Jwt
         public TokenHelper(IConfiguration configuration)
         {
             Configuration = configuration;
-            _tokenOptions = Configuration.GetSection("JWT").Get<TokenOptions>();
+            _tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
         }
 
         public AccessToken CreateToken(User user, Role role)
@@ -28,6 +28,7 @@ namespace Core.Utilities.Security.Jwt
             _accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
             var securityKey = SecurityKeyHelper.CreateSecurityKey(_tokenOptions.SecurityKey);
             var signinCredentials = SigningCredentialsHelper.CreateSigningCredentials(securityKey);
+            
             var jwt = CreateJwtSecurityToken(_tokenOptions, user, signinCredentials, role);
             var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
             var token = jwtSecurityTokenHandler.WriteToken(jwt);

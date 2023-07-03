@@ -59,7 +59,7 @@ builder.Services.AddCors(options =>
         builder => builder.WithOrigins("https://localhost:7200"));
 });
 
-var tokenOptions = configuration.GetSection("JWT").Get<Core.Utilities.Security.Jwt.TokenOptions>();
+var tokenOptions = configuration.GetSection("TokenOptions").Get<Core.Utilities.Security.Jwt.TokenOptions>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
@@ -84,7 +84,10 @@ app.ConfigureExceptionHandler(logger);
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1");
+    });
 }
 
 if (app.Environment.IsProduction())
