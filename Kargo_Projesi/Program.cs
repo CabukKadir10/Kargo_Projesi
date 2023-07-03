@@ -1,10 +1,14 @@
-﻿using Data.Abstract;
+﻿using Core.Utilities.Security.Encription;
+using Core.Utilities.Security.Jwt;
+using Data.Abstract;
 using Data.Concrete;
 using Data.Concrete.EfCore.Context;
 using Entity.Concrete;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using NLog;
 using Services.Abstract;
 using Services.Concrete;
@@ -47,6 +51,30 @@ builder.Services.ConfigureServiceRegister();
 builder.Services.ConfigureLoggerService();
 //builder.Services.ConfigureContextKargo();
 
+IConfiguration configuration = builder.Configuration;
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowOrigin",
+        builder => builder.WithOrigins("https://localhost:7200"));
+});
+
+var tokenOptions = configuration.GetSection("JWT").Get<Core.Utilities.Security.Jwt.TokenOptions>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = false,
+        ValidIssuer = tokenOptions.Issuer,
+        ValidAudience = tokenOptions.Audience,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
+    };
+});
+
 var app = builder.Build();
 
 var logger = app.Services.GetRequiredService<ILoggerService>();
@@ -63,6 +91,8 @@ if (app.Environment.IsProduction())
 {
     app.UseHsts();
 }
+
+app.UseCors(builder => builder.WithOrigins("https://localhost:7200").AllowAnyHeader());
 
 app.UseHttpsRedirection();
 

@@ -1,4 +1,5 @@
-﻿using Data.Abstract;
+﻿using Core.Utilities.Security.Jwt;
+using Data.Abstract;
 using Data.Concrete;
 using Data.Concrete.EfCore.Context;
 using Microsoft.EntityFrameworkCore;
@@ -24,7 +25,8 @@ namespace WebApi.Extensions
             services.AddScoped<IAgentaService, AgentaManager>();
             services.AddScoped<IStationService, StationManager>();
             services.AddScoped<ITransferCenterService, TransferCenterManager>();
-            services.AddScoped<IUserService, UserManager>();
+
+            services.AddScoped<ITokenHelper, TokenHelper>();
         }
 
         public static void ConfigureLoggerService(this IServiceCollection services) =>

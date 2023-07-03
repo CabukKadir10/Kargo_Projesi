@@ -13,13 +13,15 @@ namespace Services.Concrete
         private readonly ILineService _lineService;
         private readonly IStationService _stationService;
         private readonly ITransferCenterService _transferCenterService;
+        private readonly IAuthService _authService;
 
-        public ServiceManager(IAgentaService agentaService, ILineService lineService, IStationService stationService, ITransferCenterService transferCenterService)
+        public ServiceManager(IAgentaService agentaService, ILineService lineService, IStationService stationService, ITransferCenterService transferCenterService, IAuthService authService)
         {
             _agentaService = agentaService;
             _lineService = lineService;
             _stationService = stationService;
             _transferCenterService = transferCenterService;
+            _authService = authService;
         }
 
         public IAgentaService AgentaService => _agentaService;
@@ -29,5 +31,7 @@ namespace Services.Concrete
         public IStationService StationService => _stationService;
 
         public ITransferCenterService TransferCenterService => _transferCenterService;
+
+        public IAuthService AuthService => _authService;
     }
 }

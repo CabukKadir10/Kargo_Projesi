@@ -15,14 +15,16 @@ namespace WebApi.Controllers
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IServiceManager _serviceManager;
         private readonly IMapper _mapper;
 
-        public UserController(UserManager<User> userManager, RoleManager<Role> roleManager, SignInManager<User> signInManager, IMapper mapper)
+        public UserController(UserManager<User> userManager, RoleManager<Role> roleManager, SignInManager<User> signInManager, IMapper mapper, IServiceManager serviceManager)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
             _mapper = mapper;
+            _serviceManager = serviceManager;
         }
 
         [HttpPost("RegisterUser")]
@@ -49,12 +51,14 @@ namespace WebApi.Controllers
         public async Task<IActionResult> UserLogin(string email, string password)
         {
             var user = await _userManager.FindByEmailAsync(email);
+            var role = await _roleManager.FindByNameAsync(user.Roles);
             if(user != null)
             {
                 var result = await _signInManager.PasswordSignInAsync(user, password, false, false);
                 if (result.Succeeded)
                 {
-                    return Ok(result);
+                    var token = _serviceManager.AuthService.CreateAccessToken(user, role);
+                    return Ok(token);
                 }
             }
 
