@@ -12,6 +12,5 @@ namespace Services.Abstract
         ILineService LineService { get; }
         IStationService StationService { get; }
         ITransferCenterService TransferCenterService { get; }
-        IUserService UserService { get; }
     }
 }
