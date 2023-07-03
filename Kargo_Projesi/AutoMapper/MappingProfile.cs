@@ -18,6 +18,9 @@ namespace WebApi.AutoMapper
             CreateMap<UpdateCenterDto, TransferCenter>().ReverseMap();
 
             CreateMap<UserRegisterDto, User>().ReverseMap();
+            CreateMap<UpdateUserDto, User>().ReverseMap();
+
+            CreateMap<CreateRoleDto, Role>().ReverseMap();
         }
     }
 }

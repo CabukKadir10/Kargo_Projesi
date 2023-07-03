@@ -1,5 +1,6 @@
 ﻿using Core.Data.Abstract;
 using Entity.Abstract;
+using Entity.Concrete;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,11 +15,11 @@ namespace Core.Data.Concrete
 {
     public class RepositoryBase<T, Context> : IRepository<T>
         where T : class, IEntity, new()
-        where Context: DbContext, new()
+        where Context : IdentityDbContext<User, Role, int>, new()
     {
-        //private readonly DbContext _context;
+        //private readonly IdentityDbContext _context;
 
-        //public RepositoryBase(DbContext context)
+        //public RepositoryBase(IdentityDbContext context)
         //{
         //    _context = context;
         //}

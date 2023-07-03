@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Data.Migrations
 {
     /// <inheritdoc />
-    public partial class deneme : Migration
+    public partial class deneme1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -234,6 +234,16 @@ namespace Data.Migrations
                         principalTable: "Lines",
                         principalColumn: "LineId",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { 1, null, "User", "USER" },
+                    { 2, null, "Editor", "EDITOR" },
+                    { 3, null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.InsertData(

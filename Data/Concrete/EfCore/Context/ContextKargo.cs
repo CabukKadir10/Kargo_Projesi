@@ -10,24 +10,24 @@ using System.Threading.Tasks;
 
 namespace Data.Concrete.EfCore.Context
 {
-    public class ContextKargo : IdentityDbContext<User, Role, int>
+    public class ContextKargo  : IdentityDbContext<User, Role, int>
     {
-        public ContextKargo(/*DbContextOptions<ContextKargo> options*/)
-        : base(/*options*/)
+        public ContextKargo(DbContextOptions<ContextKargo> options)
+        : base(options)
         {
             // Yapıcı metot içeriği
+        }
+        public ContextKargo()
+        {
+
         }
 
-        public ContextKargo(DbContextOptions<ContextKargo> options)
-            : base(options)
-        {
-            // Yapıcı metot içeriği
-        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //optionsBuilder.UseNpgsql("Host=localhost;Port=5432; Database=DbKargo; UserName=postgres ; Password=1234");
+            //optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=DbKargo;UserName=postgres;Password=1234");
+
             //AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=DbKargo;UserName=postgres;Password=1234");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -37,6 +37,7 @@ namespace Data.Concrete.EfCore.Context
             modelBuilder.ApplyConfiguration(new LineConfig());
             modelBuilder.ApplyConfiguration(new TransferCenterConfig());
             modelBuilder.ApplyConfiguration(new AgentaConfig());
+            modelBuilder.ApplyConfiguration(new RoleConfig());
 
             //modelBuilder.Entity<Agenta>().HasKey(d => d.UnitId);
             //modelBuilder.Entity<TransferCenter>().HasKey(d => d.UnitId);

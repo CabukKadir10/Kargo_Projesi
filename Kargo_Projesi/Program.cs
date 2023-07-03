@@ -4,6 +4,7 @@ using Data.Concrete.EfCore.Context;
 using Entity.Concrete;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using NLog;
 using Services.Abstract;
 using Services.Concrete;
@@ -20,34 +21,31 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+var test = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<ContextKargo>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-//builder.Services.AddDbContext<ContextKargo>(options =>
-//{
-//    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-//});
 
-//AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); //auto mapper configurasyonu
 
-//builder.Services.AddIdentity<User, Role>(opt =>//Identity Ayarlaması
-//{
-//    //opt.Password.RequireDigit = true;
-//    //opt.Password.RequireLowercase = false;
-//    //opt.Password.RequireUppercase = false;
-//    //opt.Password.RequireNonAlphanumeric = false;
-//    opt.Password.RequiredLength = 6;
-//}).AddEntityFrameworkStores<ContextKargo>().AddDefaultTokenProviders().AddDefaultTokenProviders();
-builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<ContextKargo>();
+builder.Services.AddIdentity<User, Role>(opt =>//Identity Ayarlaması
+{
+    //opt.Password.RequireDigit = true;
+    //opt.Password.RequireLowercase = false;
+    //opt.Password.RequireUppercase = false;
+    //opt.Password.RequireNonAlphanumeric = false;
+    opt.Password.RequiredLength = 6;
+}).AddEntityFrameworkStores<ContextKargo>().AddDefaultTokenProviders();
+//builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<ContextKargo>();
 builder.Services.AddAuthentication();
 //IOC
 builder.Services.ConfigureServiceRegister();
 builder.Services.ConfigureLoggerService();
+//builder.Services.ConfigureContextKargo();
 
 var app = builder.Build();
 

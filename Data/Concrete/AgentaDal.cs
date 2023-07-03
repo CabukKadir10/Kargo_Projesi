@@ -2,6 +2,7 @@
 using Data.Abstract;
 using Data.Concrete.EfCore.Context;
 using Entity.Concrete;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
