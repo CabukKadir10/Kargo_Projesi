@@ -13,5 +13,6 @@ namespace Services.Abstract
         IStationService StationService { get; }
         ITransferCenterService TransferCenterService { get; }
         IAuthService AuthService { get; }
+        IMailService MailService { get; }
     }
 }

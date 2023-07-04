@@ -26,6 +26,7 @@ namespace WebApi.Extensions
             services.AddScoped<IStationService, StationManager>();
             services.AddScoped<ITransferCenterService, TransferCenterManager>();
             services.AddScoped<IAuthService, AuthManager>();
+            services.AddScoped<IMailService, MailManager>();
 
             services.AddScoped<ITokenHelper, TokenHelper>();
         }
