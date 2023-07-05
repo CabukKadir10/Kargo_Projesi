@@ -17,12 +17,21 @@ namespace Core.Data.Concrete
         where T : class, IEntity, new()
         where Context : IdentityDbContext<User, Role, int>, new()
     {
-        //private readonly IdentityDbContext _context;
+        public bool Any(Expression<Func<T, bool>> filter)
+        {
+            using(var _context = new Context())
+            {
+                return _context.Set<T>().Any(filter);
+            }
+        }
 
-        //public RepositoryBase(IdentityDbContext context)
-        //{
-        //    _context = context;
-        //}
+        public int Count(Expression<Func<T, bool>> filter)
+        {
+            using(var _context = new Context())
+            {
+                return _context.Set<T>().Count(filter);
+            }
+        }
 
         public void Create(T entity)
         {
@@ -69,7 +78,7 @@ namespace Core.Data.Concrete
                 //var updatedEntity = _context.Entry(entity);
                 //updatedEntity.State = EntityState.Modified;
                 //_context.SaveChanges();
-
+                _context.ChangeTracker.Clear();
                 _context.Entry(entity).State = EntityState.Modified;
                 _context.Update(entity);
                 _context.SaveChanges();

@@ -22,7 +22,9 @@ namespace Services.Concrete
 
         public void Add(Agenta agenta)
         {
-            _dalManager.AgentaDal.Create(agenta);
+            var count = _dalManager.AgentaDal.Count(a => a.CenterId == agenta.CenterId);
+            if(count <= 5)
+                _dalManager.AgentaDal.Create(agenta);
         }
 
         public void Delete(Agenta agenta)

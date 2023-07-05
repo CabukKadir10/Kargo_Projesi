@@ -23,7 +23,10 @@ namespace Services.Concrete
 
         public IResult Add(Station station)
         {
-            _dalManager.StationDal.Create(station);
+            var count = _dalManager.StationDal.Count(a => a.OrderNumber == station.OrderNumber);
+            if(count < 3)
+                _dalManager.StationDal.Create(station);
+
             return new SuccessResult();
         }
 

@@ -21,7 +21,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("CreateRole")]
-        public async Task<IActionResult> CreateRole(CreateRoleDto createRoleDto)
+        public async Task<IActionResult> CreateRole([FromBody] CreateRoleDto createRoleDto)
         {
             var role = _mapper.Map<Role>(createRoleDto);
             var result = await _roleManager.CreateAsync(role);
@@ -32,7 +32,7 @@ namespace WebApi.Controllers
             return BadRequest();
         }
 
-        [HttpGet("GetByIdRole")]
+        [HttpGet("GetByIdRole/{id}")]
         public async Task<IActionResult> GetByIdRole(string id)
         {
             var result = await _roleManager.FindByIdAsync(id);
@@ -43,14 +43,17 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("UpdateRole")]
-        public async Task<IActionResult> UpdateRole(CreateRoleDto createRoleDto)
+        public async Task<IActionResult> UpdateRole([FromBody] UpdateRoleDto updateRole)
         {
-            var role = _mapper.Map<Role>(createRoleDto);
-            var getRole = await _roleManager.FindByNameAsync(createRoleDto.Name);
-            getRole = role;
-            var result = await _roleManager.UpdateAsync(getRole);
-            if (result.Succeeded)
-                return Ok(result);
+            var getRole = await _roleManager.FindByIdAsync(updateRole.Id);
+            if (getRole != null)
+            {
+                var role = _mapper.Map<Role>(updateRole);
+                getRole = role;
+                var result = await _roleManager.UpdateAsync(getRole);
+                if (result.Succeeded)
+                    return Ok();
+            }
 
             return BadRequest();
         }

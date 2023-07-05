@@ -28,7 +28,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("RegisterUser")]
-        public async Task<IActionResult> RegisterUser(UserRegisterDto userRegisterDto)
+        public async Task<IActionResult> RegisterUser([FromBody] UserRegisterDto userRegisterDto)
         {
             var getUser = _mapper.Map<User>(userRegisterDto);
 
@@ -48,7 +48,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("UserLogin")]
-        public async Task<IActionResult> UserLogin(UserLoginDto userLoginDto)
+        public async Task<IActionResult> UserLogin([FromBody] UserLoginDto userLoginDto)
         {
             var role = _mapper.Map<Role>(userLoginDto);
 
@@ -66,7 +66,7 @@ namespace WebApi.Controllers
             return BadRequest();
         }
 
-        [HttpGet("GetByIdUser")]
+        [HttpGet("GetByIdUser/{id}")]
         public async Task<IActionResult> GetByIdUser(string id)
         {
             var result = await _userManager.FindByIdAsync(id);
@@ -77,12 +77,12 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("ChangePassword")]
-        public async Task<IActionResult> ChangePassword(string  code, string oldPassword, string newPassword)
+        public async Task<IActionResult> ChangePassword(ChangePasswordDto changePassword)
         {
-            var user = await _userManager.FindByIdAsync(code);
+            var user = await _userManager.FindByIdAsync(changePassword.Code);
             if(user != null)
             {
-                var result = await _userManager.ChangePasswordAsync(user, oldPassword, newPassword);
+                var result = await _userManager.ChangePasswordAsync(user, changePassword.OldPassword, changePassword.newPassword);
 
                 if (result.Succeeded)
                     return Ok("Şifre Değiştirme Başarılı");
@@ -92,7 +92,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("UpdateUser")]
-        public async Task<IActionResult> UpdateUser(UpdateUserDto updateUserDto)
+        public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto updateUserDto)
         {
             var user = await _userManager.FindByEmailAsync(updateUserDto.Email);
             if(user != null)

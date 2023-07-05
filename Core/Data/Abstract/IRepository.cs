@@ -15,5 +15,7 @@ namespace Core.Data.Abstract
         void Delete(T entity);
         List<T> GetList(Expression<Func<T, bool>> filter = null);
         T Get(Expression<Func<T, bool>> filter);
+        int Count(Expression<Func<T, bool>> filter);
+        bool Any(Expression<Func<T, bool>> filter);
     }
 }

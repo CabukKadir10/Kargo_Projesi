@@ -21,7 +21,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("CreateStation")]
-        public IActionResult CreateStation(CreateStationDto createStationDto)
+        public IActionResult CreateStation([FromBody] CreateStationDto createStationDto)
         {
             var station = _mapper.Map<Station>(createStationDto);
             var result = _services.StationService.Add(station);
@@ -33,7 +33,7 @@ namespace WebApi.Controllers
             return BadRequest();
         }
 
-        [HttpGet("GetByIdStation")]
+        [HttpGet("GetByIdStation/{id}")]
         public IActionResult GetByIdStation(int id)
         {
             var result = _services.StationService.GetByIdStation(id);
@@ -57,7 +57,7 @@ namespace WebApi.Controllers
             return BadRequest();
         }
 
-        [HttpDelete("DeleteStation")]
+        [HttpDelete("DeleteStation/{id}")]
         public IActionResult DeleteStation(int id)
         {
             var station = _services.StationService.GetByIdStation(id);
@@ -71,7 +71,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("UpdateStation")]
-        public IActionResult UpdateStation(UpdateStationDto updateStationDto)
+        public IActionResult UpdateStation([FromBody] UpdateStationDto updateStationDto)
         {
             //var getStation = _services.StationService.GetByIdStation(id);
             //var station = getStation.Data;

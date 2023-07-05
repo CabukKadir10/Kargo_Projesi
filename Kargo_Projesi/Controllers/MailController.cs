@@ -18,7 +18,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("SendMail")]
-        public IActionResult SendMail(Mail mail)
+        public IActionResult SendMail([FromBody] Mail mail)
         {
             var body = new StringBuilder();
             body.AppendLine("Gonderen: " + mail.Name);

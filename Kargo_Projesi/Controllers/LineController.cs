@@ -22,7 +22,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("CreateLine")]
-        public IActionResult CreateLine(CreateLineDto createLineDto)
+        public IActionResult CreateLine([FromBody]CreateLineDto createLineDto)
         {
             var line = _mapper.Map<Line>(createLineDto);
             var result = _services.LineService.Add(line);
@@ -47,7 +47,7 @@ namespace WebApi.Controllers
             return BadRequest();
         }
 
-        [HttpGet("GetByIdLine")]
+        [HttpGet("GetByIdLine/{id}")]
         public IActionResult GetByIdLine(int id)
         {
             var result = _services.LineService.GetByIdLine(id);
@@ -60,7 +60,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("UpdateLine")]
-        public IActionResult UpdateLine(UpdateLineDto updateLineDto)
+        public IActionResult UpdateLine([FromBody]UpdateLineDto updateLineDto)
         {
             //var getLine = _services.LineService.GetByIdLine(id);
             //var line = getLine.Data;
@@ -74,7 +74,7 @@ namespace WebApi.Controllers
             return BadRequest();
         }
 
-        [HttpDelete("DeleteLine")]
+        [HttpDelete("DeleteLine/{id}")]
         public IActionResult DeleteLine(int id)
         {
             var line = _services.LineService.GetByIdLine(id);
@@ -87,7 +87,7 @@ namespace WebApi.Controllers
             return BadRequest();
         }
 
-        [HttpGet("LineIdToStation")]
+        [HttpGet("LineIdToStation/{lineId}")]
         public IActionResult GetStationList(int lineId)
         {
             var result = _services.StationService.GetListStation2(d => d.LineId == lineId);

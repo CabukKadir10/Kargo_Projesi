@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+﻿    using AutoMapper;
 using Entity.Concrete;
 using Entity.Dto;
 using Entity.Exceptions;
@@ -22,7 +22,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("CreateAgenta")]
-        public IActionResult CreateAgenta(CreateAgentaDto createAgentaDto)
+        public IActionResult CreateAgenta([FromBody] CreateAgentaDto createAgentaDto)
         {
             if (createAgentaDto == null)
                 return BadRequest();
@@ -43,7 +43,7 @@ namespace WebApi.Controllers
             return Ok(result);
         }
 
-        [HttpGet("GetByIdAgenta")]
+        [HttpGet("GetByIdAgenta/{id}")]
         public IActionResult GetByIdAgenta(int id)
         {
             var result = _services.AgentaService.GetByIdAgenta(id);
@@ -55,13 +55,13 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("UpdateAgenta")]
-        public IActionResult UpdateAgenta(UpdateAgentaDto updateAgentaDto, int id)
+        public IActionResult UpdateAgenta([FromBody] UpdateAgentaDto updateAgentaDto)
         {
             //var getAgenta = _services.AgentaService.GetByIdAgenta(id);
             //var agenta = getAgenta.Data;
-            var getAgenta = _services.AgentaService.Get(id);
+            var getAgenta = _services.AgentaService.Get(updateAgentaDto.UnitId);
             if(getAgenta is null)
-                throw new AgentaNotFound(id);
+                throw new AgentaNotFound(updateAgentaDto.UnitId);
 
             var agenta = getAgenta;
             agenta = _mapper.Map<Agenta>(updateAgentaDto);
@@ -70,7 +70,7 @@ namespace WebApi.Controllers
             return Ok(agenta);
         }
 
-        [HttpDelete("DeleteAgenta")]
+        [HttpDelete("DeleteAgenta/{id}")]
         public IActionResult DeleteAgenta(int id)
         {
             var agenta = _services.AgentaService.GetByIdAgenta(id);

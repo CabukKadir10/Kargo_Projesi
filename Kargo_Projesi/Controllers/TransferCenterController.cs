@@ -21,7 +21,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost("CreateCenter")]
-        public IActionResult CreateCenter(CreateCenterDto createCenterDto)
+        public IActionResult CreateCenter([FromBody] CreateCenterDto createCenterDto)
         {
             var center = _mapper.Map<TransferCenter>(createCenterDto);
             var result = _services.TransferCenterService.Add(center);
@@ -46,7 +46,7 @@ namespace WebApi.Controllers
             return BadRequest();
         }
 
-        [HttpGet("GetByIdCenter")]
+        [HttpGet("GetByIdCenter/{id}")]
         public IActionResult GetByIdCenter(int id)
         {
             var result = _services.TransferCenterService.GetByIdCenter(id);
@@ -59,7 +59,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPut("UpdateCenter")]
-        public IActionResult UpdateCenter(UpdateCenterDto updateCenterDto)
+        public IActionResult UpdateCenter([FromBody] UpdateCenterDto updateCenterDto)
         {
             //var getCenter = _services.TransferCenterService.GetByIdCenter(id);
             //var center = getCenter.Data;
@@ -74,7 +74,7 @@ namespace WebApi.Controllers
             return BadRequest();
         }
 
-        [HttpDelete("HardDeleteCenter")]
+        [HttpDelete("HardDeleteCenter/{id}")]
         public IActionResult HardDeleteCenter(int id)
         {
             var center = _services.TransferCenterService.GetByIdCenter(id);
@@ -88,7 +88,7 @@ namespace WebApi.Controllers
             return BadRequest();
         }
 
-        [HttpPost("UndBannedCenter")]
+        [HttpPost("UndBannedCenter/{id}")]
         public IActionResult UndoBannedCenter(int id)
         {
             var center = _services.TransferCenterService.GetByIdCenter(id);
@@ -101,7 +101,7 @@ namespace WebApi.Controllers
             return BadRequest("Banlı Değil");
         }
 
-        [HttpPost("BannedCenter")]
+        [HttpPost("BannedCenter/{id}")]
         public IActionResult BannedCenter(int id)
         {
             var center = _services.TransferCenterService.GetByIdCenter(id);
