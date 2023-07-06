@@ -38,9 +38,11 @@ namespace Data.Concrete.EfCore.Context
             modelBuilder.ApplyConfiguration(new TransferCenterConfig());
             modelBuilder.ApplyConfiguration(new AgentaConfig());
             modelBuilder.ApplyConfiguration(new RoleConfig());
+            // test 
 
-            //modelBuilder.Entity<Agenta>().HasKey(d => d.UnitId);
-            //modelBuilder.Entity<TransferCenter>().HasKey(d => d.UnitId);
+
+            //modelBuilder.Entity<Agenta>().HasKey(d => d.Id);
+            //modelBuilder.Entity<TransferCenter>().HasKey(d => d.Id);
 
             modelBuilder.Entity<Agenta>()
                 .HasOne(d => d.TransferCenter)

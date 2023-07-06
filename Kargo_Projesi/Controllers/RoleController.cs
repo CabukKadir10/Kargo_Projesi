@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Entity.Concrete;
 using Entity.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace WebApi.Controllers
 {
@@ -19,7 +21,7 @@ namespace WebApi.Controllers
             _roleManager = roleManager;
             _mapper = mapper;
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPost("CreateRole")]
         public async Task<IActionResult> CreateRole([FromBody] CreateRoleDto createRoleDto)
         {
@@ -31,7 +33,7 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpGet("GetByIdRole/{id}")]
         public async Task<IActionResult> GetByIdRole(string id)
         {
@@ -41,19 +43,17 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPut("UpdateRole")]
         public async Task<IActionResult> UpdateRole([FromBody] UpdateRoleDto updateRole)
         {
             var getRole = await _roleManager.FindByIdAsync(updateRole.Id);
-            if (getRole != null)
-            {
-                var role = _mapper.Map<Role>(updateRole);
-                getRole = role;
-                var result = await _roleManager.UpdateAsync(getRole);
-                if (result.Succeeded)
-                    return Ok();
-            }
+
+            _mapper.Map(updateRole, getRole);
+
+            var result = await _roleManager.UpdateAsync(getRole);
+            if (result.Succeeded)
+                return Ok();
 
             return BadRequest();
         }

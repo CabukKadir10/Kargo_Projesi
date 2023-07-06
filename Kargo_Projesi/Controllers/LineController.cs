@@ -2,9 +2,11 @@
 using Entity.Concrete;
 using Entity.Dto;
 using Entity.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abstract;
+using System.Data;
 
 namespace WebApi.Controllers
 {
@@ -20,7 +22,7 @@ namespace WebApi.Controllers
             _services = services;
             _mapper = mapper;
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPost("CreateLine")]
         public IActionResult CreateLine([FromBody]CreateLineDto createLineDto)
         {
@@ -34,7 +36,7 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpGet("GetListLine")]
         public IActionResult GetListLine()
         {
@@ -46,7 +48,7 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpGet("GetByIdLine/{id}")]
         public IActionResult GetByIdLine(int id)
         {
@@ -58,7 +60,7 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPut("UpdateLine")]
         public IActionResult UpdateLine([FromBody]UpdateLineDto updateLineDto)
         {
@@ -73,7 +75,7 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpDelete("DeleteLine/{id}")]
         public IActionResult DeleteLine(int id)
         {
@@ -86,7 +88,7 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpGet("LineIdToStation/{lineId}")]
         public IActionResult GetStationList(int lineId)
         {

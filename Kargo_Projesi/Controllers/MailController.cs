@@ -1,7 +1,9 @@
 ﻿using Entity.Concrete;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abstract;
+using System.Data;
 using System.Text;
 
 namespace WebApi.Controllers
@@ -16,7 +18,7 @@ namespace WebApi.Controllers
         {
             _service = service;
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPost("SendMail")]
         public IActionResult SendMail([FromBody] Mail mail)
         {

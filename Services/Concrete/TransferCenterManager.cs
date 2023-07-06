@@ -6,6 +6,7 @@ using Services.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,9 +33,9 @@ namespace Services.Concrete
             return new SuccessResult();
         }
 
-        public IDataResult<TransferCenter> GetByIdCenter(int id)
+        public IDataResult<TransferCenter> GetByIdCenter(Expression<Func<TransferCenter, bool>> filter)
         {
-            return new SuccessDataResult<TransferCenter>(_dalManager.TransferCenterDal.Get(u => u.Id == id));
+            return new SuccessDataResult<TransferCenter>(_dalManager.TransferCenterDal.Get(filter));
         }
 
         public IDataResult<List<TransferCenter>> GetListCenter()

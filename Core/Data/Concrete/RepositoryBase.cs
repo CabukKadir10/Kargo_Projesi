@@ -57,7 +57,7 @@ namespace Core.Data.Concrete
         {
             using (var _context = new Context())
             {
-                return _context.Set<T>().FirstOrDefault(filter);
+                return _context.Set<T>().SingleOrDefault(filter);
             }
         }
 
@@ -75,13 +75,12 @@ namespace Core.Data.Concrete
         {
             using (var _context = new Context())
             {
-                //var updatedEntity = _context.Entry(entity);
-                //updatedEntity.State = EntityState.Modified;
-                //_context.SaveChanges();
-                _context.ChangeTracker.Clear();
-                _context.Entry(entity).State = EntityState.Modified;
                 _context.Update(entity);
                 _context.SaveChanges();
+               // _context.ChangeTracker.Clear();
+               // _context.Entry(entity).State = EntityState.Modified;
+               //// _context.Update(entity);
+               // _context.SaveChanges();
             }
         }
 

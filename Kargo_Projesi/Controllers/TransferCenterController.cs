@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Entity.Concrete;
 using Entity.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abstract;
+using System.Data;
 
 namespace WebApi.Controllers
 {
@@ -19,7 +21,7 @@ namespace WebApi.Controllers
             _services = services;
             _mapper = mapper;
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPost("CreateCenter")]
         public IActionResult CreateCenter([FromBody] CreateCenterDto createCenterDto)
         {
@@ -33,7 +35,7 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpGet("GetListCenter")]
         public IActionResult GetCenterList()
         {
@@ -45,11 +47,11 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpGet("GetByIdCenter/{id}")]
         public IActionResult GetByIdCenter(int id)
         {
-            var result = _services.TransferCenterService.GetByIdCenter(id);
+            var result = _services.TransferCenterService.GetByIdCenter(u => u.Id == id);
             if (result.Success)
             {
                 return Ok(result);
@@ -57,14 +59,14 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-
-        [HttpPut("UpdateCenter")]
-        public IActionResult UpdateCenter([FromBody] UpdateCenterDto updateCenterDto)
+        [Authorize(Roles = "User, Editor, Admin")]
+        [HttpPut("UpdateCenter/{id}")]
+        public IActionResult UpdateCenter([FromBody] UpdateCenterDto updateCenterDto, int id)
         {
-            //var getCenter = _services.TransferCenterService.GetByIdCenter(id);
-            //var center = getCenter.Data;
-            var center = _mapper.Map<TransferCenter>(updateCenterDto);
-            var result = _services.TransferCenterService.Update(center);
+            var getCenter = _services.TransferCenterService.GetByIdCenter(u => u.Id == id);
+            _mapper.Map(updateCenterDto, getCenter.Data);
+            getCenter.Data.ConcurrencyStamp = updateCenterDto.ConurrencyStamp;
+            var result = _services.TransferCenterService.Update(getCenter.Data);
 
             if (result.Success)
             {
@@ -73,11 +75,11 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpDelete("HardDeleteCenter/{id}")]
         public IActionResult HardDeleteCenter(int id)
         {
-            var center = _services.TransferCenterService.GetByIdCenter(id);
+            var center = _services.TransferCenterService.GetByIdCenter(u => u.Id == id);
             var result = _services.TransferCenterService.Delete(center.Data);
 
             if (result.Success)
@@ -87,27 +89,29 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPost("UndBannedCenter/{id}")]
         public IActionResult UndoBannedCenter(int id)
         {
-            var center = _services.TransferCenterService.GetByIdCenter(id);
+            var center = _services.TransferCenterService.GetByIdCenter(u => u.Id == id);
             if(center.Data.IsBanned == true)
             {
                 center.Data.IsBanned = false;
+                _services.TransferCenterService.Update(center.Data);
                 return Ok("Ban Kaldırıldı");
             }
 
             return BadRequest("Banlı Değil");
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPost("BannedCenter/{id}")]
         public IActionResult BannedCenter(int id)
         {
-            var center = _services.TransferCenterService.GetByIdCenter(id);
+            var center = _services.TransferCenterService.GetByIdCenter(u => u.Id == id);
             if(center.Data.IsBanned == false)
             {
                 center.Data.IsBanned = true;
+                _services.TransferCenterService.Update(center.Data);
                 return Ok("Banlandı");
             }
 

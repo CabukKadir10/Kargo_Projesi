@@ -6,6 +6,7 @@ using Services.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,9 +23,9 @@ namespace Services.Concrete
 
         public void Add(Agenta agenta)
         {
-            var count = _dalManager.AgentaDal.Count(a => a.CenterId == agenta.CenterId);
-            if(count <= 5)
-                _dalManager.AgentaDal.Create(agenta);
+            //var count = _dalManager.AgentaDal.Count(a => a.CenterId == agenta.CenterId);
+            //if(count <= 5)
+            _dalManager.AgentaDal.Create(agenta);
         }
 
         public void Delete(Agenta agenta)
@@ -37,9 +38,9 @@ namespace Services.Concrete
             return _dalManager.AgentaDal.Get(u => u.Id == id);
         }
 
-        public Agenta GetByIdAgenta(int id)
+        public Agenta GetByIdAgenta(Expression<Func<Agenta, bool>> filter)
         {
-            return _dalManager.AgentaDal.Get(u => u.Id == id);
+            return _dalManager.AgentaDal.Get(filter);
         }
 
         public List<Agenta> GetListAgenta()
@@ -48,6 +49,7 @@ namespace Services.Concrete
         }
 
         public void Update(Agenta agenta)
+
         {
             _dalManager.AgentaDal.Update(agenta);
         }

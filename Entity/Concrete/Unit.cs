@@ -1,13 +1,14 @@
 ﻿using Entity.Abstract;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Entity.Concrete
 {
-    public class Unit
+    public class Unit : IEntity
     {
         public int Id { get; set; }
         public string UnitName { get; set; }
@@ -23,6 +24,8 @@ namespace Entity.Concrete
         public string Street { get; set; }
         public string AddressDetail { get; set; }
         public bool IsBanned { get; set; }
+        [ConcurrencyCheck]
+        public virtual string ConcurrencyStamp { get; set; } = Guid.NewGuid().ToString();
         //public int StationsId { get; set; }
         //public IList<Station> Stations { get; set; }
     }

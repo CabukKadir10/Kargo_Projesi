@@ -3,6 +3,7 @@ using Entity.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace Services.Abstract
         void Add(Agenta agenta);
         void Update(Agenta agenta);
         void Delete(Agenta agenta);
-        Agenta GetByIdAgenta(int id);
+        Agenta GetByIdAgenta(Expression<Func<Agenta, bool>> filter);
         List<Agenta> GetListAgenta();
         Agenta Get(int id);
 

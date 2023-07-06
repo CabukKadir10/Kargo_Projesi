@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using Entity.Concrete;
 using Entity.Dto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abstract;
+using System.Data;
 
 namespace WebApi.Controllers
 {
@@ -19,7 +21,7 @@ namespace WebApi.Controllers
             _services = services;
             _mapper = mapper;
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPost("CreateStation")]
         public IActionResult CreateStation([FromBody] CreateStationDto createStationDto)
         {
@@ -32,7 +34,7 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpGet("GetByIdStation/{id}")]
         public IActionResult GetByIdStation(int id)
         {
@@ -44,7 +46,7 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpGet("GetListStation")]
         public IActionResult GetListStation()
         {
@@ -56,7 +58,7 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpDelete("DeleteStation/{id}")]
         public IActionResult DeleteStation(int id)
         {
@@ -69,7 +71,7 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPut("UpdateStation")]
         public IActionResult UpdateStation([FromBody] UpdateStationDto updateStationDto)
         {

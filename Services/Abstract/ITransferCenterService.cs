@@ -3,6 +3,7 @@ using Entity.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +14,7 @@ namespace Services.Abstract
         IResult Add(TransferCenter transferCenter);
         IResult Update(TransferCenter transferCenter);
         IResult Delete(TransferCenter transferCenter);
-        IDataResult<TransferCenter> GetByIdCenter(int id);
+        IDataResult<TransferCenter> GetByIdCenter(Expression<Func<TransferCenter, bool>> filter);
         IDataResult<List<TransferCenter>> GetListCenter();
     }
 }

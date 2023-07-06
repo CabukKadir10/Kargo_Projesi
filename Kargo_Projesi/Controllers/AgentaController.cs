@@ -2,6 +2,7 @@
 using Entity.Concrete;
 using Entity.Dto;
 using Entity.Exceptions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abstract;
@@ -21,6 +22,7 @@ namespace WebApi.Controllers
             _mapper = mapper;
         }
 
+        [Authorize(Roles ="User, Editor, Admin")]
         [HttpPost("CreateAgenta")]
         public IActionResult CreateAgenta([FromBody] CreateAgentaDto createAgentaDto)
         {
@@ -32,7 +34,7 @@ namespace WebApi.Controllers
 
             return Ok(agenta);
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpGet("GetListAgenta")]
         public IActionResult GetListAgenta()
         {
@@ -42,38 +44,33 @@ namespace WebApi.Controllers
 
             return Ok(result);
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpGet("GetByIdAgenta/{id}")]
         public IActionResult GetByIdAgenta(int id)
         {
-            var result = _services.AgentaService.GetByIdAgenta(id);
+            var result = _services.AgentaService.Get(id);
 
             if (result is null)
                 throw new AgentaNotFound(id);
 
             return Ok(result);
         }
-
-        [HttpPut("UpdateAgenta")]
-        public IActionResult UpdateAgenta([FromBody] UpdateAgentaDto updateAgentaDto)
+        [Authorize(Roles = "User, Editor, Admin")]
+        [HttpPut("UpdateAgenta/{id}")]
+        public IActionResult UpdateAgenta([FromBody] UpdateAgentaDto updateAgentaDto, int id)
         {
-            //var getAgenta = _services.AgentaService.GetByIdAgenta(id);
-            //var agenta = getAgenta.Data;
-            var getAgenta = _services.AgentaService.Get(updateAgentaDto.UnitId);
-            if(getAgenta is null)
-                throw new AgentaNotFound(updateAgentaDto.UnitId);
+            var getAgenta = _services.AgentaService.GetByIdAgenta(u => u.Id ==id);
+            _mapper.Map(updateAgentaDto, getAgenta);
+            getAgenta.ConcurrencyStamp = updateAgentaDto.ConurrencyStamp;
+            _services.AgentaService.Update(getAgenta);
 
-            var agenta = getAgenta;
-            agenta = _mapper.Map<Agenta>(updateAgentaDto);
-            _services.AgentaService.Update(agenta);
-
-            return Ok(agenta);
+            return Ok(getAgenta);
         }
-
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpDelete("DeleteAgenta/{id}")]
         public IActionResult DeleteAgenta(int id)
         {
-            var agenta = _services.AgentaService.GetByIdAgenta(id);
+            var agenta = _services.AgentaService.Get(id);
             if (agenta is null)
                 throw new AgentaNotFound(id);
 
