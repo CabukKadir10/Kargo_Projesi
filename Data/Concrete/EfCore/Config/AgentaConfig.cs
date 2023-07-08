@@ -18,8 +18,8 @@ namespace Data.Concrete.EfCore.Config
                 {
                     Id = 6,
                     UnitName = "agenta1",
-                    ResponsibleName = "kadir",
-                    ResponsibleSurname = "Çabuk",
+                    ManagerName = "kadir",
+                    ManagerSurname = "Çabuk",
                     PhoneNumber = "05123456789",
                     Gsm = "085012356",
                     Email = "kadir@gmail.com",
@@ -29,15 +29,15 @@ namespace Data.Concrete.EfCore.Config
                     NeighBourHood = "mahalle1",
                     Street = "sokak1",
                     AddressDetail = "Amed merkez",
-                    IsBanned = false,
+                    IsDeleted = false,
                     CenterId = 1
                 },
                 new Agenta
                 {
                     Id = 7,
                     UnitName = "agenta2",
-                    ResponsibleName = "kadir",
-                    ResponsibleSurname = "Çabuk",
+                    ManagerName = "kadir",
+                    ManagerSurname = "Çabuk",
                     PhoneNumber = "05123456789",
                     Gsm = "085012356",
                     Email = "kadir@gmail.com",
@@ -47,15 +47,15 @@ namespace Data.Concrete.EfCore.Config
                     NeighBourHood = "mahalle1",
                     Street = "sokak1",
                     AddressDetail = "Amed merkez",
-                    IsBanned = false,
+                    IsDeleted = false,
                     CenterId = 1
                 },
                 new Agenta
                 {
                     Id = 8,
                     UnitName = "agenta3",
-                    ResponsibleName = "kadir",
-                    ResponsibleSurname = "Çabuk",
+                    ManagerName = "kadir",
+                    ManagerSurname = "Çabuk",
                     PhoneNumber = "05123456789",
                     Gsm = "085012356",
                     Email = "kadir@gmail.com",
@@ -65,15 +65,15 @@ namespace Data.Concrete.EfCore.Config
                     NeighBourHood = "mahalle1",
                     Street = "sokak1",
                     AddressDetail = "Amed merkez",
-                    IsBanned = false,
+                    IsDeleted = false,
                     CenterId = 1
                 },
                 new Agenta
                 {
                     Id = 9,
                     UnitName = "agenta4",
-                    ResponsibleName = "kadir",
-                    ResponsibleSurname = "Çabuk",
+                    ManagerName = "kadir",
+                    ManagerSurname = "Çabuk",
                     PhoneNumber = "05123456789",
                     Gsm = "085012356",
                     Email = "kadir@gmail.com",
@@ -83,15 +83,15 @@ namespace Data.Concrete.EfCore.Config
                     NeighBourHood = "mahalle1",
                     Street = "sokak1",
                     AddressDetail = "Amed merkez",
-                    IsBanned = false,
+                    IsDeleted = false,
                     CenterId = 1
                 },
                 new Agenta
                 {
                     Id = 10,
                     UnitName = "agenta5",
-                    ResponsibleName = "kadir",
-                    ResponsibleSurname = "Çabuk",
+                    ManagerName = "kadir",
+                    ManagerSurname = "Çabuk",
                     PhoneNumber = "05123456789",
                     Gsm = "085012356",
                     Email = "kadir@gmail.com",
@@ -101,7 +101,7 @@ namespace Data.Concrete.EfCore.Config
                     NeighBourHood = "mahalle1",
                     Street = "sokak1",
                     AddressDetail = "Amed merkez",
-                    IsBanned = false,
+                    IsDeleted = false,
                     CenterId = 1
                 }
             );

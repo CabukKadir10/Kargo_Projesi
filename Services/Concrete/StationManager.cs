@@ -1,8 +1,11 @@
-﻿using Core.Utilities.Results.Abstract;
+﻿using Core.Aspects.AutoFac.Validation;
+using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using Data.Abstract;
 using Entity.Concrete;
+using Entity.Concrete.Enum;
 using Services.Abstract;
+using Services.FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,13 +24,29 @@ namespace Services.Concrete
             _dalManager = dalManager;
         }
 
-        public IResult Add(Station station)
+        [ValidationAspects(typeof(StationValidator))]
+        public void Add(Station station)
         {
-            var count = _dalManager.StationDal.Count(a => a.OrderNumber == station.OrderNumber);
-            if(count < 3)
+            var count = _dalManager.StationDal.Count(a => a.LineId == station.LineId);
+            if(count <= 10)
                 _dalManager.StationDal.Create(station);
 
-            return new SuccessResult();
+            if(station.Line.LineType == LineType.outLine)
+            {
+                var list = _dalManager.TransferCenterDal.GetList();
+                if (list.Any(a => a.Id == station.UnitId))
+                {
+                    _dalManager.StationDal.Create(station);
+                }
+            }
+            else
+            {
+                var list2 = _dalManager.AgentaDal.GetList();
+                if(list2.Any(a => a.Id == station.UnitId))
+                {
+                    _dalManager.StationDal.Create(station);
+                }
+            }    
         }
 
         public IResult Delete(Station station)
@@ -51,6 +70,7 @@ namespace Services.Concrete
             return new SuccessDataResult<List<Station>>(_dalManager.StationDal.GetList(filter));
         }
 
+        [ValidationAspects(typeof(StationValidator))]
         public IResult Update(Station station)
         {
             _dalManager.StationDal.Update(station);

@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Data.Migrations
 {
     [DbContext(typeof(ContextKargo))]
-    [Migration("20230705135120_deneme25")]
-    partial class deneme25
+    [Migration("20230707140801_Deneme1")]
+    partial class Deneme1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,6 +33,10 @@ namespace Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("LineId"));
 
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
@@ -51,6 +55,7 @@ namespace Data.Migrations
                         new
                         {
                             LineId = 1,
+                            ConcurrencyStamp = "43fa21d2-547a-41bf-b83f-3b2e19af02fb",
                             IsActive = true,
                             LineName = "Diyarbakır Hattı",
                             LineType = 1
@@ -58,6 +63,7 @@ namespace Data.Migrations
                         new
                         {
                             LineId = 2,
+                            ConcurrencyStamp = "9b48f6b3-e00d-4550-aca1-0f223be8023c",
                             IsActive = true,
                             LineName = "Mardin Hattı",
                             LineType = 1
@@ -65,6 +71,7 @@ namespace Data.Migrations
                         new
                         {
                             LineId = 3,
+                            ConcurrencyStamp = "81e0560b-bea9-478b-b24b-1d1929f02ad0",
                             IsActive = true,
                             LineName = "Mersin Hattı",
                             LineType = 1
@@ -72,6 +79,7 @@ namespace Data.Migrations
                         new
                         {
                             LineId = 4,
+                            ConcurrencyStamp = "bb7dfd1d-6df5-49ef-8b7a-40f76b6da04e",
                             IsActive = true,
                             LineName = "Ankara Hattı",
                             LineType = 1
@@ -79,9 +87,10 @@ namespace Data.Migrations
                         new
                         {
                             LineId = 5,
+                            ConcurrencyStamp = "af2a8fb5-60b7-4ae4-aac2-fd615e7804d1",
                             IsActive = true,
                             LineName = "İstanbul Hattı",
-                            LineType = 1
+                            LineType = 2
                         });
                 });
 
@@ -117,14 +126,14 @@ namespace Data.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "User",
-                            NormalizedName = "USER"
+                            Name = "Agenta",
+                            NormalizedName = "AGENTA"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Editor",
-                            NormalizedName = "EDITOR"
+                            Name = "TransferCenter",
+                            NormalizedName = "CENTER"
                         },
                         new
                         {
@@ -141,6 +150,13 @@ namespace Data.Migrations
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ConcurrencyStamp")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
 
                     b.Property<int>("LineId")
                         .HasColumnType("integer");
@@ -159,12 +175,16 @@ namespace Data.Migrations
 
                     b.HasIndex("LineId");
 
+                    b.HasIndex("UnitId");
+
                     b.ToTable("Station");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
+                            ConcurrencyStamp = "2983b66a-7612-4429-9e8d-399c97cbf70a",
+                            IsActive = true,
                             LineId = 1,
                             OrderNumber = 1,
                             StationName = "durak1",
@@ -173,6 +193,8 @@ namespace Data.Migrations
                         new
                         {
                             Id = 2,
+                            ConcurrencyStamp = "cafe0668-a6e2-4406-811b-b1e69d3c6534",
+                            IsActive = true,
                             LineId = 1,
                             OrderNumber = 2,
                             StationName = "durak2",
@@ -181,6 +203,8 @@ namespace Data.Migrations
                         new
                         {
                             Id = 3,
+                            ConcurrencyStamp = "5d4c2575-1c26-465f-ac0f-fa2b4327c875",
+                            IsActive = true,
                             LineId = 1,
                             OrderNumber = 3,
                             StationName = "durak3",
@@ -189,6 +213,8 @@ namespace Data.Migrations
                         new
                         {
                             Id = 4,
+                            ConcurrencyStamp = "5bf96a40-efc9-426c-b2c0-39599c744db4",
+                            IsActive = true,
                             LineId = 2,
                             OrderNumber = 1,
                             StationName = "durak4",
@@ -197,6 +223,8 @@ namespace Data.Migrations
                         new
                         {
                             Id = 5,
+                            ConcurrencyStamp = "1bc6d9e5-dcdc-4544-8f73-341e28139f46",
+                            IsActive = true,
                             LineId = 2,
                             OrderNumber = 2,
                             StationName = "durak5",
@@ -221,6 +249,7 @@ namespace Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("ConcurrencyStamp")
+                        .IsConcurrencyToken()
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -244,22 +273,22 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsBanned")
+                    b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("ManagerName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ManagerSurname")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("NeighBourHood")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("ResponsibleName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("ResponsibleSurname")
                         .IsRequired()
                         .HasColumnType("text");
 
@@ -296,6 +325,7 @@ namespace Data.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("District")
@@ -346,6 +376,9 @@ namespace Data.Migrations
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("boolean");
+
+                    b.Property<int>("UnitId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
@@ -483,16 +516,16 @@ namespace Data.Migrations
                             Id = 6,
                             AddressDetail = "Amed merkez",
                             City = "Diyarbakır",
-                            ConcurrencyStamp = "cccb00a7-a6e9-4ab8-99bd-ce784869d788",
+                            ConcurrencyStamp = "6a89837b-ddf3-49e4-96af-bddc9fbf49e3",
                             Description = "Description",
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
                             Gsm = "085012356",
-                            IsBanned = false,
+                            IsDeleted = false,
+                            ManagerName = "kadir",
+                            ManagerSurname = "Çabuk",
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
-                            ResponsibleName = "kadir",
-                            ResponsibleSurname = "Çabuk",
                             Street = "sokak1",
                             UnitName = "agenta1",
                             CenterId = 1
@@ -502,16 +535,16 @@ namespace Data.Migrations
                             Id = 7,
                             AddressDetail = "Amed merkez",
                             City = "Diyarbakır",
-                            ConcurrencyStamp = "b8c19613-202c-4b2f-bd92-7956b2f885ca",
+                            ConcurrencyStamp = "2bf58eeb-edbd-48e8-a87a-7a0ac3146bf7",
                             Description = "Description",
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
                             Gsm = "085012356",
-                            IsBanned = false,
+                            IsDeleted = false,
+                            ManagerName = "kadir",
+                            ManagerSurname = "Çabuk",
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
-                            ResponsibleName = "kadir",
-                            ResponsibleSurname = "Çabuk",
                             Street = "sokak1",
                             UnitName = "agenta2",
                             CenterId = 1
@@ -521,16 +554,16 @@ namespace Data.Migrations
                             Id = 8,
                             AddressDetail = "Amed merkez",
                             City = "Diyarbakır",
-                            ConcurrencyStamp = "84b3fb25-ce01-4809-a2f9-8745f606e153",
+                            ConcurrencyStamp = "452873ad-87a9-4deb-800c-cd4c86ea4446",
                             Description = "Description",
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
                             Gsm = "085012356",
-                            IsBanned = false,
+                            IsDeleted = false,
+                            ManagerName = "kadir",
+                            ManagerSurname = "Çabuk",
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
-                            ResponsibleName = "kadir",
-                            ResponsibleSurname = "Çabuk",
                             Street = "sokak1",
                             UnitName = "agenta3",
                             CenterId = 1
@@ -540,16 +573,16 @@ namespace Data.Migrations
                             Id = 9,
                             AddressDetail = "Amed merkez",
                             City = "Diyarbakır",
-                            ConcurrencyStamp = "9966d628-8e03-42b3-b3f6-dfb7cb1c63c2",
+                            ConcurrencyStamp = "168ccfae-04b8-4f31-abe0-f6cec83efc68",
                             Description = "Description",
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
                             Gsm = "085012356",
-                            IsBanned = false,
+                            IsDeleted = false,
+                            ManagerName = "kadir",
+                            ManagerSurname = "Çabuk",
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
-                            ResponsibleName = "kadir",
-                            ResponsibleSurname = "Çabuk",
                             Street = "sokak1",
                             UnitName = "agenta4",
                             CenterId = 1
@@ -559,16 +592,16 @@ namespace Data.Migrations
                             Id = 10,
                             AddressDetail = "Amed merkez",
                             City = "Diyarbakır",
-                            ConcurrencyStamp = "e8f057dc-7d99-429a-998d-a4bcc97d0582",
+                            ConcurrencyStamp = "7c724ffa-83c8-4e20-a810-0ef569c8a88d",
                             Description = "Description",
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
                             Gsm = "085012356",
-                            IsBanned = false,
+                            IsDeleted = false,
+                            ManagerName = "kadir",
+                            ManagerSurname = "Çabuk",
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
-                            ResponsibleName = "kadir",
-                            ResponsibleSurname = "Çabuk",
                             Street = "sokak1",
                             UnitName = "agenta5",
                             CenterId = 1
@@ -587,16 +620,16 @@ namespace Data.Migrations
                             Id = 1,
                             AddressDetail = "Amed merkez",
                             City = "Diyarbakır",
-                            ConcurrencyStamp = "00c3a7f0-9a1d-442e-91b6-29ea082f47a9",
+                            ConcurrencyStamp = "13784c1e-864a-402f-b387-80d31be4b934",
                             Description = "Description",
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
                             Gsm = "085012356",
-                            IsBanned = false,
+                            IsDeleted = false,
+                            ManagerName = "kadir",
+                            ManagerSurname = "Çabuk",
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
-                            ResponsibleName = "kadir",
-                            ResponsibleSurname = "Çabuk",
                             Street = "sokak1",
                             UnitName = "Name1"
                         },
@@ -605,16 +638,16 @@ namespace Data.Migrations
                             Id = 2,
                             AddressDetail = "Mardin merkez",
                             City = "Mardin",
-                            ConcurrencyStamp = "68d2b2a7-9579-4ddf-a2d4-7c440adf9ae7",
+                            ConcurrencyStamp = "b31f174d-ffc3-4b1b-b6ba-7c1e2d3ef974",
                             Description = "Description",
                             District = "Bağlar",
                             Email = "muaz@gmail.com",
                             Gsm = "085012356",
-                            IsBanned = false,
+                            IsDeleted = false,
+                            ManagerName = "muaz",
+                            ManagerSurname = "Çabuk",
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
-                            ResponsibleName = "muaz",
-                            ResponsibleSurname = "Çabuk",
                             Street = "sokak1",
                             UnitName = "Name2"
                         },
@@ -623,16 +656,16 @@ namespace Data.Migrations
                             Id = 3,
                             AddressDetail = "Konya merkez",
                             City = "Konya",
-                            ConcurrencyStamp = "2cad2f71-11d7-45a0-aac3-1c3e330175fc",
+                            ConcurrencyStamp = "2094e16d-9cde-42b4-a07a-8905ad66101f",
                             Description = "Description",
                             District = "Bağlar",
                             Email = "yusuf@gmail.com",
                             Gsm = "085012356",
-                            IsBanned = false,
+                            IsDeleted = false,
+                            ManagerName = "yusuf",
+                            ManagerSurname = "Çabuk",
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
-                            ResponsibleName = "yusuf",
-                            ResponsibleSurname = "Çabuk",
                             Street = "sokak1",
                             UnitName = "Name3"
                         },
@@ -641,16 +674,16 @@ namespace Data.Migrations
                             Id = 4,
                             AddressDetail = "Ankara merkez",
                             City = "Ankara",
-                            ConcurrencyStamp = "0ea07e01-2cdc-4432-b5ed-779984ef932a",
+                            ConcurrencyStamp = "70fe84f2-6305-4aad-832a-137056407f60",
                             Description = "Description",
                             District = "Bağlar",
                             Email = "ahmet@gmail.com",
                             Gsm = "085012356",
-                            IsBanned = false,
+                            IsDeleted = false,
+                            ManagerName = "ahmet",
+                            ManagerSurname = "Çabuk",
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
-                            ResponsibleName = "ahmet",
-                            ResponsibleSurname = "Çabuk",
                             Street = "sokak1",
                             UnitName = "Name4"
                         },
@@ -659,16 +692,16 @@ namespace Data.Migrations
                             Id = 5,
                             AddressDetail = "İstanbul merkez",
                             City = "İstanbul",
-                            ConcurrencyStamp = "247789dc-8d09-4b85-aa84-42494666672a",
+                            ConcurrencyStamp = "704bdf06-e668-40d8-a73a-f815bbba8247",
                             Description = "Description",
                             District = "Bağlar",
                             Email = "mehmet@gmail.com",
                             Gsm = "085012356",
-                            IsBanned = false,
+                            IsDeleted = false,
+                            ManagerName = "mehmet",
+                            ManagerSurname = "Çabuk",
                             NeighBourHood = "mahalle1",
                             PhoneNumber = "05123456789",
-                            ResponsibleName = "mehmet",
-                            ResponsibleSurname = "Çabuk",
                             Street = "sokak1",
                             UnitName = "Name5"
                         });
@@ -682,7 +715,15 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Entity.Concrete.Unit", "Unit")
+                        .WithMany("Stations")
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Line");
+
+                    b.Navigation("Unit");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -748,6 +789,11 @@ namespace Data.Migrations
                 });
 
             modelBuilder.Entity("Entity.Concrete.Line", b =>
+                {
+                    b.Navigation("Stations");
+                });
+
+            modelBuilder.Entity("Entity.Concrete.Unit", b =>
                 {
                     b.Navigation("Stations");
                 });

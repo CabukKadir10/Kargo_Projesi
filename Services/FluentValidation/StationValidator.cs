@@ -13,7 +13,9 @@ namespace Services.FluentValidation
         public StationValidator()
         {
             RuleFor(a => a.UnitId).NotEmpty().WithMessage("her durak bir unite bağlıdır boş bırakmayınız");
-            RuleFor(a => a.OrderNumber).GreaterThanOrEqualTo(10).WithMessage("her hatta en fazla 10 durak olur");
+            RuleFor(a => a.OrderNumber).NotEmpty().WithMessage("Durak sırasını boş geçmeyin");
+            RuleFor(a => a.StationName).NotEmpty().WithMessage("İsim alanını boş geçmeyiniz");
+            RuleFor(a => a.LineId).NotEmpty().WithMessage("line alanını boş geçmeyiniz");
         }
     }
 }

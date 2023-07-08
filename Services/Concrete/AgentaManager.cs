@@ -1,8 +1,12 @@
-﻿using Core.Utilities.Results.Abstract;
+﻿using Core.Aspects.AutoFac.Validation;
+using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using Data.Abstract;
 using Entity.Concrete;
+using FluentValidation.Results;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Services.Abstract;
+using Services.FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,11 +25,12 @@ namespace Services.Concrete
             _dalManager = dalManager;
         }
 
+        [ValidationAspects(typeof(AgentaValidator))]
         public void Add(Agenta agenta)
         {
-            //var count = _dalManager.AgentaDal.Count(a => a.CenterId == agenta.CenterId);
-            //if(count <= 5)
-            _dalManager.AgentaDal.Create(agenta);
+            var list = _dalManager.AgentaDal.Count(a => a.CenterId == agenta.CenterId);
+            if(list< 10)
+                _dalManager.AgentaDal.Create(agenta);
         }
 
         public void Delete(Agenta agenta)
@@ -48,6 +53,7 @@ namespace Services.Concrete
             return _dalManager.AgentaDal.GetList();
         }
 
+        [ValidationAspects(typeof(AgentaValidator))]
         public void Update(Agenta agenta)
 
         {

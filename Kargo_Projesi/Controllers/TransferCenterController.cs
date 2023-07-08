@@ -21,7 +21,7 @@ namespace WebApi.Controllers
             _services = services;
             _mapper = mapper;
         }
-        [Authorize(Roles = "User, Editor, Admin")]
+       // [Authorize(Roles = "User, Editor, Admin")]
         [HttpPost("CreateCenter")]
         public IActionResult CreateCenter([FromBody] CreateCenterDto createCenterDto)
         {
@@ -30,12 +30,12 @@ namespace WebApi.Controllers
 
             if (result.Success)
             {
-                return Ok(result);
+                return Ok(createCenterDto);
             }
 
             return BadRequest();
         }
-        [Authorize(Roles = "User, Editor, Admin")]
+       // [Authorize(Roles = "User, Editor, Admin")]
         [HttpGet("GetListCenter")]
         public IActionResult GetCenterList()
         {
@@ -47,7 +47,7 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-        [Authorize(Roles = "User, Editor, Admin")]
+       // [Authorize(Roles = "User, Editor, Admin")]
         [HttpGet("GetByIdCenter/{id}")]
         public IActionResult GetByIdCenter(int id)
         {
@@ -59,7 +59,7 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-        [Authorize(Roles = "User, Editor, Admin")]
+        //[Authorize(Roles = "User, Editor, Admin")]
         [HttpPut("UpdateCenter/{id}")]
         public IActionResult UpdateCenter([FromBody] UpdateCenterDto updateCenterDto, int id)
         {
@@ -70,12 +70,12 @@ namespace WebApi.Controllers
 
             if (result.Success)
             {
-                return Ok(result);
+                return Ok(updateCenterDto);
             }
 
             return BadRequest();
         }
-        [Authorize(Roles = "User, Editor, Admin")]
+        //[Authorize(Roles = "User, Editor, Admin")]
         [HttpDelete("HardDeleteCenter/{id}")]
         public IActionResult HardDeleteCenter(int id)
         {
@@ -89,28 +89,28 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-        [Authorize(Roles = "User, Editor, Admin")]
+       // [Authorize(Roles = "User, Editor, Admin")]
         [HttpPost("UndBannedCenter/{id}")]
         public IActionResult UndoBannedCenter(int id)
         {
             var center = _services.TransferCenterService.GetByIdCenter(u => u.Id == id);
-            if(center.Data.IsBanned == true)
+            if(center.Data.IsDeleted == true)
             {
-                center.Data.IsBanned = false;
+                center.Data.IsDeleted = false;
                 _services.TransferCenterService.Update(center.Data);
                 return Ok("Ban Kaldırıldı");
             }
 
             return BadRequest("Banlı Değil");
         }
-        [Authorize(Roles = "User, Editor, Admin")]
+       // [Authorize(Roles = "User, Editor, Admin")]
         [HttpPost("BannedCenter/{id}")]
         public IActionResult BannedCenter(int id)
         {
             var center = _services.TransferCenterService.GetByIdCenter(u => u.Id == id);
-            if(center.Data.IsBanned == false)
+            if(center.Data.IsDeleted == false)
             {
-                center.Data.IsBanned = true;
+                center.Data.IsDeleted = true;
                 _services.TransferCenterService.Update(center.Data);
                 return Ok("Banlandı");
             }

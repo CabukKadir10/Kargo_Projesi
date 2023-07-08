@@ -17,14 +17,14 @@ namespace Data.Concrete.EfCore.Config
                     new Role
                     {
                         Id = 1,
-                        Name = "User",
-                        NormalizedName = "USER"
+                        Name = "Agenta",
+                        NormalizedName = "AGENTA"
                     },
                     new Role
                     {
                         Id = 2,
-                        Name = "Editor",
-                        NormalizedName = "EDITOR"
+                        Name = "TransferCenter",
+                        NormalizedName = "CENTER"
                     },
                     new Role
                     {

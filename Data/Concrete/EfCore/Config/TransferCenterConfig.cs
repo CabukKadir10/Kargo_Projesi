@@ -18,8 +18,8 @@ namespace Data.Concrete.EfCore.Config
                     {
                         Id = 1,
                         UnitName = "Name1",
-                        ResponsibleName = "kadir",
-                        ResponsibleSurname = "Çabuk",
+                        ManagerName = "kadir",
+                        ManagerSurname = "Çabuk",
                         PhoneNumber = "05123456789",
                         Gsm = "085012356",
                         Email = "kadir@gmail.com",
@@ -28,15 +28,15 @@ namespace Data.Concrete.EfCore.Config
                         District = "Bağlar",
                         NeighBourHood = "mahalle1",
                         Street = "sokak1",
-                        IsBanned = false,
+                        IsDeleted = false,
                         AddressDetail = "Amed merkez"
                     },
                     new TransferCenter
                     {
                         Id = 2,
                         UnitName = "Name2",
-                        ResponsibleName = "muaz",
-                        ResponsibleSurname = "Çabuk",
+                        ManagerName = "muaz",
+                        ManagerSurname = "Çabuk",
                         PhoneNumber = "05123456789",
                         Gsm = "085012356",
                         Email = "muaz@gmail.com",
@@ -45,15 +45,15 @@ namespace Data.Concrete.EfCore.Config
                         District = "Bağlar",
                         NeighBourHood = "mahalle1",
                         Street = "sokak1",
-                        IsBanned = false,
+                        IsDeleted = false,
                         AddressDetail = "Mardin merkez"
                     },
                     new TransferCenter
                     {
                         Id = 3,
                         UnitName = "Name3",
-                        ResponsibleName = "yusuf",
-                        ResponsibleSurname = "Çabuk",
+                        ManagerName = "yusuf",
+                        ManagerSurname = "Çabuk",
                         PhoneNumber = "05123456789",
                         Gsm = "085012356",
                         Email = "yusuf@gmail.com",
@@ -62,15 +62,15 @@ namespace Data.Concrete.EfCore.Config
                         District = "Bağlar",
                         NeighBourHood = "mahalle1",
                         Street = "sokak1",
-                        IsBanned = false,
+                        IsDeleted = false,
                         AddressDetail = "Konya merkez"
                     },
                     new TransferCenter
                     {
                         Id = 4,
                         UnitName = "Name4",
-                        ResponsibleName = "ahmet",
-                        ResponsibleSurname = "Çabuk",
+                        ManagerName = "ahmet",
+                        ManagerSurname = "Çabuk",
                         PhoneNumber = "05123456789",
                         Gsm = "085012356",
                         Email = "ahmet@gmail.com",
@@ -79,15 +79,15 @@ namespace Data.Concrete.EfCore.Config
                         District = "Bağlar",
                         NeighBourHood = "mahalle1",
                         Street = "sokak1",
-                        IsBanned = false,
+                        IsDeleted = false,
                         AddressDetail = "Ankara merkez"
                     },
                     new TransferCenter
                     {
                         Id = 5,
                         UnitName = "Name5",
-                        ResponsibleName = "mehmet",
-                        ResponsibleSurname = "Çabuk",
+                        ManagerName = "mehmet",
+                        ManagerSurname = "Çabuk",
                         PhoneNumber = "05123456789",
                         Gsm = "085012356",
                         Email = "mehmet@gmail.com",
@@ -96,7 +96,7 @@ namespace Data.Concrete.EfCore.Config
                         District = "Bağlar",
                         NeighBourHood = "mahalle1",
                         Street = "sokak1",
-                        IsBanned = false,
+                        IsDeleted = false,
                         AddressDetail = "İstanbul merkez"
                     }
                 );

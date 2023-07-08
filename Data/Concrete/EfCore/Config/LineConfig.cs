@@ -46,7 +46,7 @@ namespace Data.Concrete.EfCore.Config
                     {
                         LineId = 5,
                         LineName = "İstanbul Hattı",
-                        LineType = Entity.Concrete.Enum.LineType.outLine,
+                        LineType = Entity.Concrete.Enum.LineType.intermediateLine,
                         IsActive = true
                     }
                 );

@@ -11,5 +11,7 @@ namespace Entity.Dto
     {
         public string LineName { get; set; }
         public int LineType { get; set; }
+        public int CenterId { get; set; }
+        public List<int> UnitId { get; set; }
     }
 }

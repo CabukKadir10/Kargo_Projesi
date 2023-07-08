@@ -1,11 +1,14 @@
 ﻿    using AutoMapper;
+using Core.Aspects.AutoFac.Validation;
 using Entity.Concrete;
 using Entity.Dto;
 using Entity.Exceptions;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Abstract;
+using Services.FluentValidation;
 
 namespace WebApi.Controllers
 {
@@ -22,19 +25,32 @@ namespace WebApi.Controllers
             _mapper = mapper;
         }
 
-        [Authorize(Roles ="User, Editor, Admin")]
+        //[Authorize(Roles ="User, Editor, Admin")]
+        //[ValidationAspects(typeof(AgentaValidator))]
         [HttpPost("CreateAgenta")]
         public IActionResult CreateAgenta([FromBody] CreateAgentaDto createAgentaDto)
         {
-            if (createAgentaDto == null)
-                return BadRequest();
-
             var agenta = _mapper.Map<Agenta>(createAgentaDto);
-            _services.AgentaService.Add(agenta);
+            //AgentaValidator agentaValid = new AgentaValidator();
+            //ValidationResult results = agentaValid.Validate(agenta);
 
+            //if (results.IsValid)
+            //{
+                
+            //}
+
+            //foreach (var item in results.Errors)
+            //{
+            //    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+            //}
+
+            //return BadRequest(ModelState);
+
+            _services.AgentaService.Add(agenta);
             return Ok(agenta);
         }
-        [Authorize(Roles = "User, Editor, Admin")]
+
+        //[Authorize(Roles = "User, Editor, Admin")]
         [HttpGet("GetListAgenta")]
         public IActionResult GetListAgenta()
         {
@@ -44,7 +60,7 @@ namespace WebApi.Controllers
 
             return Ok(result);
         }
-        [Authorize(Roles = "User, Editor, Admin")]
+        //[Authorize(Roles = "User, Editor, Admin")]
         [HttpGet("GetByIdAgenta/{id}")]
         public IActionResult GetByIdAgenta(int id)
         {
@@ -55,18 +71,19 @@ namespace WebApi.Controllers
 
             return Ok(result);
         }
-        [Authorize(Roles = "User, Editor, Admin")]
+        //[Authorize(Roles = "User, Editor, Admin")]
+        //[ValidationAspects(typeof(AgentaValidator))]
         [HttpPut("UpdateAgenta/{id}")]
         public IActionResult UpdateAgenta([FromBody] UpdateAgentaDto updateAgentaDto, int id)
         {
             var getAgenta = _services.AgentaService.GetByIdAgenta(u => u.Id ==id);
             _mapper.Map(updateAgentaDto, getAgenta);
             getAgenta.ConcurrencyStamp = updateAgentaDto.ConurrencyStamp;
-            _services.AgentaService.Update(getAgenta);
 
+            _services.AgentaService.Update(getAgenta);
             return Ok(getAgenta);
         }
-        [Authorize(Roles = "User, Editor, Admin")]
+        //[Authorize(Roles = "User, Editor, Admin")]
         [HttpDelete("DeleteAgenta/{id}")]
         public IActionResult DeleteAgenta(int id)
         {

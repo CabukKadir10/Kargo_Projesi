@@ -20,7 +20,8 @@ namespace Data.Concrete.EfCore.Config
                         StationName = "durak1",
                         OrderNumber = 1,
                         LineId = 1,
-                        UnitId = 1
+                        UnitId = 1,
+                        IsActive = true
                     },
                     new Station
                     {
@@ -28,7 +29,8 @@ namespace Data.Concrete.EfCore.Config
                         StationName = "durak2",
                         OrderNumber = 2,
                         LineId = 1,
-                        UnitId = 2
+                        UnitId = 2,
+                        IsActive = true
                     },
                     new Station
                     {
@@ -36,7 +38,8 @@ namespace Data.Concrete.EfCore.Config
                         StationName = "durak3",
                         OrderNumber = 3,
                         LineId = 1,
-                        UnitId = 3
+                        UnitId = 3,
+                        IsActive = true
                     },
                     new Station
                     {
@@ -44,7 +47,8 @@ namespace Data.Concrete.EfCore.Config
                         StationName = "durak4",
                         OrderNumber = 1,
                         LineId = 2,
-                        UnitId = 4
+                        UnitId = 4,
+                        IsActive = true
                     },
                     new Station
                     {
@@ -52,7 +56,8 @@ namespace Data.Concrete.EfCore.Config
                         StationName = "durak5",
                         OrderNumber = 2,
                         LineId = 2,
-                        UnitId = 5
+                        UnitId = 5,
+                        IsActive = true
                     }
                 );
         }

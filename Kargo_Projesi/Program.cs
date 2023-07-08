@@ -1,4 +1,6 @@
-﻿using Core.Utilities.Security.Encription;
+﻿using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Core.Utilities.Security.Encription;
 using Core.Utilities.Security.Jwt;
 using Data.Abstract;
 using Data.Concrete;
@@ -12,6 +14,7 @@ using Microsoft.IdentityModel.Tokens;
 using NLog;
 using Services.Abstract;
 using Services.Concrete;
+using Services.DependepcyResolvers.AutoFac;
 using System;
 using WebApi.Extensions;
 
@@ -34,6 +37,12 @@ builder.Services.AddDbContext<ContextKargo>(options =>
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
 
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()) //autofac yapılanması
+    .ConfigureContainer<ContainerBuilder>(builder =>
+    {
+        builder.RegisterModule(new AutoFacBusinessModule());
+    });
+
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); //auto mapper configurasyonu
 
@@ -48,8 +57,8 @@ builder.Services.AddIdentity<User, Role>(opt =>//Identity Ayarlaması
 //builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<ContextKargo>();
 builder.Services.AddAuthentication();
 //IOC
-builder.Services.ConfigureServiceRegister();
-builder.Services.ConfigureLoggerService();
+//builder.Services.ConfigureServiceRegister();
+//builder.Services.ConfigureLoggerService();
 //builder.Services.ConfigureContextKargo();
 
 IConfiguration configuration = builder.Configuration;

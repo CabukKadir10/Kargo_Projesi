@@ -21,20 +21,15 @@ namespace WebApi.Controllers
             _services = services;
             _mapper = mapper;
         }
-        [Authorize(Roles = "User, Editor, Admin")]
+        //[Authorize(Roles = "User, Editor, Admin")]
         [HttpPost("CreateStation")]
         public IActionResult CreateStation([FromBody] CreateStationDto createStationDto)
         {
             var station = _mapper.Map<Station>(createStationDto);
-            var result = _services.StationService.Add(station);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest();
+            _services.StationService.Add(station);
+            return Ok(station);
         }
-        [Authorize(Roles = "User, Editor, Admin")]
+        //[Authorize(Roles = "User, Editor, Admin")]
         [HttpGet("GetByIdStation/{id}")]
         public IActionResult GetByIdStation(int id)
         {
@@ -46,7 +41,7 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-        [Authorize(Roles = "User, Editor, Admin")]
+        //[Authorize(Roles = "User, Editor, Admin")]
         [HttpGet("GetListStation")]
         public IActionResult GetListStation()
         {
@@ -58,7 +53,7 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-        [Authorize(Roles = "User, Editor, Admin")]
+        //[Authorize(Roles = "User, Editor, Admin")]
         [HttpDelete("DeleteStation/{id}")]
         public IActionResult DeleteStation(int id)
         {
@@ -71,7 +66,7 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-        [Authorize(Roles = "User, Editor, Admin")]
+        //[Authorize(Roles = "User, Editor, Admin")]
         [HttpPut("UpdateStation")]
         public IActionResult UpdateStation([FromBody] UpdateStationDto updateStationDto)
         {

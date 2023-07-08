@@ -12,7 +12,7 @@ namespace Services.FluentValidation
     {
         public LineValidator()
         {
-            RuleFor(n => n.LineName).NotEmpty().WithMessage("isim alanı boş olamaz");
+            RuleFor(n => n.LineName).NotEmpty().WithMessage("isim alanı boş olamaz").MaximumLength(20);
             RuleFor(O => O.LineType).NotEmpty().WithMessage("line tipini belirtiniz");
         }
     }

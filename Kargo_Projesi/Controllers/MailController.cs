@@ -18,7 +18,7 @@ namespace WebApi.Controllers
         {
             _service = service;
         }
-        [Authorize(Roles = "User, Editor, Admin")]
+       // [Authorize(Roles = "User, Editor, Admin")]
         [HttpPost("SendMail")]
         public IActionResult SendMail([FromBody] Mail mail)
         {

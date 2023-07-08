@@ -15,5 +15,7 @@ namespace Entity.Concrete
         public string? City { get; set; }
         public string? District { get; set; }
         public string Roles { get; set; }
+        public int UnitId { get; set; }
+        public virtual string ConcurrencyStamp { get; set; } = Guid.NewGuid().ToString();
     }
 }

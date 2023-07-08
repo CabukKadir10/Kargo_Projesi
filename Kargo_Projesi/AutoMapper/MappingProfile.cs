@@ -23,6 +23,9 @@ namespace WebApi.AutoMapper
             CreateMap<CreateRoleDto, Role>().ReverseMap();
             CreateMap<UserLoginDto, Role>().ReverseMap();
             CreateMap<UpdateRoleDto, Role>().ReverseMap();
+
+            CreateMap<LineDto, Line>().ReverseMap();
+            CreateMap<StationDto, Station>().ReverseMap();
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Services.Abstract
 {
     public interface IStationService
     {
-        IResult Add(Station station);
+        void Add(Station station);
         IResult Update(Station station);
         IResult Delete(Station station);
         IDataResult<Station> GetByIdStation(int id);

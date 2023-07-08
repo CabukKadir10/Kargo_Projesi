@@ -1,8 +1,10 @@
-﻿using Core.Utilities.Results.Abstract;
+﻿using Core.Aspects.AutoFac.Validation;
+using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using Data.Abstract;
 using Entity.Concrete;
 using Services.Abstract;
+using Services.FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +23,7 @@ namespace Services.Concrete
             _dalManager = dalManager;
         }
 
+        [ValidationAspects(typeof(CenterValidator))]
         public IResult Add(TransferCenter transferCenter)
         {
             _dalManager.TransferCenterDal.Create(transferCenter);
@@ -43,6 +46,7 @@ namespace Services.Concrete
             return new SuccessDataResult<List<TransferCenter>>(_dalManager.TransferCenterDal.GetList());
         }
 
+        [ValidationAspects(typeof(CenterValidator))]
         public IResult Update(TransferCenter transferCenter)
         {
             _dalManager.TransferCenterDal.Update(transferCenter);

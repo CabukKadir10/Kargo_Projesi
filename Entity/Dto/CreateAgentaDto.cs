@@ -11,8 +11,8 @@ namespace Entity.Dto
     {
        // public int UnitId { get; set; }
         public string UnitName { get; set; }
-        public string ResponsibleName { get; set; }
-        public string ResponsibleSurname { get; set; }
+        public string ManagerName { get; set; }
+        public string ManagerSurname { get; set; }
         public string PhoneNumber { get; set; }
         public string Gsm { get; set; }
         public string Email { get; set; }
@@ -22,7 +22,7 @@ namespace Entity.Dto
         public string NeighBourHood { get; set; }
         public string Street { get; set; }
         public string AddressDetail { get; set; }
-        public bool IsBanned { get; set; }
+        public bool IsDeleted { get; set; }
         public int CenterId { get; set; }
     }
 }

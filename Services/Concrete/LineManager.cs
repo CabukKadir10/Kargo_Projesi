@@ -1,8 +1,11 @@
-﻿using Core.Utilities.Results.Abstract;
+﻿using Core.Aspects.AutoFac.Validation;
+using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using Data.Abstract;
 using Entity.Concrete;
+using Entity.Concrete.Enum;
 using Services.Abstract;
+using Services.FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +25,7 @@ namespace Services.Concrete
             _logger = logger;
         }
 
+        [ValidationAspects(typeof(LineValidator))]
         public IResult Add(Line line)
         {
             _dalManager.LineDal.Create(line);
@@ -44,6 +48,7 @@ namespace Services.Concrete
             return new SuccessDataResult<List<Line>>(_dalManager.LineDal.GetList());
         }
 
+        [ValidationAspects(typeof(LineValidator))]
         public IResult Update(Line line)
         {
             _dalManager.LineDal.Update(line);
