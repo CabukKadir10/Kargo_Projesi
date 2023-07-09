@@ -10,12 +10,10 @@ namespace Entity.Dto
 {
     public class LineDto
     {
-        public int Id { get; set; }
-        public DateTime CreateTime { get; set; } = DateTime.Now;
-        public string CreatorId { get; set; }
-        public LineType LineType { get; set; }
+        public int LineId { get; set; }
         public string LineName { get; set; }
-        public IList<StationDto> Station { get; set; }
+        public LineType LineType { get; set; }
         public bool IsActive { get; set; }
+        public IList<StationDto> Station { get; set; }
     }
 }

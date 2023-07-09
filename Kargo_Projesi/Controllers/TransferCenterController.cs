@@ -30,7 +30,7 @@ namespace WebApi.Controllers
 
             if (result.Success)
             {
-                return Ok(createCenterDto);
+                return Ok(center);
             }
 
             return BadRequest();
@@ -90,8 +90,8 @@ namespace WebApi.Controllers
             return BadRequest();
         }
        // [Authorize(Roles = "User, Editor, Admin")]
-        [HttpPost("UndBannedCenter/{id}")]
-        public IActionResult UndoBannedCenter(int id)
+        [HttpPost("UndIsDeletedCenter/{id}")]
+        public IActionResult UndoIsDeletedCenter(int id)
         {
             var center = _services.TransferCenterService.GetByIdCenter(u => u.Id == id);
             if(center.Data.IsDeleted == true)
@@ -104,8 +104,8 @@ namespace WebApi.Controllers
             return BadRequest("Banlı Değil");
         }
        // [Authorize(Roles = "User, Editor, Admin")]
-        [HttpPost("BannedCenter/{id}")]
-        public IActionResult BannedCenter(int id)
+        [HttpPost("IsDeletedCenter/{id}")]
+        public IActionResult IsDeletedCenter(int id)
         {
             var center = _services.TransferCenterService.GetByIdCenter(u => u.Id == id);
             if(center.Data.IsDeleted == false)

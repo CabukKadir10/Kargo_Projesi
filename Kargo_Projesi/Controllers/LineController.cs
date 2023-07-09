@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Data.Abstract;
 using Entity.Concrete;
 using Entity.Dto;
 using Entity.Exceptions;
@@ -16,23 +17,38 @@ namespace WebApi.Controllers
     {
         private readonly IServiceManager _services;
         private readonly IMapper _mapper;
+        private readonly IStationDal _station;
 
-        public LineController(IServiceManager services, IMapper mapper)
+        public LineController(IServiceManager services, IMapper mapper, IStationDal station)
         {
             _services = services;
             _mapper = mapper;
+            _station = station;
         }
         //[Authorize(Roles = "User, Editor, Admin")]
         [HttpPost("CreateLine")]
         public IActionResult CreateLine([FromBody]CreateLineDto createLineDto)
         {
             var line = _mapper.Map<Line>(createLineDto);
+            //var station = _services.StationService.GetListStation2(a => a.UnitId == createLineDto);
+           // var test = _services.StationService.Add();
             var result = _services.LineService.Add(line);
 
-            if (result.Success)
+            if(createLineDto.CenterId != null)
             {
-                return Ok(result);
+                var lastStation = new Station
+                {
+                    StationName = $"{line.LineName} durak",
+                    OrderNumber = createLineDto.Stations.Length + 1,
+                    LineId = line.LineId,
+                    IsActive = true,
+                    UnitId = createLineDto.CenterId
+                };
+                _station.Create(lastStation);
             }
+
+            if (result.Success)
+                return Ok(line);
 
             return BadRequest();
         }
@@ -70,7 +86,7 @@ namespace WebApi.Controllers
             var result = _services.LineService.Update(line);
             if(result.Success)
             {
-                return Ok(result);
+                return Ok(line);
             }
 
             return BadRequest();

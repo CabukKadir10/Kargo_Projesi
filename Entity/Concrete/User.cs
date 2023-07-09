@@ -17,5 +17,6 @@ namespace Entity.Concrete
         public string Roles { get; set; }
         public int UnitId { get; set; }
         public virtual string ConcurrencyStamp { get; set; } = Guid.NewGuid().ToString();
+        public Unit Unit { get; set; }
     }
 }

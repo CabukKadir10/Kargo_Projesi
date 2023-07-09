@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Data.Migrations
 {
     [DbContext(typeof(ContextKargo))]
-    [Migration("20230707140801_Deneme1")]
-    partial class Deneme1
+    [Migration("20230709183809_Migration1")]
+    partial class Migration1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,7 +55,7 @@ namespace Data.Migrations
                         new
                         {
                             LineId = 1,
-                            ConcurrencyStamp = "43fa21d2-547a-41bf-b83f-3b2e19af02fb",
+                            ConcurrencyStamp = "333117a3-27dd-49b1-9c89-f274e6ce7b00",
                             IsActive = true,
                             LineName = "Diyarbakır Hattı",
                             LineType = 1
@@ -63,7 +63,7 @@ namespace Data.Migrations
                         new
                         {
                             LineId = 2,
-                            ConcurrencyStamp = "9b48f6b3-e00d-4550-aca1-0f223be8023c",
+                            ConcurrencyStamp = "1c81e007-67fa-4a63-9ece-58e46b0e3384",
                             IsActive = true,
                             LineName = "Mardin Hattı",
                             LineType = 1
@@ -71,7 +71,7 @@ namespace Data.Migrations
                         new
                         {
                             LineId = 3,
-                            ConcurrencyStamp = "81e0560b-bea9-478b-b24b-1d1929f02ad0",
+                            ConcurrencyStamp = "072c8c7b-2dc4-498f-b8dc-1be55099022c",
                             IsActive = true,
                             LineName = "Mersin Hattı",
                             LineType = 1
@@ -79,7 +79,7 @@ namespace Data.Migrations
                         new
                         {
                             LineId = 4,
-                            ConcurrencyStamp = "bb7dfd1d-6df5-49ef-8b7a-40f76b6da04e",
+                            ConcurrencyStamp = "894d841b-2157-43b2-9504-3a64c9467dff",
                             IsActive = true,
                             LineName = "Ankara Hattı",
                             LineType = 1
@@ -87,7 +87,7 @@ namespace Data.Migrations
                         new
                         {
                             LineId = 5,
-                            ConcurrencyStamp = "af2a8fb5-60b7-4ae4-aac2-fd615e7804d1",
+                            ConcurrencyStamp = "62d659a8-db12-4c6b-a460-4cb53c3788e1",
                             IsActive = true,
                             LineName = "İstanbul Hattı",
                             LineType = 2
@@ -183,7 +183,7 @@ namespace Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "2983b66a-7612-4429-9e8d-399c97cbf70a",
+                            ConcurrencyStamp = "bd214286-2f94-4161-a3c1-3e603c02de50",
                             IsActive = true,
                             LineId = 1,
                             OrderNumber = 1,
@@ -193,7 +193,7 @@ namespace Data.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "cafe0668-a6e2-4406-811b-b1e69d3c6534",
+                            ConcurrencyStamp = "49dab973-6253-40d8-815f-cae5c2e924b7",
                             IsActive = true,
                             LineId = 1,
                             OrderNumber = 2,
@@ -203,7 +203,7 @@ namespace Data.Migrations
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "5d4c2575-1c26-465f-ac0f-fa2b4327c875",
+                            ConcurrencyStamp = "2297c619-2d70-4bbb-b625-87f7a570be4d",
                             IsActive = true,
                             LineId = 1,
                             OrderNumber = 3,
@@ -213,7 +213,7 @@ namespace Data.Migrations
                         new
                         {
                             Id = 4,
-                            ConcurrencyStamp = "5bf96a40-efc9-426c-b2c0-39599c744db4",
+                            ConcurrencyStamp = "e6ecb986-6acc-436b-8924-d32527b1cd8c",
                             IsActive = true,
                             LineId = 2,
                             OrderNumber = 1,
@@ -223,7 +223,7 @@ namespace Data.Migrations
                         new
                         {
                             Id = 5,
-                            ConcurrencyStamp = "1bc6d9e5-dcdc-4544-8f73-341e28139f46",
+                            ConcurrencyStamp = "8f6f60e7-d3da-4bdf-bc84-91b34608529b",
                             IsActive = true,
                             LineId = 2,
                             OrderNumber = 2,
@@ -393,6 +393,8 @@ namespace Data.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex");
 
+                    b.HasIndex("UnitId");
+
                     b.ToTable("AspNetUsers", (string)null);
                 });
 
@@ -516,7 +518,7 @@ namespace Data.Migrations
                             Id = 6,
                             AddressDetail = "Amed merkez",
                             City = "Diyarbakır",
-                            ConcurrencyStamp = "6a89837b-ddf3-49e4-96af-bddc9fbf49e3",
+                            ConcurrencyStamp = "32ee1889-fb71-4114-8fa9-5de56359d5c5",
                             Description = "Description",
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
@@ -535,7 +537,7 @@ namespace Data.Migrations
                             Id = 7,
                             AddressDetail = "Amed merkez",
                             City = "Diyarbakır",
-                            ConcurrencyStamp = "2bf58eeb-edbd-48e8-a87a-7a0ac3146bf7",
+                            ConcurrencyStamp = "d10c5145-d66e-42e1-8e32-d0ab57861768",
                             Description = "Description",
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
@@ -554,7 +556,7 @@ namespace Data.Migrations
                             Id = 8,
                             AddressDetail = "Amed merkez",
                             City = "Diyarbakır",
-                            ConcurrencyStamp = "452873ad-87a9-4deb-800c-cd4c86ea4446",
+                            ConcurrencyStamp = "7244d609-45fc-4b45-a488-e3279d9a7ef6",
                             Description = "Description",
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
@@ -573,7 +575,7 @@ namespace Data.Migrations
                             Id = 9,
                             AddressDetail = "Amed merkez",
                             City = "Diyarbakır",
-                            ConcurrencyStamp = "168ccfae-04b8-4f31-abe0-f6cec83efc68",
+                            ConcurrencyStamp = "7be25bc0-ae37-473d-bc24-dd6802e9b53b",
                             Description = "Description",
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
@@ -592,7 +594,7 @@ namespace Data.Migrations
                             Id = 10,
                             AddressDetail = "Amed merkez",
                             City = "Diyarbakır",
-                            ConcurrencyStamp = "7c724ffa-83c8-4e20-a810-0ef569c8a88d",
+                            ConcurrencyStamp = "35b9fa70-68a6-4fab-b51e-730213ec78f4",
                             Description = "Description",
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
@@ -620,7 +622,7 @@ namespace Data.Migrations
                             Id = 1,
                             AddressDetail = "Amed merkez",
                             City = "Diyarbakır",
-                            ConcurrencyStamp = "13784c1e-864a-402f-b387-80d31be4b934",
+                            ConcurrencyStamp = "8dd6b6f0-3be1-430b-b009-03da114c4e83",
                             Description = "Description",
                             District = "Bağlar",
                             Email = "kadir@gmail.com",
@@ -638,7 +640,7 @@ namespace Data.Migrations
                             Id = 2,
                             AddressDetail = "Mardin merkez",
                             City = "Mardin",
-                            ConcurrencyStamp = "b31f174d-ffc3-4b1b-b6ba-7c1e2d3ef974",
+                            ConcurrencyStamp = "6b49defd-9ac6-4ab6-8c0b-cf80d6d05cf5",
                             Description = "Description",
                             District = "Bağlar",
                             Email = "muaz@gmail.com",
@@ -656,7 +658,7 @@ namespace Data.Migrations
                             Id = 3,
                             AddressDetail = "Konya merkez",
                             City = "Konya",
-                            ConcurrencyStamp = "2094e16d-9cde-42b4-a07a-8905ad66101f",
+                            ConcurrencyStamp = "55ae1691-58e7-4767-bfa4-9bdadd8ec764",
                             Description = "Description",
                             District = "Bağlar",
                             Email = "yusuf@gmail.com",
@@ -674,7 +676,7 @@ namespace Data.Migrations
                             Id = 4,
                             AddressDetail = "Ankara merkez",
                             City = "Ankara",
-                            ConcurrencyStamp = "70fe84f2-6305-4aad-832a-137056407f60",
+                            ConcurrencyStamp = "39dfbe2d-5471-4a42-a92b-05dc5e726582",
                             Description = "Description",
                             District = "Bağlar",
                             Email = "ahmet@gmail.com",
@@ -692,7 +694,7 @@ namespace Data.Migrations
                             Id = 5,
                             AddressDetail = "İstanbul merkez",
                             City = "İstanbul",
-                            ConcurrencyStamp = "704bdf06-e668-40d8-a73a-f815bbba8247",
+                            ConcurrencyStamp = "0ec257d1-d894-4039-96cc-a593141ebfd0",
                             Description = "Description",
                             District = "Bağlar",
                             Email = "mehmet@gmail.com",
@@ -716,12 +718,23 @@ namespace Data.Migrations
                         .IsRequired();
 
                     b.HasOne("Entity.Concrete.Unit", "Unit")
-                        .WithMany("Stations")
+                        .WithMany()
                         .HasForeignKey("UnitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Line");
+
+                    b.Navigation("Unit");
+                });
+
+            modelBuilder.Entity("Entity.Concrete.User", b =>
+                {
+                    b.HasOne("Entity.Concrete.Unit", "Unit")
+                        .WithMany()
+                        .HasForeignKey("UnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Unit");
                 });
@@ -789,11 +802,6 @@ namespace Data.Migrations
                 });
 
             modelBuilder.Entity("Entity.Concrete.Line", b =>
-                {
-                    b.Navigation("Stations");
-                });
-
-            modelBuilder.Entity("Entity.Concrete.Unit", b =>
                 {
                     b.Navigation("Stations");
                 });

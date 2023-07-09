@@ -27,6 +27,7 @@ namespace Entity.Concrete
         [ConcurrencyCheck]
         public virtual string ConcurrencyStamp { get; set; } = Guid.NewGuid().ToString();
         //public int StationsId { get; set; }
-        public IList<Station> Stations { get; set; }
+        //public IList<Station> Stations { get; set; }
+        //public IList<Line> Lines { get; set; }
     }
 }

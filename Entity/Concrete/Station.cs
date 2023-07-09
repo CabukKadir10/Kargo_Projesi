@@ -18,6 +18,5 @@ namespace Entity.Concrete
         public virtual string ConcurrencyStamp { get; set; } = Guid.NewGuid().ToString();
         public Unit Unit { get; set; }
         public Line Line { get; set; }
-        //public IList<Unit> Units { get; set; }
     }
 }

@@ -18,17 +18,29 @@ namespace Services.Concrete
     {
         private readonly IDalManager _dalManager;
         private readonly ILoggerService _logger;
+        private readonly IStationService _services;
 
-        public LineManager(IDalManager dalManager, ILoggerService logger)
+        public LineManager(IDalManager dalManager, ILoggerService logger, IStationService services)
         {
             _dalManager = dalManager;
             _logger = logger;
+            _services = services;
         }
 
         [ValidationAspects(typeof(LineValidator))]
         public IResult Add(Line line)
         {
+            int i;
             _dalManager.LineDal.Create(line);
+            for ( i = 0; i < line.Stations.Count; i++)
+            {
+                var station = line.Stations[i];
+                station.OrderNumber = i + 1;
+                _services.Add(station);
+            }
+
+            
+
             return new SuccessResult();
         }
 

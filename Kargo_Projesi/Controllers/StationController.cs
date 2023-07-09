@@ -77,7 +77,7 @@ namespace WebApi.Controllers
 
             if (result.Success)
             {
-                return Ok(result);
+                return Ok(station);
             }
 
             return BadRequest();

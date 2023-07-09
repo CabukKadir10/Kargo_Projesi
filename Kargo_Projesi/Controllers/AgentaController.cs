@@ -31,12 +31,14 @@ namespace WebApi.Controllers
         public IActionResult CreateAgenta([FromBody] CreateAgentaDto createAgentaDto)
         {
             var agenta = _mapper.Map<Agenta>(createAgentaDto);
+            _services.AgentaService.Add(agenta);
+            return Ok(agenta);
             //AgentaValidator agentaValid = new AgentaValidator();
             //ValidationResult results = agentaValid.Validate(agenta);
 
             //if (results.IsValid)
             //{
-                
+
             //}
 
             //foreach (var item in results.Errors)
@@ -45,9 +47,6 @@ namespace WebApi.Controllers
             //}
 
             //return BadRequest(ModelState);
-
-            _services.AgentaService.Add(agenta);
-            return Ok(agenta);
         }
 
         //[Authorize(Roles = "User, Editor, Admin")]

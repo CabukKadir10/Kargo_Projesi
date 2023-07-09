@@ -48,15 +48,21 @@ namespace Data.Concrete.EfCore.Context
                 .HasOne(d => d.TransferCenter)
                 .WithMany(d => d.Agentas)
                 .HasForeignKey(d => d.CenterId);
-            //modelBuilder.Entity<Agenta>()
-            //    .HasDiscriminator<string>("EntityType")
-            //    .HasValue<Agenta>("Agenta")
-            //    .HasValue<TransferCenter>("TransferCenter");
 
             modelBuilder.Entity<Station>()
                 .HasOne(d => d.Line)
                 .WithMany(d => d.Stations)
                 .HasForeignKey(d => d.LineId);
+
+            //modelBuilder.Entity<Unit>()
+            //    .HasMany(u => u.Lines) 
+            //    .WithMany(u => u.Units)
+            //    .UsingEntity(u => u.ToTable("UnitLine"));
+
+            //modelBuilder.Entity<Agenta>()
+            //    .HasDiscriminator<string>("EntityType")
+            //    .HasValue<Agenta>("Agenta")
+            //    .HasValue<TransferCenter>("TransferCenter");
 
             //modelBuilder.Entity<Station>()
             //    .HasMany(d => d.Units)
@@ -72,7 +78,7 @@ namespace Data.Concrete.EfCore.Context
             //    .HasOne(z => z.Address)
             //    .WithOne(d => d.Agenta)
             //    .HasForeignKey<Address>(c => c.ForId);
-                
+
         }
         public DbSet<Unit> Units { get; set; }
         public DbSet<Line> Lines { get; set; }
