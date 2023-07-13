@@ -15,7 +15,7 @@ namespace Entity.Concrete
         public LineType LineType { get; set; }
         public bool IsActive { get; set; }
         public virtual string ConcurrencyStamp { get; set; } = Guid.NewGuid().ToString();
-       // public int CenterId { get; set; }
+        public int CenterId { get; set; }
         public IList<Station> Stations { get; set; }
     }
 }

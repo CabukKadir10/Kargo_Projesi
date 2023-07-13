@@ -11,7 +11,7 @@ namespace Entity.Dto
     {
         public int LineId { get; set; }
         public string LineName { get; set; }
-        public int LineType { get; set; }
+       // public UpdateStationDto[] Stations { get; set; }
         public bool IsActive { get; set; }
     }
 }

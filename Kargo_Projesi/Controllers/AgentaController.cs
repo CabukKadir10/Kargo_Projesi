@@ -25,31 +25,16 @@ namespace WebApi.Controllers
             _mapper = mapper;
         }
 
-        //[Authorize(Roles ="User, Editor, Admin")]
-        //[ValidationAspects(typeof(AgentaValidator))]
+        [Authorize(Roles ="User, Editor, Admin")]
         [HttpPost("CreateAgenta")]
         public IActionResult CreateAgenta([FromBody] CreateAgentaDto createAgentaDto)
         {
             var agenta = _mapper.Map<Agenta>(createAgentaDto);
             _services.AgentaService.Add(agenta);
             return Ok(agenta);
-            //AgentaValidator agentaValid = new AgentaValidator();
-            //ValidationResult results = agentaValid.Validate(agenta);
-
-            //if (results.IsValid)
-            //{
-
-            //}
-
-            //foreach (var item in results.Errors)
-            //{
-            //    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-            //}
-
-            //return BadRequest(ModelState);
         }
 
-        //[Authorize(Roles = "User, Editor, Admin")]
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpGet("GetListAgenta")]
         public IActionResult GetListAgenta()
         {
@@ -59,7 +44,8 @@ namespace WebApi.Controllers
 
             return Ok(result);
         }
-        //[Authorize(Roles = "User, Editor, Admin")]
+
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpGet("GetByIdAgenta/{id}")]
         public IActionResult GetByIdAgenta(int id)
         {
@@ -70,8 +56,8 @@ namespace WebApi.Controllers
 
             return Ok(result);
         }
-        //[Authorize(Roles = "User, Editor, Admin")]
-        //[ValidationAspects(typeof(AgentaValidator))]
+
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPut("UpdateAgenta/{id}")]
         public IActionResult UpdateAgenta([FromBody] UpdateAgentaDto updateAgentaDto, int id)
         {
@@ -82,7 +68,8 @@ namespace WebApi.Controllers
             _services.AgentaService.Update(getAgenta);
             return Ok(getAgenta);
         }
-        //[Authorize(Roles = "User, Editor, Admin")]
+
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpDelete("DeleteAgenta/{id}")]
         public IActionResult DeleteAgenta(int id)
         {
@@ -91,7 +78,7 @@ namespace WebApi.Controllers
                 throw new AgentaNotFound(id);
 
             _services.AgentaService.Delete(agenta);
-            return Ok();
+            return Ok(agenta);
         }
     }
 }

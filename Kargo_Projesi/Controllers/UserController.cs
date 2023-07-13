@@ -28,7 +28,8 @@ namespace WebApi.Controllers
             _mapper = mapper;
             _serviceManager = serviceManager;
         }
-       // [Authorize(Roles = "User, Editor, Admin")]
+
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPost("RegisterUser")]
         public async Task<IActionResult> RegisterUser([FromBody] UserRegisterDto userRegisterDto)
         {
@@ -48,7 +49,8 @@ namespace WebApi.Controllers
 
             return BadRequest(error: "kullanıcı oluşturulamadı.");
         }
-       // [Authorize(Roles = "User, Editor, Admin")]
+
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPost("UserLogin")]
         public async Task<IActionResult> UserLogin([FromBody] UserLoginDto userLoginDto)
         {
@@ -67,7 +69,8 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-        //[Authorize(Roles = "User, Editor, Admin")]
+
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpGet("GetByIdUser/{id}")]
         public async Task<IActionResult> GetByIdUser(string id)
         {
@@ -77,7 +80,8 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-        //[Authorize(Roles = "User, Editor, Admin")]
+
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPost("ChangePassword")]
         public async Task<IActionResult> ChangePassword(ChangePasswordDto changePassword)
         {
@@ -92,7 +96,8 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-       // [Authorize(Roles = "User, Editor, Admin")]
+
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPost("UpdateUser")]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto updateUserDto)
         {

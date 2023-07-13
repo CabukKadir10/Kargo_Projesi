@@ -21,7 +21,8 @@ namespace WebApi.Controllers
             _services = services;
             _mapper = mapper;
         }
-       // [Authorize(Roles = "User, Editor, Admin")]
+
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPost("CreateCenter")]
         public IActionResult CreateCenter([FromBody] CreateCenterDto createCenterDto)
         {
@@ -35,7 +36,8 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-       // [Authorize(Roles = "User, Editor, Admin")]
+
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpGet("GetListCenter")]
         public IActionResult GetCenterList()
         {
@@ -47,7 +49,8 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-       // [Authorize(Roles = "User, Editor, Admin")]
+
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpGet("GetByIdCenter/{id}")]
         public IActionResult GetByIdCenter(int id)
         {
@@ -59,7 +62,8 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-        //[Authorize(Roles = "User, Editor, Admin")]
+
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPut("UpdateCenter/{id}")]
         public IActionResult UpdateCenter([FromBody] UpdateCenterDto updateCenterDto, int id)
         {
@@ -75,7 +79,8 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-        //[Authorize(Roles = "User, Editor, Admin")]
+
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpDelete("HardDeleteCenter/{id}")]
         public IActionResult HardDeleteCenter(int id)
         {
@@ -89,7 +94,8 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-       // [Authorize(Roles = "User, Editor, Admin")]
+
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPost("UndIsDeletedCenter/{id}")]
         public IActionResult UndoIsDeletedCenter(int id)
         {
@@ -103,7 +109,8 @@ namespace WebApi.Controllers
 
             return BadRequest("Banlı Değil");
         }
-       // [Authorize(Roles = "User, Editor, Admin")]
+
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPost("IsDeletedCenter/{id}")]
         public IActionResult IsDeletedCenter(int id)
         {

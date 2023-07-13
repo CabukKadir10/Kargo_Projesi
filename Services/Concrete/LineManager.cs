@@ -4,11 +4,13 @@ using Core.Utilities.Results.Concrete;
 using Data.Abstract;
 using Entity.Concrete;
 using Entity.Concrete.Enum;
+using Entity.Dto;
 using Services.Abstract;
 using Services.FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,16 +32,27 @@ namespace Services.Concrete
         [ValidationAspects(typeof(LineValidator))]
         public IResult Add(Line line)
         {
-            int i;
             _dalManager.LineDal.Create(line);
-            for ( i = 0; i < line.Stations.Count; i++)
+
+            if (line.CenterId != null)
             {
-                var station = line.Stations[i];
-                station.OrderNumber = i + 1;
-                _services.Add(station);
+                var lastStation = new Station
+                {
+                    StationName = $"{line.LineName} Durak 1",
+                    OrderNumber = 1,
+                    LineId = line.LineId,
+                    IsActive = true,
+                    UnitId = line.CenterId
+                };
+                _dalManager.StationDal.Create(lastStation);
             }
 
-            
+            for (int i = 0; i < line.Stations.Count; i++)
+            {
+                var station = line.Stations[i];
+                station.OrderNumber = i + 2;
+                _services.Add(station);
+            }
 
             return new SuccessResult();
         }
@@ -53,6 +66,30 @@ namespace Services.Concrete
         public IDataResult<Line> GetByIdLine(int id)
         {
             return new SuccessDataResult<Line>(_dalManager.LineDal.Get(u => u.LineId == id));
+        }
+
+        public IDataResult<List<Line>> GetListByIdUserLine(int id)
+        {
+            var listLine = new List<Line>();
+            var listLineId = new List<int>();
+            var deneme = _dalManager.StationDal.GetList(a => a.UnitId == id);
+            for (int i = 0; i < deneme.Count; i++)
+            {
+                listLineId.Add(deneme[i].LineId);
+
+            }
+
+            for (int i = 0; i < listLineId.Count; i++)
+            {
+                listLine.Add(_dalManager.LineDal.Get(a => a.LineId == listLineId[i]));
+            }
+
+            return new SuccessDataResult<List<Line>>(listLine);
+        }
+
+        public IDataResult<List<Line>> GetListFilter(Expression<Func<Line, bool>> filter = null)
+        {
+            return new SuccessDataResult<List<Line>>(_dalManager.LineDal.GetList(filter));
         }
 
         public IDataResult<List<Line>> GetListLine()

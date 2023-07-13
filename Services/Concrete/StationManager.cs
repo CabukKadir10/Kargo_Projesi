@@ -28,22 +28,22 @@ namespace Services.Concrete
         public void Add(Station station)
         {
             var line = _dalManager.LineDal.Get(a => a.LineId == station.LineId);
+            var listStation = _dalManager.StationDal.GetList(a => a.LineId == station.LineId);
             var count = _dalManager.StationDal.Count(a => a.LineId == station.LineId);
             if(count <= 10)
             {
                 if (line.LineType == LineType.outLine)
                 {
                     var list = _dalManager.TransferCenterDal.GetList();
-                    if (list.Any(a => a.Id == station.UnitId))
+                    if (list.Any(a => a.Id == station.UnitId) && listStation.Any(a => a.UnitId != station.UnitId))
                     {
-                       // line.UnitId
                         _dalManager.StationDal.Create(station);
                     }
                 }
                 else
                 {
                     var list2 = _dalManager.AgentaDal.GetList();
-                    if (list2.Any(a => a.Id == station.UnitId))
+                    if (list2.Any(a => a.Id == station.UnitId) && listStation.Any(a => a.UnitId != station.UnitId))
                     {
                         _dalManager.StationDal.Create(station);
                     }

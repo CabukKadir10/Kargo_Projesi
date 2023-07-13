@@ -21,7 +21,8 @@ namespace WebApi.Controllers
             _roleManager = roleManager;
             _mapper = mapper;
         }
-       // [Authorize(Roles = "User, Editor, Admin")]
+
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPost("CreateRole")]
         public async Task<IActionResult> CreateRole([FromBody] CreateRoleDto createRoleDto)
         {
@@ -33,7 +34,8 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-       // [Authorize(Roles = "User, Editor, Admin")]
+
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpGet("GetByIdRole/{id}")]
         public async Task<IActionResult> GetByIdRole(string id)
         {
@@ -43,7 +45,8 @@ namespace WebApi.Controllers
 
             return BadRequest();
         }
-       // [Authorize(Roles = "User, Editor, Admin")]
+
+        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPut("UpdateRole")]
         public async Task<IActionResult> UpdateRole([FromBody] UpdateRoleDto updateRole)
         {
