@@ -18,107 +18,102 @@ using Services.DependepcyResolvers.AutoFac;
 using System;
 using WebApi.Extensions;
 
-internal class Program
+var builder = WebApplication.CreateBuilder(args);
+
+LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/NLog.config")); //log ayarlamaası
+
+// Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+var test = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddDbContext<ContextKargo>(options =>
 {
-    private static void Main(string[] args)
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
+
+builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()) //autofac yapılanması
+    .ConfigureContainer<ContainerBuilder>(builder =>
     {
-        var builder = WebApplication.CreateBuilder(args);
-
-        LogManager.LoadConfiguration(string.Concat(Directory.GetCurrentDirectory(), "/NLog.config")); //log ayarlamaası
-
-        // Add services to the container.
-
-        builder.Services.AddControllers();
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-        builder.Services.AddEndpointsApiExplorer();
-        builder.Services.AddSwaggerGen();
-        var test = builder.Configuration.GetConnectionString("DefaultConnection");
-
-        builder.Services.AddDbContext<ContextKargo>(options =>
-        {
-            options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
-        });
-        AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-        AppContext.SetSwitch("Npgsql.DisableDateTimeInfinityConversions", true);
-
-        builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory()) //autofac yapılanması
-            .ConfigureContainer<ContainerBuilder>(builder =>
-            {
-                builder.RegisterModule(new AutoFacBusinessModule());
-            });
+        builder.RegisterModule(new AutoFacBusinessModule());
+    });
 
 
-        builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); //auto mapper configurasyonu
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); //auto mapper configurasyonu
 
-        builder.Services.AddIdentity<User, Role>(opt =>//Identity Ayarlaması
-        {
-            //opt.Password.RequireDigit = true;
-            //opt.Password.RequireLowercase = false;
-            //opt.Password.RequireUppercase = false;
-            //opt.Password.RequireNonAlphanumeric = false;
-            opt.Password.RequiredLength = 6;
-        }).AddEntityFrameworkStores<ContextKargo>().AddDefaultTokenProviders();
-        //builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<ContextKargo>();
-        builder.Services.AddAuthentication();
-        //IOC
-        //builder.Services.ConfigureServiceRegister();
-        //builder.Services.ConfigureLoggerService();
-        //builder.Services.ConfigureContextKargo();
+builder.Services.AddIdentity<User, Role>(opt =>//Identity Ayarlaması
+{
+    //opt.Password.RequireDigit = true;
+    //opt.Password.RequireLowercase = false;
+    //opt.Password.RequireUppercase = false;
+    //opt.Password.RequireNonAlphanumeric = false;
+    opt.Password.RequiredLength = 6;
+}).AddEntityFrameworkStores<ContextKargo>().AddDefaultTokenProviders();
+//builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<ContextKargo>();
+builder.Services.AddAuthentication();
+//IOC
+//builder.Services.ConfigureServiceRegister();
+//builder.Services.ConfigureLoggerService();
+//builder.Services.ConfigureContextKargo();
 
-        IConfiguration configuration = builder.Configuration;
+IConfiguration configuration = builder.Configuration;
 
-        builder.Services.AddCors(options =>
-        {
-            options.AddPolicy("AllowOrigin",
-                builder => builder.WithOrigins("https://localhost:7200"));
-        });
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowOrigin",
+        builder => builder.WithOrigins("https://localhost:7200"));
+});
 
-        var tokenOptions = configuration.GetSection("TokenOptions").Get<Core.Utilities.Security.Jwt.TokenOptions>();
+var tokenOptions = configuration.GetSection("TokenOptions").Get<Core.Utilities.Security.Jwt.TokenOptions>();
 
-        builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
-        {
-            options.TokenValidationParameters = new TokenValidationParameters
-            {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = false,
-                ValidIssuer = tokenOptions.Issuer,
-                ValidAudience = tokenOptions.Audience,
-                ValidateIssuerSigningKey = true,
-                IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
-            };
-        });
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = false,
+        ValidIssuer = tokenOptions.Issuer,
+        ValidAudience = tokenOptions.Audience,
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
+    };
+});
 
-        var app = builder.Build();
+var app = builder.Build();
 
-        var logger = app.Services.GetRequiredService<ILoggerService>();
-        app.ConfigureExceptionHandler(logger);
+var logger = app.Services.GetRequiredService<ILoggerService>();
+app.ConfigureExceptionHandler(logger);
 
-        // Configure the HTTP request pipeline.
-        if (app.Environment.IsDevelopment())
-        {
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1");
-            });
-        }
-
-        if (app.Environment.IsProduction())
-        {
-            app.UseHsts();
-        }
-
-        app.UseCors(builder => builder.WithOrigins("https://localhost:7200").AllowAnyHeader());
-
-        app.UseHttpsRedirection();
-
-        app.UseAuthentication();
-
-        app.UseAuthorization();
-
-        app.MapControllers();
-
-        app.Run();
-    }
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "V1");
+    });
 }
+
+if (app.Environment.IsProduction())
+{
+    app.UseHsts();
+}
+
+app.UseCors(builder => builder.WithOrigins("https://localhost:7200").AllowAnyHeader());
+
+app.UseHttpsRedirection();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();
+public partial class Program { }

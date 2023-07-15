@@ -64,7 +64,8 @@ namespace Services.Concrete
 
         public IDataResult<List<Station>> GetListStation()
         {
-            return new SuccessDataResult<List<Station>>(_dalManager.StationDal.GetList());
+            var stations = _dalManager.StationDal.GetList();
+            return new SuccessDataResult<List<Station>>(stations);
         }
 
          public IDataResult<List<Station>> GetListStation2(Expression<Func<Station, bool>> filter = null)

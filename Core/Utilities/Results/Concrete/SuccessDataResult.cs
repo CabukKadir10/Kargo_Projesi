@@ -20,5 +20,20 @@ namespace Core.Utilities.Results.Concrete
         {
 
         }
+
+        //public SuccessDataResult(T data)
+        //{
+        //    Data = data;
+        //}
+
+        //public SuccessDataResult(T data, string message)
+        //{
+        //    Data = data;
+        //    Message = message;
+        //}
+
+        //public bool Success { get { return true; } }
+        //public string Message { get; }
+        //public T Data { get; }
     }
 }
