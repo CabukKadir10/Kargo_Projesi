@@ -19,17 +19,17 @@ namespace UnitTest
 
         public StationManagerTests()
         {
-            // Create mock object for dependency
+            
             _mockDalManager = new Mock<IDalManager>();
 
-            // Create the system under test (SUT)
+            
             _stationManager = new StationManager(_mockDalManager.Object);
         }
 
         [Fact]
         public void Add_WhenCalledWithValidStation_CreatesStation()
         {
-            // Arrange
+            
             var station = new Station
             {
                 Id = 1,
@@ -57,24 +57,24 @@ namespace UnitTest
                 new TransferCenter { Id = 2, UnitName = "Test Transfer Center" }
             };
 
-            // Set up mock behaviors
+            
             _mockDalManager.Setup(m => m.LineDal.Get(a => a.LineId == station.LineId)).Returns(line).Verifiable();
             _mockDalManager.Setup(m => m.StationDal.GetList(a => a.LineId == station.LineId)).Returns(listStation).Verifiable();
             _mockDalManager.Setup(m => m.StationDal.Count(a => a.LineId == station.LineId)).Returns(2).Verifiable();
             _mockDalManager.Setup(m => m.TransferCenterDal.GetList(null)).Returns(listTransferCenter).Verifiable();
             _mockDalManager.Setup(m => m.StationDal.Create(station)).Verifiable();
 
-            // Act
+            
             _stationManager.Add(station);
 
-            // Assert
+           
             _mockDalManager.Verify();
         }
 
         [Fact]
         public void Delete_WhenCalledWithValidStation_ReturnsSuccessResult()
         {
-            // Arrange
+            
             var station = new Station
             {
                 Id = 1,
@@ -87,13 +87,13 @@ namespace UnitTest
 
             var expected = new SuccessResult();
 
-            // Set up mock behaviors
+           
             _mockDalManager.Setup(m => m.StationDal.Delete(station)).Verifiable();
 
-            // Act
+            
             var actual = _stationManager.Delete(station);
 
-            // Assert
+            
             Assert.Equal(expected.Success, actual.Success);
             Assert.Equal(expected.Message, actual.Message);
             _mockDalManager.Verify();
@@ -102,7 +102,7 @@ namespace UnitTest
         [Fact]
         public void GetByIdStation_WhenCalledWithValidId_ReturnsSuccessDataResult()
         {
-            // Arrange
+            
             var id = 1;
 
             var station = new Station
@@ -117,13 +117,12 @@ namespace UnitTest
 
             var expected = new SuccessDataResult<Station>(station);
 
-            // Set up mock behaviors
+            
             _mockDalManager.Setup(m => m.StationDal.Get(u => u.Id == id)).Returns(station).Verifiable();
 
-            // Act
             var actual = _stationManager.GetByIdStation(id);
 
-            // Assert
+           
             Assert.Equal(expected.Success, actual.Success);
             Assert.Equal(expected.Message, actual.Message);
             Assert.Equal(expected.Data, actual.Data);
@@ -133,7 +132,7 @@ namespace UnitTest
         [Fact]
         public void GetListStation_WhenCalled_ReturnsSuccessDataResult()
         {
-            // Arrange
+            
             var stations = new List<Station>
             {
                 new Station { Id = 1, StationName = "Test Station 1", OrderNumber = 2, LineId = 1, IsActive = true, UnitId = 2 },
@@ -144,13 +143,13 @@ namespace UnitTest
 
             var expected = new SuccessDataResult<List<Station>>(stations);
 
-            // Set up mock behaviors
+            
             _mockDalManager.Setup(m => m.StationDal.GetList(null)).Returns(stations).Verifiable();
 
-            // Act
+            
             var actual = _stationManager.GetListStation();
 
-            // Assert
+           
             Assert.Equal(expected.Success, actual.Success);
             Assert.Equal(expected.Message, actual.Message);
             Assert.Equal(expected.Data, actual.Data);

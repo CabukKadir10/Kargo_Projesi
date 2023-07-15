@@ -19,17 +19,17 @@ namespace UnitTest
 
         public TransferCenterManagerTests()
         {
-            // Create mock object for dependency
+            
             _mockDalManager = new Mock<IDalManager>();
 
-            // Create the system under test (SUT)
+            
             _transferCenterManager = new TransferCenterManager(_mockDalManager.Object);
         }
 
         [Fact]
         public void Add_WhenCalledWithValidTransferCenter_ReturnsSuccessResult()
         {
-            // Arrange
+           
             var transferCenter = new TransferCenter
             {
                 Id = 1,
@@ -50,13 +50,13 @@ namespace UnitTest
 
             var expected = new SuccessResult();
 
-            // Set up mock behaviors
+           
             _mockDalManager.Setup(m => m.TransferCenterDal.Create(transferCenter)).Verifiable();
 
-            // Act
+            
             var actual = _transferCenterManager.Add(transferCenter);
 
-            // Assert
+           
             Assert.Equal(expected.Success, actual.Success);
             Assert.Equal(expected.Message, actual.Message);
             _mockDalManager.Verify();
@@ -65,7 +65,7 @@ namespace UnitTest
         [Fact]
         public void Delete_WhenCalledWithValidTransferCenter_ReturnsSuccessResult()
         {
-            // Arrange
+            
             var transferCenter = new TransferCenter
             {
                 Id = 1,
@@ -86,13 +86,13 @@ namespace UnitTest
 
             var expected = new SuccessResult();
 
-            // Set up mock behaviors
+            
             _mockDalManager.Setup(m => m.TransferCenterDal.Delete(transferCenter)).Verifiable();
 
-            // Act
+           
             var actual = _transferCenterManager.Delete(transferCenter);
 
-            // Assert
+           
             Assert.Equal(expected.Success, actual.Success);
             Assert.Equal(expected.Message, actual.Message);
             _mockDalManager.Verify();
@@ -101,7 +101,7 @@ namespace UnitTest
         [Fact]
         public void GetByIdCenter_WhenCalledWithValidFilter_ReturnsSuccessDataResult()
         {
-            // Arrange
+            
             Expression<Func<TransferCenter, bool>> filter = t => t.Id == 1;
 
             var transferCenter = new TransferCenter
@@ -124,13 +124,13 @@ namespace UnitTest
 
             var expected = new SuccessDataResult<TransferCenter>(transferCenter);
 
-            // Set up mock behaviors
+            
             _mockDalManager.Setup(m => m.TransferCenterDal.Get(filter)).Returns(transferCenter).Verifiable();
 
-            // Act
+            
             var actual = _transferCenterManager.GetByIdCenter(filter);
 
-            // Assert
+            
             Assert.Equal(expected.Success, actual.Success);
             Assert.Equal(expected.Message, actual.Message);
             Assert.Equal(expected.Data, actual.Data);
@@ -140,7 +140,7 @@ namespace UnitTest
         [Fact]
         public void GetListCenter_WhenCalled_ReturnsSuccessDataResult()
         {
-            // Arrange
+            
             var transferCenters = new List<TransferCenter>
             {
                 new TransferCenter
@@ -199,13 +199,13 @@ namespace UnitTest
 
             var expected = new SuccessDataResult<List<TransferCenter>>(transferCenters);
 
-            // Set up mock behaviors
+            
             _mockDalManager.Setup(m => m.TransferCenterDal.GetList(null)).Returns(transferCenters).Verifiable();
 
-            // Act
+           
             var actual = _transferCenterManager.GetListCenter();
 
-            // Assert
+           
             Assert.Equal(expected.Success, actual.Success);
             Assert.Equal(expected.Message, actual.Message);
             Assert.Equal(expected.Data, actual.Data);

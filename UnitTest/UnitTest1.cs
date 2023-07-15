@@ -6,13 +6,6 @@ namespace UnitTest
 {
     public class UnitTest1
     {
-        //private readonly IStationService _stationService;
-
-        //public UnitTest1(IStationService stationService)
-        //{
-        //    _stationService = stationService;
-        //}
-
         [Fact]
         public void Should_Get_By_Id_Agenta()
         {
