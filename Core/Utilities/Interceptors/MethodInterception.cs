@@ -14,10 +14,10 @@ namespace Core.Utilities.Interceptors
         protected virtual void OnException(IInvocation invocation, Exception e) { }
         protected virtual void OnSucces(IInvocation invocation) { }
 
-        public override void Intercept(IInvocation invocation)
+        public override void Intercept(IInvocation invocation) //bu method aspectler çalışınca araya girer.
         {
             var isSuccess = true;
-            OnBefore(invocation);
+            OnBefore(invocation); //aspectlerin davranışını belirledik burda.
             try
             {
                 invocation.Proceed();

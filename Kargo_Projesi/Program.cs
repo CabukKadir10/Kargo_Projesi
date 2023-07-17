@@ -48,13 +48,8 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies()); //auto 
 
 builder.Services.AddIdentity<User, Role>(opt =>//Identity Ayarlaması
 {
-    //opt.Password.RequireDigit = true;
-    //opt.Password.RequireLowercase = false;
-    //opt.Password.RequireUppercase = false;
-    //opt.Password.RequireNonAlphanumeric = false;
     opt.Password.RequiredLength = 6;
 }).AddEntityFrameworkStores<ContextKargo>().AddDefaultTokenProviders();
-//builder.Services.AddIdentity<User, Role>().AddEntityFrameworkStores<ContextKargo>();
 builder.Services.AddAuthentication();
 //IOC
 //builder.Services.ConfigureServiceRegister();
