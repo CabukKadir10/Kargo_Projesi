@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Entity.Exceptions
 {
-    public class StationNotFound : NotFound
+    public sealed class UserNotFound : NotFound
     {
-        public StationNotFound(int id) : base($"The station with id : {id} could not found.")
+        public UserNotFound(int id) : base($"The user with id : {id} could not found.")
         {
         }
     }

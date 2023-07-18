@@ -12,5 +12,7 @@ namespace Data.Abstract
         ILineDal LineDal { get; }
         IStationDal StationDal { get; }
         ITransferCenterDal TransferCenterDal { get; }
+        IRoleDal RoleDal { get; }
+        IUserDal UserDal { get; }
     }
 }

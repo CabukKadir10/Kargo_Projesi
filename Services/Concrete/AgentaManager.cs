@@ -1,8 +1,10 @@
-﻿using Core.Aspects.AutoFac.Validation;
+﻿using Autofac.Core;
+using Core.Aspects.AutoFac.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using Data.Abstract;
 using Entity.Concrete;
+using Entity.Exceptions;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Services.Abstract;
@@ -33,19 +35,39 @@ namespace Services.Concrete
                 _dalManager.AgentaDal.Create(agenta);
         }
 
-        public void Delete(Agenta agenta)
+        public void CancelDelete(int id)
         {
-            _dalManager.AgentaDal.Delete(agenta);
+            var agenta = _dalManager.AgentaDal.Get(a => a.Id == id);
+            if(agenta.IsDeleted == true)
+            {
+                agenta.IsDeleted = false;
+                _dalManager.AgentaDal.Update(agenta);
+            }
+        }
+
+        public void HardDelete(int id)
+        {
+            var getAgenta = _dalManager.AgentaDal.Get(a => a.Id == id);
+            if (getAgenta is null)
+                throw new AgentaNotFound(id);
+
+            _dalManager.AgentaDal.Delete(getAgenta);
         }
 
         public Agenta Get(int id)
         {
-            return _dalManager.AgentaDal.Get(u => u.Id == id);
+            var agenta = _dalManager.AgentaDal.Get(a => a.Id == id);
+            if (agenta is null)
+                throw new AgentaNotFound(id);
+            return agenta;
         }
 
         public Agenta GetByIdAgenta(Expression<Func<Agenta, bool>> filter)
         {
-            return _dalManager.AgentaDal.Get(filter);
+            var agenta = _dalManager.AgentaDal.Get(filter);
+            if (agenta is null)
+                throw new AgentaNotFound(agenta.Id);
+            return agenta;
         }
 
         public List<Agenta> GetListAgenta()
@@ -53,43 +75,25 @@ namespace Services.Concrete
             return _dalManager.AgentaDal.GetList();
         }
 
+        public void Delete(int id)
+        {
+            var agenta = _dalManager.AgentaDal.Get(a => a.Id == id);
+            if(agenta.IsDeleted == false)
+            {
+                agenta.IsDeleted = true;
+                _dalManager.AgentaDal.Update(agenta);
+            }
+        }
+
         [ValidationAspects(typeof(AgentaValidator))]
         public void Update(Agenta agenta)
-
         {
+            var getAgenta = _dalManager.AgentaDal.Get(a => a.Id == agenta.Id);
+            if (getAgenta is null)
+                throw new AgentaNotFound(agenta.Id);
+
             _dalManager.AgentaDal.Update(agenta);
         }
-        //public IResult Add(Agenta agenta)
-        //{
-        //    _dalManager.AgentaDal.Create(agenta);
-        //    return new SuccessResult();
-        //}
-
-        //public IResult Delete(Agenta agenta)
-        //{
-        //    _dalManager.AgentaDal.Delete(agenta);
-        //    return new SuccessResult();
-        //}
-
-        //public Agenta Get(int id)
-        //{
-        //    return _dalManager.AgentaDal.Get(u => u.Id == id);
-        //}
-
-        //public IDataResult<Agenta> GetByIdAgenta(int id)
-        //{
-        //    return new SuccessDataResult<Agenta>(_dalManager.AgentaDal.Get(u => u.Id == id));
-        //}
-
-        //public IDataResult<List<Agenta>> GetListAgenta()
-        //{
-        //    return new SuccessDataResult<List<Agenta>>(_dalManager.AgentaDal.GetList());
-        //}
-
-        //public IResult Update(Agenta agenta)
-        //{
-        //    _dalManager.AgentaDal.Update(agenta);
-        //    return new SuccessResult();
-        //}
+        
     }
 }

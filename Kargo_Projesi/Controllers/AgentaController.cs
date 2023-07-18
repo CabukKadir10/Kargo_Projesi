@@ -25,7 +25,7 @@ namespace WebApi.Controllers
             _mapper = mapper;
         }
 
-        [Authorize(Roles ="User, Editor, Admin")]
+        [Authorize(Roles = "Agenta, TransferCenter, Admin")]
         [HttpPost("CreateAgenta")]
         public IActionResult CreateAgenta([FromBody] CreateAgentaDto createAgentaDto)
         {
@@ -34,34 +34,27 @@ namespace WebApi.Controllers
             return Ok(agenta);
         }
 
-        [Authorize(Roles = "User, Editor, Admin")]
+        [Authorize(Roles = "Agenta, TransferCenter, Admin")]
         [HttpGet("GetListAgenta")]
         public IActionResult GetListAgenta()
         {
             var result = _services.AgentaService.GetListAgenta();
-            if (result is null)
-                return NotFound();
-
             return Ok(result);
         }
 
-        [Authorize(Roles = "User, Editor, Admin")]
+        [Authorize(Roles = "Agenta, TransferCenter, Admin")]
         [HttpGet("GetByIdAgenta/{id}")]
         public IActionResult GetByIdAgenta(int id)
         {
             var result = _services.AgentaService.Get(id);
-
-            if (result is null)
-                throw new AgentaNotFound(id);
-
             return Ok(result);
         }
 
-        [Authorize(Roles = "User, Editor, Admin")]
-        [HttpPut("UpdateAgenta/{id}")]
-        public IActionResult UpdateAgenta([FromBody] UpdateAgentaDto updateAgentaDto, int id)
+        [Authorize(Roles = "Admin")]
+        [HttpPut("UpdateAgenta")]
+        public IActionResult UpdateAgenta([FromBody] UpdateAgentaDto updateAgentaDto/*, int id*/)
         {
-            var getAgenta = _services.AgentaService.GetByIdAgenta(u => u.Id ==id);
+            var getAgenta = _services.AgentaService.GetByIdAgenta(u => u.Id == updateAgentaDto.UnitId);
             _mapper.Map(updateAgentaDto, getAgenta);
             getAgenta.ConcurrencyStamp = updateAgentaDto.ConurrencyStamp;
 
@@ -69,16 +62,28 @@ namespace WebApi.Controllers
             return Ok(getAgenta);
         }
 
-        [Authorize(Roles = "User, Editor, Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteAgenta/{id}")]
         public IActionResult DeleteAgenta(int id)
         {
-            var agenta = _services.AgentaService.Get(id);
-            if (agenta is null)
-                throw new AgentaNotFound(id);
+            _services.AgentaService.HardDelete(id);
+            return Ok();
+        }
 
-            _services.AgentaService.Delete(agenta);
-            return Ok(agenta);
+        [Authorize(Roles = "Agenta, TransferCenter, Admin")]
+        [HttpPost("CancelDeleteAgenta/{id}")]
+        public IActionResult CancelDelete(int id)
+        {
+            _services.AgentaService.CancelDelete(id);
+            return Ok("silme İptal Edildi");
+        }
+
+        [Authorize(Roles = "Agenta, TransferCenter, Admin")]
+        [HttpPost("DeleteAgenta/{id}")]
+        public IActionResult DeletedAgenta(int id)
+        {
+            _services.AgentaService.Delete(id);
+            return Ok("Seed Data Başarılı");
         }
     }
 }

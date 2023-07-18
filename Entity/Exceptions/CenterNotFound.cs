@@ -8,7 +8,7 @@ namespace Entity.Exceptions
 {
     public class CenterNotFound : NotFound
     {
-        public CenterNotFound(int id) : base($"The book with id : {id} could not found.")
+        public CenterNotFound(int id) : base($"The transferCenter with id : {id} could not found.")
         {
         }
     }

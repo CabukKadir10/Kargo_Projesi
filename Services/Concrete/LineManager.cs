@@ -5,6 +5,7 @@ using Data.Abstract;
 using Entity.Concrete;
 using Entity.Concrete.Enum;
 using Entity.Dto;
+using Entity.Exceptions;
 using Services.Abstract;
 using Services.FluentValidation;
 using System;
@@ -57,19 +58,38 @@ namespace Services.Concrete
             return new SuccessResult();
         }
 
-        public IResult Delete(Line line)
+        public IResult Delete(int id)
         {
-            _dalManager.LineDal.Delete(line);
+            var getLine = _dalManager.LineDal.Get(a => a.LineId == id);
+            if (getLine is null)
+                throw new LineNotFound(id);
+
+            _dalManager.LineDal.Delete(getLine);
             return new SuccessResult();
         }
 
         public IDataResult<Line> GetByIdLine(int id)
         {
-            return new SuccessDataResult<Line>(_dalManager.LineDal.Get(u => u.LineId == id));
+            var getByLine = _dalManager.LineDal.Get(a => a.LineId == id);
+            if (getByLine is null)
+                throw new LineNotFound(id);
+
+            return new SuccessDataResult<Line>(getByLine);
         }
 
         public IDataResult<List<Line>> GetListByIdUserLine(int id)
         {
+            //var lineList=new List<Line>();
+            //var lines = _dalManager.LineDal.GetList();
+            //foreach (var line in lines)
+            //{ 
+            //    var stations= _dalManager.StationDal.GetList(u => u.LineId == line.LineId);
+            //    if (stations.Any(s => s.UnitId == id))
+            //        lineList.Add(line);
+            //}
+            //return new SuccessDataResult<List<Line>>(lineList);
+
+
             var listLine = new List<Line>();
             var listLineId = new List<int>();
             var deneme = _dalManager.StationDal.GetList(a => a.UnitId == id);
@@ -100,6 +120,9 @@ namespace Services.Concrete
         [ValidationAspects(typeof(LineValidator))]
         public IResult Update(Line line)
         {
+            var getLine = _dalManager.LineDal.Get(a => a.LineId == line.LineId);
+            if (getLine is null)
+                throw new LineNotFound(line.LineId);
             _dalManager.LineDal.Update(line);
             return new SuccessResult();
         }

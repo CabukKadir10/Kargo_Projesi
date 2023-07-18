@@ -8,7 +8,7 @@ namespace Entity.Exceptions
 {
     public class LineNotFound : NotFound
     {
-        public LineNotFound(int id) : base($"The book with id : {id} could not found.")
+        public LineNotFound(int id) : base($"The line with id : {id} could not found.")
         {
         }
     }

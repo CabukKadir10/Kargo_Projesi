@@ -26,6 +26,7 @@ namespace WebApi.AutoMapper
 
             CreateMap<LineDto, Line>().ReverseMap();
             CreateMap<StationDto, Station>().ReverseMap();
+            CreateMap<User, Role>().ReverseMap();
         }
     }
 }

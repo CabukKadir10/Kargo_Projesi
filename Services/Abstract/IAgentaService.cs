@@ -13,15 +13,11 @@ namespace Services.Abstract
     {
         void Add(Agenta agenta);
         void Update(Agenta agenta);
-        void Delete(Agenta agenta);
+        void HardDelete(int id);
         Agenta GetByIdAgenta(Expression<Func<Agenta, bool>> filter);
         List<Agenta> GetListAgenta();
         Agenta Get(int id);
-
-        //IResult Add(Agenta agenta);
-        //IResult Update(Agenta agenta);
-        //IResult Delete(Agenta agenta);
-        //IDataResult<Agenta> GetByIdAgenta(int id);
-        //IDataResult<List<Agenta>> GetListAgenta();
+        void CancelDelete(int id);
+        void Delete(int id);
     }
 }

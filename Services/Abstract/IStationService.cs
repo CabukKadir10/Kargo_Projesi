@@ -13,7 +13,7 @@ namespace Services.Abstract
     {
         void Add(Station station);
         IResult Update(Station station);
-        IResult Delete(Station station);
+        IResult Delete(int id);
         IDataResult<Station> GetByIdStation(int id);
         IDataResult<List<Station>> GetListStation();
         IDataResult<List<Station>> GetListStation2(Expression<Func<Station, bool>> filter = null);

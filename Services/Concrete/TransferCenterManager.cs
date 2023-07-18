@@ -3,6 +3,7 @@ using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using Data.Abstract;
 using Entity.Concrete;
+using Entity.Exceptions;
 using Services.Abstract;
 using Services.FluentValidation;
 using System;
@@ -30,15 +31,23 @@ namespace Services.Concrete
             return new SuccessResult();
         }
 
-        public IResult Delete(TransferCenter transferCenter)
+        public IResult HardDelete(int id)
         {
-            _dalManager.TransferCenterDal.Delete(transferCenter);
+            var center = _dalManager.TransferCenterDal.Get(a => a.Id == id);
+            if (center is null)
+                throw new CenterNotFound(id);
+
+            _dalManager.TransferCenterDal.Delete(center);
             return new SuccessResult();
         }
 
         public IDataResult<TransferCenter> GetByIdCenter(Expression<Func<TransferCenter, bool>> filter)
         {
-            return new SuccessDataResult<TransferCenter>(_dalManager.TransferCenterDal.Get(filter));
+            var center = _dalManager.TransferCenterDal.Get(filter);
+            if (center is null)
+                throw new CenterNotFound(center.Id);
+
+            return new SuccessDataResult<TransferCenter>(center);
         }
 
         public IDataResult<List<TransferCenter>> GetListCenter()
@@ -49,7 +58,39 @@ namespace Services.Concrete
         [ValidationAspects(typeof(CenterValidator))]
         public IResult Update(TransferCenter transferCenter)
         {
+            var center = _dalManager.TransferCenterDal.Get(a => a.Id == transferCenter.Id);
+            if (center is null)
+                throw new CenterNotFound(transferCenter.Id);
+
             _dalManager.TransferCenterDal.Update(transferCenter);
+            return new SuccessResult();
+        }
+
+        public IResult CancelDelete(int id)
+        {
+            var center = _dalManager.TransferCenterDal.Get(a => a.Id == id);
+            if (center is null)
+                throw new CenterNotFound(id);
+            if(center.IsDeleted == true)
+            {
+                center.IsDeleted = false;
+                _dalManager.TransferCenterDal.Update(center);
+            }
+
+            return new SuccessResult();
+        }
+
+        public IResult Delete(int id)
+        {
+            var center = _dalManager.TransferCenterDal.Get(a => a.Id == id);
+            if (center is null)
+                throw new CenterNotFound(id);
+
+            if(center.IsDeleted == false)
+            {
+                center.IsDeleted = true;
+                _dalManager.TransferCenterDal.Update(center);
+            }
             return new SuccessResult();
         }
     }

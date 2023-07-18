@@ -29,7 +29,7 @@ namespace WebApi.Controllers
             _userManager = manager;
         }
 
-        [Authorize(Roles = "User, Editor, Admin")]
+        [Authorize(Roles = "Agenta, TransferCenter, Admin")]
         [HttpPost("CreateLine")]
         public IActionResult CreateLine([FromBody]CreateLineDto createLineDto)
         {
@@ -42,74 +42,55 @@ namespace WebApi.Controllers
             return BadRequest();
         }
 
-        [Authorize(Roles = "User, Editor, Admin")]
+        [Authorize(Roles = "Agenta, TransferCenter, Admin")]
         [HttpGet("GetListLine")]
         public IActionResult GetListLine()
         {
             var result = _services.LineService.GetListLine();
             if (result.Success)
-            {
-                return Ok(result);
-            }
+                return Ok(result.Data);
 
             return BadRequest();
         }
 
-        [Authorize(Roles = "User, Editor, Admin")]
+        [Authorize(Roles = "Agenta, TransferCenter, Admin")]
         [HttpGet("GetByIdLine/{id}")]
         public IActionResult GetByIdLine(int id)
         {
             var result = _services.LineService.GetByIdLine(id);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest();
+            return Ok(result.Data);
         }
 
-        [Authorize(Roles = "User, Editor, Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpPut("UpdateLine")]
         public IActionResult UpdateLine([FromBody]UpdateLineDto updateLineDto)
         {
             var line = _mapper.Map<Line>(updateLineDto);
             var result = _services.LineService.Update(line);
-            if(result.Success)
-            {
-                return Ok(line);
-            }
-
-            return BadRequest();
+            return Ok(line);
         }
 
-        [Authorize(Roles = "User, Editor, Admin")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("DeleteLine/{id}")]
         public IActionResult DeleteLine(int id)
         {
-            var line = _services.LineService.GetByIdLine(id);
-            var result = _services.LineService.Delete(line.Data);
-            if( result.Success)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest();
+            var result = _services.LineService.Delete(id);
+            return Ok(result);
         }
 
-        [Authorize(Roles = "User, Editor, Admin")]
+        [Authorize(Roles = "Agenta, TransferCenter, Admin")]
         [HttpGet("LineIdToStation/{lineId}")]
-        public IActionResult GetStationList(int lineId)
+        public IActionResult GetListStation(int lineId)
         {
             var result = _services.StationService.GetListStation2(d => d.LineId == lineId);
             if (result.Success)
-            {
-                return Ok(result);
-            }
+                return Ok(result.Data);
+            
 
             return BadRequest();
         }
 
-        [Authorize(Roles = "User, Editor, Admin")]
+        [Authorize(Roles = "Agenta, TransferCenter, Admin")]
         [HttpGet("GetListUserLine")]
         public async Task<IActionResult> GetListUserLine()
         {

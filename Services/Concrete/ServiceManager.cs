@@ -15,8 +15,10 @@ namespace Services.Concrete
         private readonly ITransferCenterService _transferCenterService;
         private readonly IAuthService _authService;
         private readonly IMailService _mailService;
+        private readonly IRoleService _roleService;
+        private readonly IUserService _userService;
 
-        public ServiceManager(IAgentaService agentaService, ILineService lineService, IStationService stationService, ITransferCenterService transferCenterService, IAuthService authService, IMailService mailService)
+        public ServiceManager(IAgentaService agentaService, ILineService lineService, IStationService stationService, ITransferCenterService transferCenterService, IAuthService authService, IMailService mailService, IRoleService roleService, IUserService userService)
         {
             _agentaService = agentaService;
             _lineService = lineService;
@@ -24,6 +26,8 @@ namespace Services.Concrete
             _transferCenterService = transferCenterService;
             _authService = authService;
             _mailService = mailService;
+            _roleService = roleService;
+            _userService = userService;
         }
 
         public IAgentaService AgentaService => _agentaService;
@@ -37,5 +41,9 @@ namespace Services.Concrete
         public IAuthService AuthService => _authService;
 
         public IMailService MailService => _mailService;
+
+        public IRoleService RoleService => _roleService;
+
+        public IUserService UserService => _userService;
     }
 }

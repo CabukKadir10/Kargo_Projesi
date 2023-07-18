@@ -29,48 +29,27 @@ namespace WebApi.Controllers
             _serviceManager = serviceManager;
         }
 
-        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPost("RegisterUser")]
         public async Task<IActionResult> RegisterUser([FromBody] UserRegisterDto userRegisterDto)
         {
             var getUser = _mapper.Map<User>(userRegisterDto);
-
-            if(!(_userManager.Users.Any(u => u.PhoneNumber == userRegisterDto.PhoneNumber)))
-            {
-                var result = await _userManager.CreateAsync(getUser, userRegisterDto.PasswordHash);
-                if (result.Succeeded)
-                {
-                    var addRole = await _userManager.AddToRoleAsync(getUser, userRegisterDto.Roles);
-                    return Ok(result);
-                }
-                else
-                    return BadRequest(error: "hata");
-            }
-
-            return BadRequest(error: "kullanıcı oluşturulamadı.");
+            await _serviceManager.UserService.RegisterUser(getUser);
+            return Ok(getUser);
         }
 
-        [Authorize(Roles = "User, Editor, Admin")]
         [HttpPost("UserLogin")]
         public async Task<IActionResult> UserLogin([FromBody] UserLoginDto userLoginDto)
         {
-            var role = _mapper.Map<Role>(userLoginDto);
+            var user = _serviceManager.UserService.Get(a => a.Email == userLoginDto.Email);
+            var result = await _serviceManager.UserService.UserLogin(user.Data);
 
-            var user = await _userManager.FindByEmailAsync(userLoginDto.Email);
-            if(user != null)
-            {
-                var result = await _signInManager.PasswordSignInAsync(user, userLoginDto.Password, false, false);
-                if (result.Succeeded && user.Roles.Equals(role.Name))
-                {
-                    var token = _serviceManager.AuthService.CreateAccessToken(user, role);
-                    return Ok(token);
-                }
-            }
+            if (result.Success)
+                return Ok(result.Data);
 
             return BadRequest();
         }
 
-        [Authorize(Roles = "User, Editor, Admin")]
+        [Authorize(Roles = "Agenta, TransferCenter, Admin")]
         [HttpGet("GetByIdUser/{id}")]
         public async Task<IActionResult> GetByIdUser(string id)
         {
@@ -81,7 +60,7 @@ namespace WebApi.Controllers
             return BadRequest();
         }
 
-        [Authorize(Roles = "User, Editor, Admin")]
+        [Authorize(Roles = "Agenta, TransferCenter, Admin")]
         [HttpPost("ChangePassword")]
         public async Task<IActionResult> ChangePassword(ChangePasswordDto changePassword)
         {
@@ -97,19 +76,14 @@ namespace WebApi.Controllers
             return BadRequest();
         }
 
-        [Authorize(Roles = "User, Editor, Admin")]
+        [Authorize(Roles = "Agenta, TransferCenter, Admin")]
         [HttpPost("UpdateUser")]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto updateUserDto)
         {
-            var user = await _userManager.FindByEmailAsync(updateUserDto.Email);
-            if(user != null)
-            {
-                var getUser = _mapper.Map<User>(updateUserDto);
-                user = getUser;
-                var result = await _userManager.UpdateAsync(user);
-                if (result.Succeeded)
-                    return Ok();
-            }
+            var getUser = _mapper.Map<User>(updateUserDto);
+            var result = await _serviceManager.UserService.UpdateUser(getUser);
+            if (result.Success)
+                return Ok(getUser);
 
             return BadRequest();
         }

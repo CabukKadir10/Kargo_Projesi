@@ -8,7 +8,7 @@ namespace Entity.Exceptions
 {
     public sealed class AgentaNotFound : NotFound
     {
-        public AgentaNotFound(int id) : base($"The book with id : {id} could not found.")
+        public AgentaNotFound(int id) : base($"The agenta with id : {id} could not found.")
         {
         }
     }

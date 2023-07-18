@@ -4,6 +4,7 @@ using Core.Utilities.Results.Concrete;
 using Data.Abstract;
 using Entity.Concrete;
 using Entity.Concrete.Enum;
+using Entity.Exceptions;
 using Services.Abstract;
 using Services.FluentValidation;
 using System;
@@ -51,15 +52,23 @@ namespace Services.Concrete
             }
         }
 
-        public IResult Delete(Station station)
+        public IResult Delete(int id)
         {
-            _dalManager.StationDal.Delete(station);
+            var getStation = _dalManager.StationDal.Get(a => a.Id == id);
+            if (getStation is null)
+                throw new StationNotFound(id);
+
+            _dalManager.StationDal.Delete(getStation);
             return new SuccessResult();
         }
 
         public IDataResult<Station> GetByIdStation(int id)
         {
-            return new SuccessDataResult<Station>(_dalManager.StationDal.Get(u => u.Id == id));
+            var station = _dalManager.StationDal.Get(u => u.Id == id);
+            if (station is null)
+                throw new StationNotFound(id);
+
+            return new SuccessDataResult<Station>(station);
         }
 
         public IDataResult<List<Station>> GetListStation()
@@ -76,6 +85,9 @@ namespace Services.Concrete
         [ValidationAspects(typeof(StationValidator))]
         public IResult Update(Station station)
         {
+            var getStation = _dalManager.StationDal.Get(a => a.Id == station.Id);
+            if (getStation is null)
+                throw new StationNotFound(station.Id);
             _dalManager.StationDal.Update(station);
             return new SuccessResult();
         }

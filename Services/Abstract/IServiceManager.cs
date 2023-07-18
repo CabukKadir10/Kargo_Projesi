@@ -14,5 +14,7 @@ namespace Services.Abstract
         ITransferCenterService TransferCenterService { get; }
         IAuthService AuthService { get; }
         IMailService MailService { get; }
+        IRoleService RoleService { get; }
+        IUserService UserService { get; }
     }
 }

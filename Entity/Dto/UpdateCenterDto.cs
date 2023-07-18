@@ -9,7 +9,7 @@ namespace Entity.Dto
 {
     public class UpdateCenterDto : IDto
     {
-       // public int UnitId { get; set; }
+        public int UnitId { get; set; }
         public string UnitName { get; set; }
         public string ResponsibleName { get; set; }
         public string ResponsibleSurname { get; set; }

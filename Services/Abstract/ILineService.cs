@@ -13,7 +13,7 @@ namespace Services.Abstract
     {
         IResult Add(Line line);
         IResult Update(Line line);
-        IResult Delete(Line line);
+        IResult Delete(int id);
         IDataResult<Line> GetByIdLine(int id);
         IDataResult<List<Line>> GetListLine();
         IDataResult<List<Line>> GetListFilter(Expression<Func<Line, bool>> filter = null);

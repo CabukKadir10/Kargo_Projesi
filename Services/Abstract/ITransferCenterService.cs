@@ -13,7 +13,9 @@ namespace Services.Abstract
     {
         IResult Add(TransferCenter transferCenter);
         IResult Update(TransferCenter transferCenter);
-        IResult Delete(TransferCenter transferCenter);
+        IResult HardDelete(int id);
+        IResult CancelDelete(int id);
+        IResult Delete(int id);
         IDataResult<TransferCenter> GetByIdCenter(Expression<Func<TransferCenter, bool>> filter);
         IDataResult<List<TransferCenter>> GetListCenter();
     }

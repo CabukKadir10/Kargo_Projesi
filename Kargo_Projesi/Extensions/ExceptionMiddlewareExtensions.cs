@@ -1,8 +1,10 @@
 ﻿using Entity.Concrete;
 using Entity.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Services.Abstract;
 using System.Net;
+using NotFound = Entity.Exceptions.NotFound;
 
 namespace WebApi.Extensions
 {

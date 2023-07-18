@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Entity.Concrete;
 using Entity.Dto;
+using Entity.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,7 +23,7 @@ namespace WebApi.Controllers
             _mapper = mapper;
         }
 
-        [Authorize(Roles = "User, Editor, Admin")]
+        [Authorize(Roles = "Agenta, TransferCenter, Admin")]
         [HttpPost("CreateCenter")]
         public IActionResult CreateCenter([FromBody] CreateCenterDto createCenterDto)
         {
@@ -30,99 +31,65 @@ namespace WebApi.Controllers
             var result = _services.TransferCenterService.Add(center);
 
             if (result.Success)
-            {
                 return Ok(center);
-            }
 
             return BadRequest();
         }
 
-        [Authorize(Roles = "User, Editor, Admin")]
+        [Authorize(Roles = "Agenta, TransferCenter, Admin")]
         [HttpGet("GetListCenter")]
         public IActionResult GetCenterList()
         {
             var result = _services.TransferCenterService.GetListCenter();
             if (result.Success)
-            {
-                return Ok(result);
-            }
+                return Ok(result.Data);
 
             return BadRequest();
         }
 
-        [Authorize(Roles = "User, Editor, Admin")]
+        [Authorize(Roles = "Agenta, TransferCenter, Admin")]
         [HttpGet("GetByIdCenter/{id}")]
         public IActionResult GetByIdCenter(int id)
         {
             var result = _services.TransferCenterService.GetByIdCenter(u => u.Id == id);
-            if (result.Success)
-            {
-                return Ok(result);
-            }
-
-            return BadRequest();
+            return Ok(result.Data);
         }
 
-        [Authorize(Roles = "User, Editor, Admin")]
+        [Authorize(Roles = "Agenta, TransferCenter, Admin")]
         [HttpPut("UpdateCenter/{id}")]
-        public IActionResult UpdateCenter([FromBody] UpdateCenterDto updateCenterDto, int id)
+        public IActionResult UpdateCenter([FromBody] UpdateCenterDto updateCenterDto/*, int id*/)
         {
-            var getCenter = _services.TransferCenterService.GetByIdCenter(u => u.Id == id);
+            var getCenter = _services.TransferCenterService.GetByIdCenter(u => u.Id == updateCenterDto.UnitId);
+
             _mapper.Map(updateCenterDto, getCenter.Data);
             getCenter.Data.ConcurrencyStamp = updateCenterDto.ConurrencyStamp;
+
             var result = _services.TransferCenterService.Update(getCenter.Data);
-
-            if (result.Success)
-            {
-                return Ok(updateCenterDto);
-            }
-
-            return BadRequest();
+            return Ok(updateCenterDto);
         }
 
-        [Authorize(Roles = "User, Editor, Admin")]
+        [Authorize(Roles = "Agenta, TransferCenter, Admin")]
         [HttpDelete("HardDeleteCenter/{id}")]
         public IActionResult HardDeleteCenter(int id)
         {
-            var center = _services.TransferCenterService.GetByIdCenter(u => u.Id == id);
-            var result = _services.TransferCenterService.Delete(center.Data);
-
-            if (result.Success)
-            {
-                return Ok("Başarıyla Silindi");
-            }
-
-            return BadRequest();
+            var result = _services.TransferCenterService.HardDelete(id);
+            return Ok("Başarıyla Silindi");
         }
 
-        [Authorize(Roles = "User, Editor, Admin")]
-        [HttpPost("UndIsDeletedCenter/{id}")]
-        public IActionResult UndoIsDeletedCenter(int id)
+        [Authorize(Roles = "Agenta, TransferCenter, Admin")]
+        [HttpPost("CancelDeleteCenter/{id}")]
+        public IActionResult CancelDelete(int id)
         {
-            var center = _services.TransferCenterService.GetByIdCenter(u => u.Id == id);
-            if(center.Data.IsDeleted == true)
-            {
-                center.Data.IsDeleted = false;
-                _services.TransferCenterService.Update(center.Data);
-                return Ok("Ban Kaldırıldı");
-            }
-
-            return BadRequest("Banlı Değil");
+            _services.TransferCenterService.CancelDelete(id);
+            return Ok("Silme İptal edildi");
         }
 
-        [Authorize(Roles = "User, Editor, Admin")]
-        [HttpPost("IsDeletedCenter/{id}")]
-        public IActionResult IsDeletedCenter(int id)
+        [Authorize(Roles = "Agenta, TransferCenter, Admin")]
+        [HttpPost("DeleteCenter/{id}")]
+        public IActionResult DeletedCenter(int id)
         {
-            var center = _services.TransferCenterService.GetByIdCenter(u => u.Id == id);
-            if(center.Data.IsDeleted == false)
-            {
-                center.Data.IsDeleted = true;
-                _services.TransferCenterService.Update(center.Data);
-                return Ok("Banlandı");
-            }
-
-            return BadRequest("Zaten Banlı");
+            _services.TransferCenterService.Delete(id);
+            return Ok("Seed data başarılı");
         }
     }
 }

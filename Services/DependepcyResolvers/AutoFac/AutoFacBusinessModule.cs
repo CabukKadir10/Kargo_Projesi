@@ -23,6 +23,8 @@ namespace Services.DependepcyResolvers.AutoFac
             builder.RegisterType<AgentaDal>().As<IAgentaDal>();
             builder.RegisterType<StationDal>().As<IStationDal>();
             builder.RegisterType<TransferCenterDal>().As<ITransferCenterDal>();
+            builder.RegisterType<RoleDal>().As<IRoleDal>();
+            builder.RegisterType<UserDal>().As<IUserDal>();
 
             builder.RegisterType<DalManager>().As<IDalManager>();
             builder.RegisterType<ServiceManager>().As<IServiceManager>();
@@ -33,6 +35,8 @@ namespace Services.DependepcyResolvers.AutoFac
             builder.RegisterType<TransferCenterManager>().As<ITransferCenterService>();
             builder.RegisterType<AuthManager>().As<IAuthService>();
             builder.RegisterType<MailManager>().As<IMailService>();
+            builder.RegisterType<RoleManager>().As<IRoleService>();
+            builder.RegisterType<UserManagerr>().As<IUserService>();
 
             builder.RegisterType<TokenHelper>().As<ITokenHelper>();
             builder.RegisterType<LoggerManager>().As<ILoggerService>();

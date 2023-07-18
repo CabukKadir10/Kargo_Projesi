@@ -14,6 +14,7 @@ namespace Entity.Dto
         public int LineType { get; set; }
         public int CenterId { get; set; }
         public CreateStationDto[] Stations { get; set; }
+       // public int[] Stations { get; set; }
         public bool IsActive { get; set; }
     }
 }
