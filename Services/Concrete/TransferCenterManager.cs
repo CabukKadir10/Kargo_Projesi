@@ -5,6 +5,7 @@ using Data.Abstract;
 using Entity.Concrete;
 using Entity.Exceptions;
 using Services.Abstract;
+using Services.Constans;
 using Services.FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace Services.Concrete
         public IResult Add(TransferCenter transferCenter)
         {
             _dalManager.TransferCenterDal.Create(transferCenter);
-            return new SuccessResult();
+            return new SuccessResult(Messages.CreatedCenter);
         }
 
         public IResult HardDelete(int id)
@@ -38,7 +39,7 @@ namespace Services.Concrete
                 throw new CenterNotFound(id);
 
             _dalManager.TransferCenterDal.Delete(center);
-            return new SuccessResult();
+            return new SuccessResult(Messages.HardDeleted);
         }
 
         public IDataResult<TransferCenter> GetByIdCenter(Expression<Func<TransferCenter, bool>> filter)
@@ -63,7 +64,7 @@ namespace Services.Concrete
                 throw new CenterNotFound(transferCenter.Id);
 
             _dalManager.TransferCenterDal.Update(transferCenter);
-            return new SuccessResult();
+            return new SuccessResult(Messages.UpdatedCenter);
         }
 
         public IResult CancelDelete(int id)
@@ -77,7 +78,7 @@ namespace Services.Concrete
                 _dalManager.TransferCenterDal.Update(center);
             }
 
-            return new SuccessResult();
+            return new SuccessResult(Messages.CancelDeleted);
         }
 
         public IResult Delete(int id)
@@ -91,7 +92,7 @@ namespace Services.Concrete
                 center.IsDeleted = true;
                 _dalManager.TransferCenterDal.Update(center);
             }
-            return new SuccessResult();
+            return new SuccessResult(Messages.Deleted);
         }
     }
 }

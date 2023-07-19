@@ -11,7 +11,7 @@ namespace Entity.Dto
     public class CreateStationDto : IDto
     {
         public string StationName { get; set; }
-       // public int OrderNumber { get; set; }
+        public int OrderNumber { get; set; }
        // public LineDto Line { get; set; }
        // public IList<LineDto> LineId { get; set; }
         public int LineId { get; set; }

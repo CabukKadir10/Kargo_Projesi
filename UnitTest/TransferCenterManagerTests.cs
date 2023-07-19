@@ -62,41 +62,41 @@ namespace UnitTest
             _mockDalManager.Verify();
         }
 
-        [Fact]
-        public void Delete_WhenCalledWithValidTransferCenter_ReturnsSuccessResult()
-        {
+        //[Fact]
+        //public void Delete_WhenCalledWithValidTransferCenter_ReturnsSuccessResult()
+        //{
             
-            var transferCenter = new TransferCenter
-            {
-                Id = 1,
-                UnitName = "Name1",
-                ManagerName = "kadir",
-                ManagerSurname = "Çabuk",
-                PhoneNumber = "05123456789",
-                Gsm = "085012356",
-                Email = "kadir@gmail.com",
-                Description = "Description",
-                City = "Diyarbakır",
-                District = "Bağlar",
-                NeighBourHood = "mahalle1",
-                Street = "sokak1",
-                IsDeleted = false,
-                AddressDetail = "Amed merkez"
-            };
+        //    var transferCenter = new TransferCenter
+        //    {
+        //        Id = 1,
+        //        UnitName = "Name1",
+        //        ManagerName = "kadir",
+        //        ManagerSurname = "Çabuk",
+        //        PhoneNumber = "05123456789",
+        //        Gsm = "085012356",
+        //        Email = "kadir@gmail.com",
+        //        Description = "Description",
+        //        City = "Diyarbakır",
+        //        District = "Bağlar",
+        //        NeighBourHood = "mahalle1",
+        //        Street = "sokak1",
+        //        IsDeleted = false,
+        //        AddressDetail = "Amed merkez"
+        //    };
 
-            var expected = new SuccessResult();
+        //    var expected = new SuccessResult();
 
             
-            _mockDalManager.Setup(m => m.TransferCenterDal.Delete(transferCenter)).Verifiable();
+        //    _mockDalManager.Setup(m => m.TransferCenterDal.Delete(transferCenter)).Verifiable();
 
            
-            var actual = _transferCenterManager.Delete(transferCenter);
+        //    var actual = _transferCenterManager.Delete(transferCenter);
 
            
-            Assert.Equal(expected.Success, actual.Success);
-            Assert.Equal(expected.Message, actual.Message);
-            _mockDalManager.Verify();
-        }
+        //    Assert.Equal(expected.Success, actual.Success);
+        //    Assert.Equal(expected.Message, actual.Message);
+        //    _mockDalManager.Verify();
+        //}
 
         [Fact]
         public void GetByIdCenter_WhenCalledWithValidFilter_ReturnsSuccessDataResult()

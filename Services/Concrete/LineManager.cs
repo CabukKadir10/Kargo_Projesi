@@ -8,6 +8,7 @@ using Entity.Concrete.Enum;
 using Entity.Dto;
 using Entity.Exceptions;
 using Services.Abstract;
+using Services.Constans;
 using Services.FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -81,7 +82,7 @@ namespace Services.Concrete
                     _services.Add(station);
                 }
             }
-            return new SuccessResult();
+            return new SuccessResult(Messages.CreatedLine);
         }
 
         public IResult Delete(int id)
@@ -91,7 +92,7 @@ namespace Services.Concrete
                 throw new LineNotFound(id);
 
             _dalManager.LineDal.Delete(getLine);
-            return new SuccessResult();
+            return new SuccessResult(Messages.DeletedLine);
         }
 
         public IDataResult<Line> GetByIdLine(int id)
@@ -150,7 +151,7 @@ namespace Services.Concrete
             if (getLine is null)
                 throw new LineNotFound(line.LineId);
             _dalManager.LineDal.Update(line);
-            return new SuccessResult();
+            return new SuccessResult(Messages.UpdatedLine);
         }
     }
 }

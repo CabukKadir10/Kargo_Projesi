@@ -77,7 +77,7 @@ namespace WebApi.Controllers
             if(user != null)
             {
                 var result = await _userManager.ChangePasswordAsync(user, changePassword.OldPassword, changePassword.newPassword);
-
+                var updateUser = await _userManager.UpdateAsync(user);
                 if (result.Succeeded)
                     return Ok("Şifre Değiştirme Başarılı");
             }
@@ -89,9 +89,10 @@ namespace WebApi.Controllers
         [HttpPost("UpdateUser")]
         public async Task<IActionResult> UpdateUser([FromBody] UpdateUserDto updateUserDto)
         {
-            var getUser = _mapper.Map<User>(updateUserDto);
-            var result = await _serviceManager.UserService.UpdateUser(getUser);
-            if (result.Success)
+            var getUser = await _userManager.FindByIdAsync(updateUserDto.Id);
+            _mapper.Map(getUser, updateUserDto);
+            var result = await _userManager.UpdateAsync(getUser);
+            if (result.Succeeded)
                 return Ok(getUser);
 
             return BadRequest();

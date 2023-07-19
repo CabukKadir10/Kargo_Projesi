@@ -56,15 +56,14 @@ namespace WebApi.Controllers
         }
 
         [Authorize(Roles = "Agenta, TransferCenter, Admin")]
-        [HttpPut("UpdateCenter/{id}")]
+        [HttpPut("UpdateCenter")]
         public IActionResult UpdateCenter([FromBody] UpdateCenterDto updateCenterDto/*, int id*/)
         {
             var getCenter = _services.TransferCenterService.GetByIdCenter(u => u.Id == updateCenterDto.UnitId);
-
             _mapper.Map(updateCenterDto, getCenter.Data);
             getCenter.Data.ConcurrencyStamp = updateCenterDto.ConurrencyStamp;
 
-            var result = _services.TransferCenterService.Update(getCenter.Data);
+            _services.TransferCenterService.Update(getCenter.Data);
             return Ok(updateCenterDto);
         }
 

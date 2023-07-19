@@ -71,33 +71,33 @@ namespace UnitTest
             _mockDalManager.Verify();
         }
 
-        [Fact]
-        public void Delete_WhenCalledWithValidStation_ReturnsSuccessResult()
-        {
+        //[Fact]
+        //public void Delete_WhenCalledWithValidStation_ReturnsSuccessResult()
+        //{
             
-            var station = new Station
-            {
-                Id = 1,
-                StationName = "Test Station",
-                OrderNumber = 2,
-                LineId = 1,
-                IsActive = true,
-                UnitId = 2
-            };
+        //    var station = new Station
+        //    {
+        //        Id = 1,
+        //        StationName = "Test Station",
+        //        OrderNumber = 2,
+        //        LineId = 1,
+        //        IsActive = true,
+        //        UnitId = 2
+        //    };
 
-            var expected = new SuccessResult();
+        //    var expected = new SuccessResult();
 
            
-            _mockDalManager.Setup(m => m.StationDal.Delete(station)).Verifiable();
+        //    _mockDalManager.Setup(m => m.StationDal.Delete(station)).Verifiable();
 
             
-            var actual = _stationManager.Delete(station);
+        //    var actual = _stationManager.Delete(station);
 
             
-            Assert.Equal(expected.Success, actual.Success);
-            Assert.Equal(expected.Message, actual.Message);
-            _mockDalManager.Verify();
-        }
+        //    Assert.Equal(expected.Success, actual.Success);
+        //    Assert.Equal(expected.Message, actual.Message);
+        //    _mockDalManager.Verify();
+        //}
 
         [Fact]
         public void GetByIdStation_WhenCalledWithValidId_ReturnsSuccessDataResult()

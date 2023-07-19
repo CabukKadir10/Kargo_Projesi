@@ -6,6 +6,7 @@ using Entity.Concrete;
 using Entity.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Services.Abstract;
+using Services.Constans;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -48,7 +49,7 @@ namespace Services.Concrete
                 }
             }
 
-            return new SuccessResult();
+            return new SuccessResult(Messages.RegisterUser);
         }
 
         public async Task<IResult> UpdateUser(User user)
@@ -58,7 +59,7 @@ namespace Services.Concrete
                 throw new UserNotFound(user.Id);
 
             var updateUser = await _userManager.UpdateAsync(user);
-            return new SuccessResult();
+            return new SuccessResult(Messages.UpdatedUser);
         }
 
         public async Task<IDataResult<AccessToken>> UserLogin(User user)

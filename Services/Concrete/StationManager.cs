@@ -6,6 +6,7 @@ using Entity.Concrete;
 using Entity.Concrete.Enum;
 using Entity.Exceptions;
 using Services.Abstract;
+using Services.Constans;
 using Services.FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -59,7 +60,7 @@ namespace Services.Concrete
                 throw new StationNotFound(id);
 
             _dalManager.StationDal.Delete(getStation);
-            return new SuccessResult();
+            return new SuccessResult(Messages.DeletedStation);
         }
 
         public IDataResult<Station> GetByIdStation(int id)
@@ -89,7 +90,7 @@ namespace Services.Concrete
             if (getStation is null)
                 throw new StationNotFound(station.Id);
             _dalManager.StationDal.Update(station);
-            return new SuccessResult();
+            return new SuccessResult(Messages.UpdatedStation);
         }
     }
 }
