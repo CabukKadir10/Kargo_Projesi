@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Results.Abstract;
 using Entity.Concrete;
+using Entity.Dto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Services.Abstract
 {
     public interface ILineService
     {
-        IResult Add(Line line);
+        IResult Add(CreateLineDto createLineDto);
         IResult Update(Line line);
         IResult Delete(int id);
         IDataResult<Line> GetByIdLine(int id);

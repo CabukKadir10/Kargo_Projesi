@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Entity.Concrete;
 using Entity.Dto;
+using Entity.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -40,11 +41,19 @@ namespace WebApi.Controllers
         [HttpPost("UserLogin")]
         public async Task<IActionResult> UserLogin([FromBody] UserLoginDto userLoginDto)
         {
-            var user = _serviceManager.UserService.Get(a => a.Email == userLoginDto.Email);
-            var result = await _serviceManager.UserService.UserLogin(user.Data);
+          // var role = _mapper.Map<Role>(userLoginDto);
 
-            if (result.Success)
-                return Ok(result.Data);
+            var user = await _userManager.FindByEmailAsync(userLoginDto.Email);
+            var role = _serviceManager.RoleService.GetRole(user.Roles);
+            if (user != null)
+            {
+                var result = await _signInManager.PasswordSignInAsync(user, userLoginDto.Password, false, false);
+                if (result.Succeeded && user.Roles.Equals(role.Data.Name))
+                {
+                    var token = _serviceManager.AuthService.CreateAccessToken(user, role.Data);
+                    return Ok(token);
+                }
+            }
 
             return BadRequest();
         }
@@ -54,10 +63,10 @@ namespace WebApi.Controllers
         public async Task<IActionResult> GetByIdUser(string id)
         {
             var result = await _userManager.FindByIdAsync(id);
-            if (result != null)
-                return Ok(result);
+            if (result is null)
+                throw new UserNotFound(result.Id);
 
-            return BadRequest();
+            return Ok(result);
         }
 
         [Authorize(Roles = "Agenta, TransferCenter, Admin")]

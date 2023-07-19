@@ -7,6 +7,7 @@ using Data.Concrete;
 using Data.Concrete.EfCore.Context;
 using Entity.Concrete;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -55,6 +56,7 @@ builder.Services.AddAuthentication();
 //builder.Services.ConfigureServiceRegister();
 //builder.Services.ConfigureLoggerService();
 //builder.Services.ConfigureContextKargo();
+builder.Services.AddSingleton<IAuthorizationMiddlewareResultHandler, CustomAuthorizationMiddlewareResultHandler>();
 
 IConfiguration configuration = builder.Configuration;
 
@@ -84,6 +86,8 @@ var app = builder.Build();
 
 var logger = app.Services.GetRequiredService<ILoggerService>();
 app.ConfigureExceptionHandler(logger);
+app.ConfigureExceptionHandler2(logger);
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

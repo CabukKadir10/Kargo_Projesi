@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Entity.Concrete;
 using Entity.Dto;
+using Entity.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -40,10 +41,10 @@ namespace WebApi.Controllers
         public async Task<IActionResult> GetByIdRole(string id)
         {
             var result = await _roleManager.FindByIdAsync(id);
-            if (result != null)
-                return Ok(result);
+            //if (result is null)
+            //    throw new RoleNotFound(result.Id);
 
-            return BadRequest();
+            return Ok(result);
         }
 
         [Authorize(Roles = "Agenta, TransferCenter, Admin")]
@@ -51,14 +52,13 @@ namespace WebApi.Controllers
         public async Task<IActionResult> UpdateRole([FromBody] UpdateRoleDto updateRole)
         {
             var getRole = await _roleManager.FindByIdAsync(updateRole.Id);
-
             _mapper.Map(updateRole, getRole);
 
             var result = await _roleManager.UpdateAsync(getRole);
-            if (result.Succeeded)
-                return Ok();
+            if (getRole is null)
+                throw new RoleNotFound(getRole.Id);
 
-            return BadRequest();
+            return Ok(result);
         }
     }
 }

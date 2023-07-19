@@ -1,4 +1,5 @@
-﻿using Core.Aspects.AutoFac.Validation;
+﻿using AutoMapper;
+using Core.Aspects.AutoFac.Validation;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using Data.Abstract;
@@ -22,39 +23,64 @@ namespace Services.Concrete
         private readonly IDalManager _dalManager;
         private readonly ILoggerService _logger;
         private readonly IStationService _services;
+        private readonly IMapper _mapper;
 
-        public LineManager(IDalManager dalManager, ILoggerService logger, IStationService services)
+        public LineManager(IDalManager dalManager, ILoggerService logger, IStationService services, IMapper mapper)
         {
             _dalManager = dalManager;
             _logger = logger;
             _services = services;
+            _mapper = mapper;
         }
 
         [ValidationAspects(typeof(LineValidator))]
-        public IResult Add(Line line)
+        public IResult Add(CreateLineDto createLineDto)
         {
+            var line = _mapper.Map<Line>(createLineDto);
             _dalManager.LineDal.Create(line);
 
-            if (line.CenterId != null)
+            if (createLineDto.CenterId != 0)
             {
                 var lastStation = new Station
                 {
-                    StationName = $"{line.LineName} Durak 1",
+                    StationName = $"{line.LineName}",
                     OrderNumber = 1,
                     LineId = line.LineId,
                     IsActive = true,
                     UnitId = line.CenterId
                 };
                 _dalManager.StationDal.Create(lastStation);
-            }
 
-            for (int i = 0; i < line.Stations.Count; i++)
+                for (int i = 0; i < createLineDto.Station.Length; i++)
+                {
+                    var station = new Station
+                    {
+                        StationName = $"{line.LineName} Durak {i + 2}",
+                        OrderNumber = i + 2,
+                        LineId = line.LineId,
+                        IsActive = true,
+                        UnitId = createLineDto.Station[i]
+                    };
+
+                    _services.Add(station);
+                }
+            }
+            else
             {
-                var station = line.Stations[i];
-                station.OrderNumber = i + 2;
-                _services.Add(station);
-            }
+                for (int i = 0; i < createLineDto.Station.Length; i++)
+                {
+                    var station = new Station
+                    {
+                        StationName = $"{line.LineName} Durak {i + 1}",
+                        OrderNumber = i + 1,
+                        LineId = line.LineId,
+                        IsActive = true,
+                        UnitId = createLineDto.Station[i]
+                    };
 
+                    _services.Add(station);
+                }
+            }
             return new SuccessResult();
         }
 

@@ -3,6 +3,7 @@ using Core.Utilities.Results.Concrete;
 using Core.Utilities.Security.Jwt;
 using Data.Abstract;
 using Entity.Concrete;
+using Entity.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Services.Abstract;
 using System;
@@ -52,6 +53,10 @@ namespace Services.Concrete
 
         public async Task<IResult> UpdateUser(User user)
         {
+            var getUser = _dalManager.UserDal.Get(a => a.Id == user.Id);
+            if (getUser is null)
+                throw new UserNotFound(user.Id);
+
             var updateUser = await _userManager.UpdateAsync(user);
             return new SuccessResult();
         }
@@ -59,6 +64,10 @@ namespace Services.Concrete
         public async Task<IDataResult<AccessToken>> UserLogin(User user)
         {
             var role = _dalManager.RoleDal.Get(a => a.Name == user.Roles);
+            var getUser = _dalManager.UserDal.Get(a => a.Id == user.Id);
+            if (getUser is null)
+                throw new UserNotFound(user.Id);
+
             var result = await _signInManager.PasswordSignInAsync(user, user.PasswordHash, false, false);
             var token = _token.CreateToken(user, role);
             return new SuccessDataResult<AccessToken>(token);

@@ -33,11 +33,11 @@ namespace WebApi.Controllers
         [HttpPost("CreateLine")]
         public IActionResult CreateLine([FromBody]CreateLineDto createLineDto)
         {
-            var line = _mapper.Map<Line>(createLineDto);
-            var result = _services.LineService.Add(line);
+            //var line = _mapper.Map<Line>(createLineDto);
+            var result = _services.LineService.Add(createLineDto);
 
             if (result.Success)
-                return Ok(line);
+                return Ok(createLineDto);
 
             return BadRequest();
         }
