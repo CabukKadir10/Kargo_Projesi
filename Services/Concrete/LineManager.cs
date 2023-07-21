@@ -72,49 +72,6 @@ namespace Services.Concrete
 
             _services.AddRange(stations);
             return new SuccessResult(Messages.CreatedLine);
-
-            //if (createLineDto.CenterId != 0)
-            //{
-            //    var lastStation = new Station
-            //    {
-            //        StationName = $"{line.LineName}",
-            //        OrderNumber = 1,
-            //        LineId = line.LineId,
-            //        IsActive = true,
-            //        UnitId = line.CenterId
-            //    };
-            //    _dalManager.StationDal.Create(lastStation);
-
-            //    for (int i = 0; i < createLineDto.Station.Length; i++)
-            //    {
-            //        var station = new Station
-            //        {
-            //            StationName = $"{line.LineName} Durak {i + 2}",
-            //            OrderNumber = i + 2,
-            //            LineId = line.LineId,
-            //            IsActive = true,
-            //            UnitId = createLineDto.Station[i]
-            //        };
-            //        _services.Add(station);
-            //    }
-            //}
-            //else
-            //{
-            //    for (int i = 0; i < createLineDto.Station.Length; i++)
-            //    {
-            //        var station = new Station
-            //        {
-            //            StationName = $"{line.LineName} Durak {i + 1}",
-            //            OrderNumber = i + 1,
-            //            LineId = line.LineId,
-            //            IsActive = true,
-            //            UnitId = createLineDto.Station[i]
-            //        };
-
-            //        _services.Add(station);
-            //    }
-            //}
-            //return new SuccessResult(Messages.CreatedLine);
         }
 
         public IResult Delete(int id)
@@ -138,32 +95,15 @@ namespace Services.Concrete
 
         public IDataResult<List<Line>> GetListByIdUserLine(int id)
         {
-            //var lineList=new List<Line>();
-            //var lines = _dalManager.LineDal.GetList();
-            //foreach (var line in lines)
-            //{ 
-            //    var stations= _dalManager.StationDal.GetList(u => u.LineId == line.LineId);
-            //    if (stations.Any(s => s.UnitId == id))
-            //        lineList.Add(line);
-            //}
-            //return new SuccessDataResult<List<Line>>(lineList);
-
-
-            var listLine = new List<Line>();
-            var listLineId = new List<int>();
-            var deneme = _dalManager.StationDal.GetList(a => a.UnitId == id);
-            for (int i = 0; i < deneme.Count; i++)
+            var lineList = new List<Line>();
+            var lines = _dalManager.LineDal.GetList();
+            foreach (var line in lines)
             {
-                listLineId.Add(deneme[i].LineId);
-
+                var stations = _dalManager.StationDal.GetList(u => u.LineId == line.LineId);
+                if (stations.Any(s => s.UnitId == id))
+                    lineList.Add(line);
             }
-
-            for (int i = 0; i < listLineId.Count; i++)
-            {
-                listLine.Add(_dalManager.LineDal.Get(a => a.LineId == listLineId[i]));
-            }
-
-            return new SuccessDataResult<List<Line>>(listLine);
+            return new SuccessDataResult<List<Line>>(lineList);
         }
 
         public IDataResult<List<Line>> GetListFilter(Expression<Func<Line, bool>> filter = null)

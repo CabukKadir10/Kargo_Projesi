@@ -48,29 +48,6 @@ namespace Services.Concrete
             }
 
             _dalManager.StationDal.Create(station);
-
-            //var line = _dalManager.LineDal.Get(a => a.LineId == station.LineId);
-            //var listStation = _dalManager.StationDal.GetList(a => a.LineId == station.LineId);
-            //var countStation = _dalManager.StationDal.Count(a => a.LineId == station.LineId);
-            //if(countStation <= 10)
-            //{
-            //    if (line.LineType == LineType.outLine)
-            //    {
-            //        var list = _dalManager.TransferCenterDal.GetList();
-            //        if (list.Any(a => a.Id == station.UnitId) /*&& listStation.Any(a => a.UnitId != station.UnitId)*/)
-            //        {
-            //            _dalManager.StationDal.Create(station);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        var list2 = _dalManager.AgentaDal.GetList();
-            //        if (list2.Any(a => a.Id == station.UnitId)/* && listStation.Any(a => a.UnitId != station.UnitId)*/)
-            //        {
-            //            _dalManager.StationDal.Create(station);
-            //        }
-            //    }
-            //}
         }
 
         public void AddRange(IEnumerable<Station> stations)

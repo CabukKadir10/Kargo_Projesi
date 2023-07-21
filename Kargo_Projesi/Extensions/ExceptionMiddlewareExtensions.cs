@@ -17,27 +17,11 @@ namespace WebApi.Extensions
             {
                 appError.Run(async context =>
                 {
-                    //context.Response.StatusCode = (int)HttpStatusCode.InternalServerError; //status cod alıyoruz default olarak 500 alıyoruz
                     context.Response.ContentType = "application/json"; //dönüş tipini json olarak alıyoruz.
 
                     var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                     if(contextFeature is not null)
                     {
-                        //context.Response.StatusCode = contextFeature.Error switch
-                        //{
-                        //    NotFound => StatusCodes.Status404NotFound,
-                        //    BadRequestException => StatusCodes.Status400BadRequest,
-                        //    ValidationException => StatusCodes.Status422UnprocessableEntity,
-                        //    _ => StatusCodes.Status500InternalServerError
-                        //};
-
-
-                        //logger.LogError($"Yanlış giden şeyler var: {contextFeature.Error}");
-                        //await context.Response.WriteAsync(new ErrorDetails() {
-                        //    StatusCode = context.Response.StatusCode,
-                        //    Message = contextFeature.Error.Message
-                        //}.ToString());
-
                         context.Response.StatusCode = contextFeature.Error switch
                         {
                             BadRequestException => StatusCodes.Status400BadRequest,
