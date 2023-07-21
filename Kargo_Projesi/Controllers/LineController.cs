@@ -94,15 +94,9 @@ namespace WebApi.Controllers
         [HttpGet("GetListUserLine")]
         public async Task<IActionResult> GetListUserLine()
         {
-            var userId = User.Identity.Name;
-            var getUser = await _userManager.FindByNameAsync(userId);
-            var unitId = getUser.UnitId;
-
-            var result = _services.LineService.GetListByIdUserLine(unitId);
-            if(result.Success)
-            {
-                return Ok(result);
-            }
+            var getUser = await _userManager.FindByNameAsync(User.Identity.Name);
+            var result = _services.LineService.GetListByIdUserLine(getUser.UnitId);
+            if(result.Success) return Ok(result);
 
             return BadRequest();
         }

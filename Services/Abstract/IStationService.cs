@@ -12,6 +12,7 @@ namespace Services.Abstract
     public interface IStationService
     {
         void Add(Station station);
+        void AddRange(IEnumerable<Station> stations);
         IResult Update(Station station);
         IResult Delete(int id);
         IDataResult<Station> GetByIdStation(int id);

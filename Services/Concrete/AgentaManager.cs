@@ -70,7 +70,7 @@ namespace Services.Concrete
             return agenta;
         }
 
-        public List<Agenta> GetListAgenta()
+        public List<Agenta> GetListAgenta()//burada kontrol et
         {
             return _dalManager.AgentaDal.GetList();
         }

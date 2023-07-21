@@ -23,7 +23,7 @@ namespace WebApi.Controllers
             _mapper = mapper;
         }
 
-        [Authorize(Roles = "Agenta, TransferCenter, Admin")]
+        [Authorize(Roles = "TransferCenter, Admin")]
         [HttpPost("CreateRole")]
         public async Task<IActionResult> CreateRole([FromBody] CreateRoleDto createRoleDto)
         {
@@ -53,10 +53,9 @@ namespace WebApi.Controllers
         {
             var getRole = await _roleManager.FindByIdAsync(updateRole.Id);
             _mapper.Map(updateRole, getRole);
-
-            var result = await _roleManager.UpdateAsync(getRole);
             if (getRole is null)
                 throw new RoleNotFound(getRole.Id);
+            var result = await _roleManager.UpdateAsync(getRole);
 
             return Ok(result);
         }

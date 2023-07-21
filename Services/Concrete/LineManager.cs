@@ -40,49 +40,81 @@ namespace Services.Concrete
             var line = _mapper.Map<Line>(createLineDto);
             _dalManager.LineDal.Create(line);
 
-            if (createLineDto.CenterId != 0)
+            var stations = new List<Station>();
+
+            if(createLineDto.CenterId != 0)
             {
-                var lastStation = new Station
+                var station = new Station
                 {
                     StationName = $"{line.LineName}",
                     OrderNumber = 1,
                     LineId = line.LineId,
                     IsActive = true,
-                    UnitId = line.CenterId
+                    UnitId = createLineDto.CenterId
                 };
-                _dalManager.StationDal.Create(lastStation);
 
-                for (int i = 0; i < createLineDto.Station.Length; i++)
-                {
-                    var station = new Station
-                    {
-                        StationName = $"{line.LineName} Durak {i + 2}",
-                        OrderNumber = i + 2,
-                        LineId = line.LineId,
-                        IsActive = true,
-                        UnitId = createLineDto.Station[i]
-                    };
-
-                    _services.Add(station);
-                }
+                stations.Add(station);
+                
             }
-            else
+
+            foreach (var stationUnitId in createLineDto.Station)
             {
-                for (int i = 0; i < createLineDto.Station.Length; i++)
+                var station = new Station
                 {
-                    var station = new Station
-                    {
-                        StationName = $"{line.LineName} Durak {i + 1}",
-                        OrderNumber = i + 1,
-                        LineId = line.LineId,
-                        IsActive = true,
-                        UnitId = createLineDto.Station[i]
-                    };
-
-                    _services.Add(station);
-                }
+                    StationName = $"{line.LineName} Durak {stations.Count + 1}",
+                    OrderNumber = stations.Count + 1,
+                    LineId = line.LineId,
+                    IsActive = true,
+                    UnitId = stationUnitId
+                };
+                stations.Add(station);
             }
+
+            _services.AddRange(stations);
             return new SuccessResult(Messages.CreatedLine);
+
+            //if (createLineDto.CenterId != 0)
+            //{
+            //    var lastStation = new Station
+            //    {
+            //        StationName = $"{line.LineName}",
+            //        OrderNumber = 1,
+            //        LineId = line.LineId,
+            //        IsActive = true,
+            //        UnitId = line.CenterId
+            //    };
+            //    _dalManager.StationDal.Create(lastStation);
+
+            //    for (int i = 0; i < createLineDto.Station.Length; i++)
+            //    {
+            //        var station = new Station
+            //        {
+            //            StationName = $"{line.LineName} Durak {i + 2}",
+            //            OrderNumber = i + 2,
+            //            LineId = line.LineId,
+            //            IsActive = true,
+            //            UnitId = createLineDto.Station[i]
+            //        };
+            //        _services.Add(station);
+            //    }
+            //}
+            //else
+            //{
+            //    for (int i = 0; i < createLineDto.Station.Length; i++)
+            //    {
+            //        var station = new Station
+            //        {
+            //            StationName = $"{line.LineName} Durak {i + 1}",
+            //            OrderNumber = i + 1,
+            //            LineId = line.LineId,
+            //            IsActive = true,
+            //            UnitId = createLineDto.Station[i]
+            //        };
+
+            //        _services.Add(station);
+            //    }
+            //}
+            //return new SuccessResult(Messages.CreatedLine);
         }
 
         public IResult Delete(int id)

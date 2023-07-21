@@ -28,28 +28,56 @@ namespace Services.Concrete
 
         [ValidationAspects(typeof(StationValidator))]
         public void Add(Station station)
-        {//buraya bak sabah
+        {
             var line = _dalManager.LineDal.Get(a => a.LineId == station.LineId);
             var listStation = _dalManager.StationDal.GetList(a => a.LineId == station.LineId);
-            var count = _dalManager.StationDal.Count(a => a.LineId == station.LineId);
-            if(count <= 10)
+            var countStation = _dalManager.StationDal.Count(a => a.LineId == station.LineId);
+            if (countStation > 10)
             {
-                if (line.LineType == LineType.outLine)
-                {
-                    var list = _dalManager.TransferCenterDal.GetList();
-                    if (list.Any(a => a.Id == station.UnitId) /*&& listStation.Any(a => a.UnitId != station.UnitId)*/)
-                    {
-                        _dalManager.StationDal.Create(station);
-                    }
-                }
-                else
-                {
-                    var list2 = _dalManager.AgentaDal.GetList();
-                    if (list2.Any(a => a.Id == station.UnitId)/* && listStation.Any(a => a.UnitId != station.UnitId)*/)
-                    {
-                        _dalManager.StationDal.Create(station);
-                    }
-                }
+                throw new Exception("Hat 10'dan fazla istasyona sahiptir.");
+            }
+          
+            if (line.LineType == LineType.outLine && !_dalManager.TransferCenterDal.Any(a => a.Id == station.UnitId))
+            {
+                throw new Exception("Hat tipi anahattır ve birim kimliği bir transfer merkezi değildir.");
+            }
+
+            if (listStation.Any(a => a.UnitId == station.UnitId))
+            {
+                throw new Exception("Aynı birim kimliğine sahip bir istasyon zaten var.");
+            }
+
+            _dalManager.StationDal.Create(station);
+
+            //var line = _dalManager.LineDal.Get(a => a.LineId == station.LineId);
+            //var listStation = _dalManager.StationDal.GetList(a => a.LineId == station.LineId);
+            //var countStation = _dalManager.StationDal.Count(a => a.LineId == station.LineId);
+            //if(countStation <= 10)
+            //{
+            //    if (line.LineType == LineType.outLine)
+            //    {
+            //        var list = _dalManager.TransferCenterDal.GetList();
+            //        if (list.Any(a => a.Id == station.UnitId) /*&& listStation.Any(a => a.UnitId != station.UnitId)*/)
+            //        {
+            //            _dalManager.StationDal.Create(station);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        var list2 = _dalManager.AgentaDal.GetList();
+            //        if (list2.Any(a => a.Id == station.UnitId)/* && listStation.Any(a => a.UnitId != station.UnitId)*/)
+            //        {
+            //            _dalManager.StationDal.Create(station);
+            //        }
+            //    }
+            //}
+        }
+
+        public void AddRange(IEnumerable<Station> stations)
+        {
+            foreach (var station in stations)
+            {
+                Add(station);
             }
         }
 
