@@ -13,7 +13,7 @@ namespace Services.Concrete
     {
         public void SendMail(string body, string mail)
         {
-            var fromAddress = new MailAddress("cabuk0539@zohomail.eu");
+            var fromAddress = new MailAddress("YourMail@zohomail.eu");
             var toAdress = new MailAddress(mail);
 
             const string subject = "Nova Kargo | Deneme Maili";
@@ -24,7 +24,7 @@ namespace Services.Concrete
                 EnableSsl = true,
                 DeliveryMethod = SmtpDeliveryMethod.Network,
                 UseDefaultCredentials = false,
-                Credentials = new NetworkCredential(fromAddress.Address, "U8YdwLAFufvGrk!")
+                Credentials = new NetworkCredential(fromAddress.Address, "YourMailPassword")
             })
             {
                 using(var message = new MailMessage(fromAddress, toAdress) { Subject = subject, Body = body })
